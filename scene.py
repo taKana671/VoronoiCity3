@@ -109,10 +109,94 @@ class Building(PolygonMixin, NodePath):
         return vdata_mem
 
 
-class Vegetation:
+class Land(NodePath):
+
+    def __init__(self, serial, land_h=4.0):
+        super().__init__(BulletRigidBodyNode(f'land_{serial}'))
+        self.set_collide_mask(BitMask32.bit(1))
+        self.node().set_mass(0)
+        self.land_h = land_h
+
+    def create_land(self, model_creator, tex):
+        model_creator.height = self.land_h
+        model = model_creator.create()
+        model.set_texture(tex)
+
+        shape = BulletConvexHullShape()
+        shape.add_geom(model.node().get_geom(0))
+        self.node().add_shape(shape)
+        model.reparent_to(self)
+
+
+class CircularGarden(NodePath):
+
+    def __init__(self, serial, radius, inner_radius, height):
+        super().__init__(BulletRigidBodyNode(f'garden_{serial}'))
+        self.set_collide_mask(BitMask32.bit(1))
+        self.node().set_mass(0)
+
+        self.radius = radius
+        self.inner_radius = inner_radius
+        self.height = height
+
+    def assemble(self, model, pos, is_convex=True):
+        if is_convex:
+            shape = BulletConvexHullShape()
+            shape.add_geom(model.node().get_geom(0))
+        else:
+            mesh = BulletTriangleMesh()
+            mesh.add_geom(model.node().get_geom(0))
+            shape = BulletTriangleMeshShape(mesh, dynamic=False)
+
+        self.node().add_shape(shape, TransformState.make_pos(pos))
+        model.set_pos(pos)
+        model.reparent_to(self)
+
+    def create_garden(self, edge_tex, grass_tex):
+        # Create the edge of the circular garden.
+        garden_edge = Cylinder(self.radius, inner_radius=self.inner_radius, height=self.height).create()
+        garden_edge.set_texture(edge_tex)
+        self.assemble(garden_edge, Point3(0, 0, 0), is_convex=False)
+
+        # Create the lawn area of the circular garden
+        green = Cylinder(self.inner_radius, height=self.height - 0.1).create()
+        green.set_texture(grass_tex)
+        self.assemble(green, Point3(0, 0, 0))
+
+    def plant_tree(self, model, n):
+        pos_candidates = random.sample(range(-n, n), 2 * n - 2)
+
+        for i in range(0, len(pos_candidates) - 1, 2):
+            x, y = pos_candidates[i: i + 2]
+            dist = (x ** 2 + y ** 2) ** 0.5
+            if dist < self.inner_radius:
+                pos = Point3(x, y, 0)
+
+                tree = model.copy_to(self)
+                tree.set_transform(TransformState.make_pos(Vec3(0, 0, -4)))
+
+                end, tip = tree.get_tight_bounds()
+                height = (tip - end).z
+                shape = BulletCylinderShape(0.5, height, ZUp)
+                self.node().add_shape(shape, TransformState.make_pos(pos))
+
+                tree.set_pos_hpr_scale(pos, Vec3(random.uniform(0, 360), 0, 0), Vec3(0.6, 0.6, 0.6))
+
+                # tree.set_pos_hpr_scale(pos, Vec3(), 1.6)
+                tree.reparent_to(self)
+                break
+
+
+class Vegetation(NodePath):
 
     def __init__(self):
+        super().__init__(PandaNode("vegetation"))
         self.create_noise()
+
+        self.matrices_plants1 = []
+        self.matrices_plants2 = []
+        self.matrices_shrubbery = []
+        self.matrices_fern = []
 
     def create_noise(self):
         perlin = PerlinNoise()
@@ -143,7 +227,6 @@ class Vegetation:
     def get_dentisy(self, x, y, z, max_height=10.0):
         """Calculating the density of plants covering a wall based on noise.
         """
-
         # Noise for planting plants in narrow rows.
         raw_a = self.noise_a.fractal(x, y, z)
         # Rough and Fine
@@ -211,16 +294,12 @@ class Vegetation:
         mat_data = [mat.get_cell(r, c) for r in range(4) for c in range(4)]
         matrices_list.append(mat_data)
 
-    def plant_vegetation(self, building):
+    def distribute(self, building):
         """Using noise to plant vegetation on the walls and rooftops of buildings
         """
-        matrices_plants1 = []
-        matrices_plants2 = []
-        matrices_shrubbery = []
-        matrices_fern = []
-
         vdata_mem = building.get_vdata_memview('wall')
         dummy = NodePath(PandaNode("dummy_transform"))
+        wx, wy, wz = building.get_pos(base.render)
 
         # Store the array data in a temporary list by plant type.
         for i in range(0, len(vdata_mem), 12):
@@ -231,43 +310,44 @@ class Vegetation:
                 continue
 
             # Change the plants based on the noise level.
-            pos = Point3(x, y, z + building.foundation_h)
+            pos = Point3(x + wx, y + wy, z + wz + building.foundation_h)
             normal = Vec3(*vdata_mem[i + 7: i + 10])
 
             if (val := self.get_dentisy(x, y, z, max_height=building.wall_h)) >= 1.0:
                 scale = Vec3(0.1)
-                self.transform_plant(matrices_plants2, dummy, pos, normal, scale)
+                self.transform_plant(self.matrices_plants2, dummy, pos, normal, scale)
             elif val >= 0.8:
                 scale = Vec3(0.1)
-                self.transform_plant(matrices_plants1, dummy, pos, normal, scale)
+                self.transform_plant(self.matrices_plants1, dummy, pos, normal, scale)
             elif val >= 0.35:
                 scale = Vec3(0.08)
-                self.transform_plant(matrices_shrubbery, dummy, pos, normal, scale)
+                self.transform_plant(self.matrices_shrubbery, dummy, pos, normal, scale)
             elif val >= 0.25:
                 scale = Vec3(0.01)
-                self.transform_plant(matrices_fern, dummy, pos, normal, scale)
+                self.transform_plant(self.matrices_fern, dummy, pos, normal, scale)
             else:
                 continue
 
+    def planting(self):
         # plants1
-        if len(matrices_plants1) > 0:
-            self.create_model(building, matrices_plants1, 'plants1/plants1.egg')
+        if len(self.matrices_plants1) > 0:
+            self.create_model(self.matrices_plants1, 'plants1/plants1.egg')
 
         # plants1 which color_scale is changed
-        if len(matrices_plants2) > 0:
+        if len(self.matrices_plants2) > 0:
             color_scale = LColor(1.1, 1.4, 1.1, 1.0)
-            self.create_model(building, matrices_plants2, 'plants1/plants1.egg', color_scale=color_scale)
+            self.create_model(self.matrices_plants2, 'plants1/plants1.egg', color_scale=color_scale)
 
         # shrubbery
-        if len(matrices_shrubbery) > 0:
-            self.create_model(building, matrices_shrubbery, 'shrubbery/shrubbery.egg')
+        if len(self.matrices_shrubbery) > 0:
+            self.create_model(self.matrices_shrubbery, 'shrubbery/shrubbery.egg')
 
         # fern
-        if len(matrices_fern) > 0:
+        if len(self.matrices_fern) > 0:
             color_scale = LColor(0.2, 0.6, 0.2, 1.0)
-            self.create_model(building, matrices_fern, 'fern/Fern.egg', color_scale=color_scale)
+            self.create_model(self.matrices_fern, 'fern/Fern.egg', color_scale=color_scale)
 
-    def create_model(self, building, matrices, file_path, color_scale=None):
+    def create_model(self, matrices, file_path, color_scale=None):
         arr_matrices = np.array(matrices, dtype=np.float32)
         raw_buffer_data = arr_matrices.tobytes()
         model = base.loader.load_model(f'models/{file_path}')
@@ -278,12 +358,12 @@ class Vegetation:
             model.set_color_scale(*color_scale, 1)
 
         model.flatten_light()
-        model.reparent_to(building)
+        model.reparent_to(self)
         model.set_pos(0, 0, 0)
         model.set_hpr(0, 0, 0)
 
         # Prevent curling.
-        model.node().set_bounds(building.node().get_bounds())
+        model.node().set_bounds(OmniBoundingVolume())
         model.node().set_final(True)
 
         # Set the number of instances.
@@ -301,38 +381,44 @@ class TownBuilder(Polygon2DMixin):
 
     def create_textures(self):
         self.foundation_tex = base.loader.load_texture('textures/foundation2.png')
-        # self.foundation_tex = base.loader.load_texture('textures/dark_gray_concrete.jpg')
         self.wall_tex = base.loader.load_texture('textures/gray_brick.png')
         self.roof_tex = base.loader.load_texture('textures/dark_gray_concrete.jpg')
         self.spot_tex = base.loader.load_texture('textures/concrete_01.jpg')
         self.grass_tex = base.loader.load_texture('textures/grass_04.jpg')
-        self.tree_model = base.loader.load_model('models/pinetree/tree2.bam')
+        # self.tree_model = base.loader.load_model('models/pinetree/tree2.bam')
+        self.tree_model = base.loader.load_model('models/plants3/plants3.egg')
 
     def build(self):
-        for i, region in enumerate(BoundedVoronoiGenerator(cnt_points=5, shrink=0.03)):
-            poly_pts = np.array([pt for pt in ConvexPolygonGenerator(region)])
-
-            if i == 1:
+        for i, region in enumerate(BoundedVoronoiGenerator(cnt_points=6, shrink=0.06)):
+            if i == 3:
                 return
 
-            # for j, pts in enumerate(BoundedVoronoiGenerator(pts=poly_pts, bnd=region, shrink=0.003)):
-            for j, pts in enumerate(RoundedVoronoiGenerator(pts=poly_pts, bnd=region)):
-                # import pdb; pdb.set_trace()
+            has_land = False
+            poly_pts = np.array([pt for pt in ConvexPolygonGenerator(region)])
 
+            for j, pts in enumerate(RoundedVoronoiGenerator(pts=poly_pts, bnd=region)):
                 if len(pts) == 0:
                     continue
 
-                polygon = np.insert(pts, pts.shape[1], 0, axis=1)
+                if not has_land:
+                    land_pts = self.round_corners(region, buffer_size_dilation=0.05, quad_seg=16)
+                    land_pts = np.insert(land_pts, land_pts.shape[1], 0, axis=1)
+                    has_land = True
+                    print('create land')
+                    yield (self.create_land(land_pts, i), False)
 
+                polygon = np.insert(pts, pts.shape[1], 0, axis=1)
                 serial = f'{i}_{j}'
 
-                # if j == 0:
+                # if j == 0 or j == 3:
+                #     print('this is a garden')
                 #     if nd := self.create_green(polygon, serial):
-                #         yield nd
+                #         yield (nd, False)
                 #         continue
 
                 sorted_pts = self.sort_counter_clockwise(polygon)
-                yield self.create_building(sorted_pts, serial)
+                yield (self.create_building(sorted_pts, serial), True)
+                # yield self.create_building(sorted_pts, serial)
 
     def create_green(self, sorted_pts, serial):
         center, radius = self.get_max_inscribed_circle(sorted_pts)
@@ -344,29 +430,59 @@ class TownBuilder(Polygon2DMixin):
         if (n := int(inner_radius) - 2) <= 0:
             return None
 
-        garden_np = Garden(serial)
-        # Create the edge of the circular garden.
-        edge = Cylinder(spot_rad, inner_radius=inner_radius, height=height).create()
-        edge.set_texture(self.spot_tex)
-        garden_np.assemble(edge, Point3(0, 0, 0), is_convex=False)
+        garden = CircularGarden(
+            serial,
+            radius=spot_rad,
+            inner_radius=inner_radius,
+            height=height
+        )
 
-        # Create the lawn area of the circular garden
-        green = Cylinder(inner_radius, height=height - 0.1).create()
-        green.set_texture(self.grass_tex)
-        garden_np.assemble(green, Point3(0, 0, 0))
-
-        # Plant trees.
-        pos_candidates = random.sample(range(-n, n), 2 * n - 2)
-
-        for i in range(0, len(pos_candidates) - 1, 2):
-            x, y = pos_candidates[i: i + 2]
-            dist = (x ** 2 + y ** 2) ** 0.5
-            if dist < inner_radius:
-                garden_np.plant_tree(self.tree_model, Point3(x, y, 0))
+        garden.create_garden(self.spot_tex, self.grass_tex)
+        garden.plant_tree(self.tree_model, n)
 
         pos = Point3(*center, 0) * self.scale - Vec3(self.scale / 2, self.scale / 2, 0)
-        garden_np.set_pos(pos)
-        return garden_np
+        garden.set_pos(pos)
+        return garden
+
+        # garden_np = Garden(serial)
+        # # Create the edge of the circular garden.
+        # edge = Cylinder(spot_rad, inner_radius=inner_radius, height=height).create()
+        # edge.set_texture(self.spot_tex)
+        # garden_np.assemble(edge, Point3(0, 0, 0), is_convex=False)
+
+        # # Create the lawn area of the circular garden
+        # green = Cylinder(inner_radius, height=height - 0.1).create()
+        # green.set_texture(self.grass_tex)
+        # garden_np.assemble(green, Point3(0, 0, 0))
+
+        # # Plant trees.
+        # pos_candidates = random.sample(range(-n, n), 2 * n - 2)
+
+        # for i in range(0, len(pos_candidates) - 1, 2):
+        #     x, y = pos_candidates[i: i + 2]
+        #     dist = (x ** 2 + y ** 2) ** 0.5
+        #     if dist < inner_radius:
+        #         garden_np.plant_tree(self.tree_model, Point3(x, y, 0))
+
+        # pos = Point3(*center, 0) * self.scale - Vec3(self.scale / 2, self.scale / 2, 0)
+        # garden_np.set_pos(pos)
+        # return garden_np
+
+    def create_land(self, sorted_pts, serial):
+        scaled_pts = sorted_pts * self.scale
+        model_creator = RandomPolygonalPrism(list(scaled_pts))
+
+        land = Land(
+            serial,
+            land_h=4
+        )
+
+        land.create_land(model_creator, self.spot_tex)
+        # land.reparent_to(land_np)
+        pos = Point3(*model_creator.center) - Vec3(self.scale / 2, self.scale / 2, 0)
+        pos.z = -land.land_h
+        land.set_pos(pos)
+        return land
 
     def create_building(self, sorted_pts, serial):
         scaled_pts = sorted_pts * self.scale
@@ -439,10 +555,10 @@ class Scene(NodePath):
         super().__init__(PandaNode('scene'))
         self.reparent_to(base.render)
 
-        self.ground = Ground()
-        self.ground.set_pos(Point3(0, 0, 0))
-        self.ground.reparent_to(self)
-        base.world.attach(self.ground.node())
+        # self.ground = Ground()
+        # self.ground.set_pos(Point3(0, 0, 0))
+        # self.ground.reparent_to(self)
+        # base.world.attach(self.ground.node())
 
         self.sky = SkyBox()
         self.sky.reparent_to(self)
@@ -456,19 +572,24 @@ class Scene(NodePath):
 
     def build_town(self):
         self.buildings_root = NodePath('buildings')
+        self.buildings_root.reparent_to(self)
         builder = TownBuilder()
         vegetation = Vegetation()
-        # vegetation.reparent_to(base.render)
+        vegetation.reparent_to(self)
 
-        for building in builder.build():
+        # for building in builder.build():
+        #     building.reparent_to(self.buildings_root)
+        #     base.world.attach(building.node())
+        #     vegetation.distribute(building)
+
+        for building, is_building in builder.build():
             building.reparent_to(self.buildings_root)
-            # import pdb; pdb.set_trace()
             base.world.attach(building.node())
-            vegetation.plant_vegetation(building)
-            # self.create_instance(building)
-            # break
-            # vegetation.plant()
-        self.buildings_root.reparent_to(self)
+
+            if is_building:
+                vegetation.distribute(building)
+
+        vegetation.planting()
 
     def setup_light(self):
         ambient_light = NodePath(AmbientLight('ambient_light'))
@@ -485,39 +606,6 @@ class Scene(NodePath):
         base.render.set_light(directional_light)
         directional_light.node().set_shadow_caster(True)
         base.render.set_shader_auto()
-
-
-
-class Garden(NodePath):
-
-    def __init__(self, serial):
-        super().__init__(BulletRigidBodyNode(f'garden_{serial}'))
-        self.set_collide_mask(BitMask32.bit(1))
-        self.node().set_mass(0)
-
-    def assemble(self, model, pos, is_convex=True):
-        if is_convex:
-            shape = BulletConvexHullShape()
-            shape.add_geom(model.node().get_geom(0))
-        else:
-            mesh = BulletTriangleMesh()
-            mesh.add_geom(model.node().get_geom(0))
-            shape = BulletTriangleMeshShape(mesh, dynamic=False)
-
-        self.node().add_shape(shape, TransformState.make_pos(pos))
-        model.set_pos(pos)
-        model.reparent_to(self)
-
-    def plant_tree(self, model, pos):
-        tree = model.copy_to(self)
-        tree.set_transform(TransformState.make_pos(Vec3(0, 0, -4)))
-
-        end, tip = tree.get_tight_bounds()
-        height = (tip - end).z
-        shape = BulletCylinderShape(0.5, height, ZUp)
-        self.node().add_shape(shape, TransformState.make_pos(pos))
-        tree.set_pos_hpr_scale(pos, Vec3(), 1.6)
-        tree.reparent_to(self)
 
 
 # 犯人はこれだ！：T:m(scale 3.28084) の正体ログの最後にある T:m(scale 3.28084) という表記。
