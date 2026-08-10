@@ -12,7 +12,7 @@ from panda3d.core import AmbientLight, DirectionalLight
 from panda3d.core import OmniBoundingVolume
 from panda3d.core import Shader, ShaderBuffer, GeomEnums
 
-from noise import Fractal3D, PerlinNoise
+from noise import Fractal2D, Fractal3D, PerlinNoise
 from shapes import RandomPolygonalPrism
 from shapes import Plane, Cylinder, Sphere
 from voronoi_generator.voronoi_2d import BoundedVoronoiGenerator, ConvexPolygonGenerator
@@ -21,15 +21,48 @@ from voronoi_generator.polygon_mixin import PolygonMixin
 from voronoi_generator.voronoi_2d.rounded_voronoi import RoundedVoronoiGenerator
 
 
-class Building(PolygonMixin, NodePath):
+class BuildingRoot(PolygonMixin, NodePath):
+
+    def __init__(self, name):
+        super().__init__(BulletRigidBodyNode(name))
+        self.set_collide_mask(BitMask32.bit(1))
+        self.node().set_mass(0)
+
+    def assemble(self, model, pos, name, is_convex=True):
+        if is_convex:
+            shape = BulletConvexHullShape()
+            shape.add_geom(model.node().get_geom(0))
+        else:
+            mesh = BulletTriangleMesh()
+            mesh.add_geom(model.node().get_geom(0))
+            shape = BulletTriangleMeshShape(mesh, dynamic=False)
+
+        self.node().add_shape(shape, TransformState.make_pos(pos))
+        model.set_pos(pos)
+        model.set_name(name)
+        model.reparent_to(self)
+
+    def get_vdata_memview(self, name):
+        """Retrieve a child node based on its name, convert the vertex data
+            to a memoryview, and return it.
+            Args:
+                name (str): child name node
+        """
+        node_path = self.find(name)
+        geom_node = node_path.node()
+        geom = geom_node.modify_geom(0)
+        vdata = geom.modify_vertex_data()
+        vdata_arr = vdata.modify_array(0)
+        vdata_mem = memoryview(vdata_arr).cast('B').cast('f')
+        return vdata_mem
+
+
+class Building(BuildingRoot):
 
     wall_heights = [10, 20, 30, 40, 50, 60, 70, 80]
 
     def __init__(self, serial, foundation_h, wall_h, roof_h):
-        super().__init__(BulletRigidBodyNode(f'building_{serial}'))
-        self.set_collide_mask(BitMask32.bit(1))
-        self.node().set_mass(0)
-
+        super().__init__(f'building_{serial}')
         self.foundation_h = foundation_h
         self.wall_h = wall_h
         self.roof_h = roof_h
@@ -47,15 +80,15 @@ class Building(PolygonMixin, NodePath):
         """
         # create_model.
         model_creator.height = self.foundation_h
-        foundation = model_creator.create()
+        model = model_creator.create()
 
         # set texture.
         su = self.round_off(model_creator.edge_length / 20)
-        foundation.set_tex_scale(TextureStage.get_default(), (su, 0.5))
-        foundation.set_texture(foundation_tex)
+        model.set_tex_scale(TextureStage.get_default(), (su, 0.5))
+        model.set_texture(foundation_tex)
 
         # parent to self.
-        self.assemble(foundation, Point3(0, 0, 0), name="foundation")
+        self.assemble(model, Point3(0, 0, 0), name="foundation")
 
     def create_wall(self, model_creator, wall_tex):
         """Create building wall.
@@ -63,19 +96,19 @@ class Building(PolygonMixin, NodePath):
         # create model.
         model_creator.height = self.wall_h
         model_creator.segs_a = int(self.wall_h / 2)
-        wall = model_creator.create()
+        model = model_creator.create()
 
         # set texture.
         u = model_creator.edge_length / 50
         su = np.ceil(u * 3) / 3
         v = self.wall_h / 50
         sv = np.ceil(v * 4) / 4
-        wall.set_tex_scale(TextureStage.get_default(), (su, sv))
-        wall.set_texture(wall_tex)
+        model.set_tex_scale(TextureStage.get_default(), (su, sv))
+        model.set_texture(wall_tex)
 
         # parent to self.
         pos = Point3(0, 0, self.foundation_h)
-        self.assemble(wall, pos, "wall")
+        self.assemble(model, pos, "wall")
 
     def create_roof(self, model_creator, roof_tex):
         """Create building foundation.
@@ -83,38 +116,22 @@ class Building(PolygonMixin, NodePath):
         # create model.
         model_creator.height = self.roof_h
         model_creator.segs_a = 3
-        roof = model_creator.create()
+        model = model_creator.create()
 
         # set texture.
         su = self.round_off(model_creator.edge_length / 10)
-        roof.set_tex_scale(TextureStage.get_default(), (su, 0.2))
-        roof.set_texture(roof_tex)
+        model.set_tex_scale(TextureStage.get_default(), (su, 0.2))
+        model.set_texture(roof_tex)
 
         # parent to self.
         pos = Point3(0, 0, self.wall_h + self.foundation_h)
-        self.assemble(roof, pos, "roof")
-
-    def get_vdata_memview(self, name):
-        """Retrieve a child node based on its name, convert the vertex data
-           to a memoryview, and return it.
-            Args:
-                name (str): child name node
-        """
-        node_path = self.find(name)
-        geom_node = node_path.node()
-        geom = geom_node.modify_geom(0)
-        vdata = geom.modify_vertex_data()
-        vdata_arr = vdata.modify_array(0)
-        vdata_mem = memoryview(vdata_arr).cast('B').cast('f')
-        return vdata_mem
+        self.assemble(model, pos, "roof")
 
 
-class Land(NodePath):
+class Land(BuildingRoot):
 
     def __init__(self, serial, land_h=4.0):
-        super().__init__(BulletRigidBodyNode(f'land_{serial}'))
-        self.set_collide_mask(BitMask32.bit(1))
-        self.node().set_mass(0)
+        super().__init__(f'land_{serial}')
         self.land_h = land_h
 
     def create_land(self, model_creator, tex):
@@ -122,69 +139,58 @@ class Land(NodePath):
         model = model_creator.create()
         model.set_texture(tex)
 
-        shape = BulletConvexHullShape()
-        shape.add_geom(model.node().get_geom(0))
-        self.node().add_shape(shape)
-        model.reparent_to(self)
+        self.assemble(model, Point3(0, 0, 0), "roof")
 
 
-class CircularGarden(NodePath):
+class Garden(BuildingRoot):
 
-    def __init__(self, serial, radius, inner_radius, height):
-        super().__init__(BulletRigidBodyNode(f'garden_{serial}'))
-        self.set_collide_mask(BitMask32.bit(1))
-        self.node().set_mass(0)
-
-        self.radius = radius
-        self.inner_radius = inner_radius
+    def __init__(self, serial, height):
+        super().__init__(f'garden_{serial}')
         self.height = height
 
-    def assemble(self, model, pos, is_convex=True):
-        if is_convex:
-            shape = BulletConvexHullShape()
-            shape.add_geom(model.node().get_geom(0))
-        else:
-            mesh = BulletTriangleMesh()
-            mesh.add_geom(model.node().get_geom(0))
-            shape = BulletTriangleMeshShape(mesh, dynamic=False)
+    def create_flowerbed(self, model_creator, tex):
+        """Create garden.
+        """
+        model_creator.height = self.height
+        flowerbed = model_creator.create()
+        flowerbed.set_texture(tex)
+        self.assemble(flowerbed, Point3(0, 0, 0), 'flowerbed')
 
-        self.node().add_shape(shape, TransformState.make_pos(pos))
-        model.set_pos(pos)
-        model.reparent_to(self)
+    def create_fence(self, model_creator, tex):
+        """Create the edge of the garden.
+        """
+        model_creator.height = self.height + 0.5
+        model = model_creator.create()
 
-    def create_garden(self, edge_tex, grass_tex):
-        # Create the edge of the circular garden.
-        garden_edge = Cylinder(self.radius, inner_radius=self.inner_radius, height=self.height).create()
-        garden_edge.set_texture(edge_tex)
-        self.assemble(garden_edge, Point3(0, 0, 0), is_convex=False)
+        # set texture.
+        su = self.round_off(model_creator.edge_length / 20)
+        model.set_tex_scale(TextureStage.get_default(), (su, 0.5))
+        model.set_texture(tex)
 
-        # Create the lawn area of the circular garden
-        green = Cylinder(self.inner_radius, height=self.height - 0.1).create()
-        green.set_texture(grass_tex)
-        self.assemble(green, Point3(0, 0, 0))
+        self.assemble(model, Point3(0, 0, 0), 'fence', is_convex=False)
 
-    def plant_tree(self, model, n):
-        pos_candidates = random.sample(range(-n, n), 2 * n - 2)
+    # def plant_tree(self, model, n):
+    #     pos_candidates = random.sample(range(-n, n), 2 * n - 2)
 
-        for i in range(0, len(pos_candidates) - 1, 2):
-            x, y = pos_candidates[i: i + 2]
-            dist = (x ** 2 + y ** 2) ** 0.5
-            if dist < self.inner_radius:
-                pos = Point3(x, y, 0)
+    #     for i in range(0, len(pos_candidates) - 1, 2):
+    #         x, y = pos_candidates[i: i + 2]
+    #         dist = (x ** 2 + y ** 2) ** 0.5
+    #         if dist < self.inner_radius:
+    #             pos = Point3(x, y, 0)
 
-                tree = model.copy_to(self)
-                tree.set_transform(TransformState.make_pos(Vec3(0, 0, -4)))
+    #             tree = model.copy_to(self)
+    #             tree.set_transform(TransformState.make_pos(Vec3(0, 0, -4)))
 
-                end, tip = tree.get_tight_bounds()
-                height = (tip - end).z
-                shape = BulletCylinderShape(0.5, height, ZUp)
-                self.node().add_shape(shape, TransformState.make_pos(pos))
+    #             end, tip = tree.get_tight_bounds()
+    #             height = (tip - end).z
+    #             shape = BulletCylinderShape(0.5, height, ZUp)
+    #             self.node().add_shape(shape, TransformState.make_pos(pos))
 
-                tree.set_pos_hpr_scale(pos, Vec3(random.uniform(0, 360), 0, 0), Vec3(0.6, 0.6, 0.6))
+    #             tree.set_pos_hpr_scale(pos, Vec3(random.uniform(0, 360), 0, 0), Vec3(0.6, 0.6, 0.6))
 
-                # tree.set_pos_hpr_scale(pos, Vec3(), 1.6)
-                tree.reparent_to(self)
-                break
+    #             # tree.set_pos_hpr_scale(pos, Vec3(), 1.6)
+    #             tree.reparent_to(self)
+    #             break
 
 
 class Vegetation(NodePath):
@@ -313,16 +319,16 @@ class Vegetation(NodePath):
             pos = Point3(x + wx, y + wy, z + wz + building.foundation_h)
             normal = Vec3(*vdata_mem[i + 7: i + 10])
 
-            if (val := self.get_dentisy(x, y, z, max_height=building.wall_h)) >= 1.0:
+            if (dentisy := self.get_dentisy(x, y, z, max_height=building.wall_h)) >= 1.0:
                 scale = Vec3(0.1)
                 self.transform_plant(self.matrices_plants2, dummy, pos, normal, scale)
-            elif val >= 0.8:
+            elif dentisy >= 0.8:
                 scale = Vec3(0.1)
                 self.transform_plant(self.matrices_plants1, dummy, pos, normal, scale)
-            elif val >= 0.35:
+            elif dentisy >= 0.35:
                 scale = Vec3(0.08)
                 self.transform_plant(self.matrices_shrubbery, dummy, pos, normal, scale)
-            elif val >= 0.25:
+            elif dentisy >= 0.25:
                 scale = Vec3(0.01)
                 self.transform_plant(self.matrices_fern, dummy, pos, normal, scale)
             else:
@@ -362,6 +368,259 @@ class Vegetation(NodePath):
         model.set_pos(0, 0, 0)
         model.set_hpr(0, 0, 0)
 
+        # import pdb; pdb.set_trace()
+        # Prevent curling.
+
+        for geom_np in model.find_all_matches("**/+GeomNode"):
+            print(geom_np)
+            g_node = geom_np.node()
+            g_node.set_bounds(OmniBoundingVolume())
+            g_node.set_final(True)
+
+
+        # model.node().set_bounds(OmniBoundingVolume())
+        # model.node().set_final(True)
+
+        # Set the number of instances.
+        instance_cnt = len(matrices)
+        model.set_instance_count(instance_cnt)
+        model.set_shader(Shader.load(Shader.SL_GLSL, vertex='shaders/instancing_v.glsl', fragment='shaders/instancing_f.glsl'))
+        model.set_shader_input("instanced_object", ShaderBuffer('DataBuffer', raw_buffer_data, GeomEnums.UH_static))
+
+
+class Gardening(NodePath):
+
+    def __init__(self):
+        super().__init__(PandaNode("gardening"))
+        self.create_noise()
+
+        self.matrices_plants1 = []
+        # self.matrices_plants2 = []
+        self.matrices_shrubbery2 = []
+        self.matrices_fern = []
+
+    def create_noise(self):
+        perlin = PerlinNoise()
+
+        self.noise_a = Fractal2D(
+            perlin.pnoise2,
+            gain=0.5,
+            lacunarity=2.01,
+            octaves=4,
+            amplitude=1.0,
+            frequency=1.8
+        )
+        self.noise_b = Fractal2D(
+            perlin.pnoise2,
+            gain=0.4,
+            octaves=2,
+            amplitude=1.0,
+            frequency=0.25
+        )
+
+    # def get_density(self, x, y, z, cx, cy, radius):
+    def get_density(self, x, y):
+        # 庭の中心からの距離（0.0＝中心、1.0＝フチ）
+        # distance = ((x - cx) ** 2 + (y - cy) ** 2) ** 0.5
+        # dist_ratio = distance / radius
+        # dist_ratio = max(0.0, min(dist_ratio, 1.0))
+
+        # if dist_ratio > 0.85:
+        #     return 0.0
+
+        # Combining Two Types of Noise.
+        # ノイズA: 植物の細かなばらつき（周波数高め）
+        raw_a = self.noise_a.fractal(x, y)
+        raw_b = self.noise_b.fractal(x, y)
+        noise_a = max(0.0, min(raw_a, 1.0))
+        noise_b = max(0.0, min(raw_b, 1.0))
+
+        combined_noise = math.sqrt(noise_a * noise_b)
+        # combined_noise = noise_a * noise_b
+
+        # 「中心に近いほど生えやすく、外側に行くほどノイズの判定を厳しくする」
+        # 反転バグを防ぐため、単純に「(1.0 - dist_ratio)」をベースのボーナス値として加算します。
+        # これにより、中心（dist_ratio=0）に近づくほど、ノイズが弱くても強制的に高い密度になります。
+        
+        # 中心ボーナス（中心ほど大きな値になる。1.5乗して中心部に偏らせる）
+        # mask = (1.0 - dist_ratio) ** 0.3
+        # combined_noise = combined_noise + (center_bonus * 0.65)
+        # combined_noise = combined_noise * mask
+        # combined_noise = max(0, min(combined_noise, 1.0))
+
+        # Thresholding and Determining Density
+        # lower_bound = 0.25 + (dist_ratio * 0.40)
+        # # lower_bound = 0.15 + (dist_ratio * 0.40)
+        # upper_bound = 0.45 + (dist_ratio * 0.30)
+        lower_bound = 0.15   #  0.30
+        upper_bound = 0.75       #  0.60
+
+        if combined_noise < lower_bound:
+            density = 0.0
+        elif combined_noise > upper_bound:
+            density = 1.0
+        else:
+            t = (combined_noise - lower_bound) / (upper_bound - lower_bound)
+            density = t * t * (3.0 - 2.0 * t)
+
+        return density
+        
+
+
+        # # Mask Based on Distance from the Center of the Garden (Circular Gradient)
+        # distance = ((x - cx) ** 2 + (y - cy) ** 2) ** 0.5
+
+        # # 中心なら 1.0、フチ（radius）に近づくほど 0.0 になる割合
+        # dist_factor = 1.0 - (distance / radius)
+        # dist_factor = max(0.0, min(dist_factor, 1.0))
+        # # カーブをかけて、フチの2割くらいは完全に草を生やさない（綺麗な芝生にする）
+        # dist_factor = dist_factor ** 1.5
+
+        # # Combining Two Types of Noise.
+        # # ノイズA: 植物の細かなばらつき（周波数高め）
+        # raw_a = self.noise_a.fractal(x, y, z)
+        # noise_a = max(0.0, min((raw_a + 1.0) / 2.0, 1.0))
+
+        # raw_b = self.noise_b.fractal(x, y, z)
+        # noise_b = max(0.0, min((raw_b + 1.0) / 2.0, 1.0))
+
+        # # 掛け合わせて群落を作り、距離マスクでフチを削る
+        # combined = noise_a * noise_b * dist_factor
+        # combined = math.sqrt(combined)
+
+        # # Thresholding and Determining Density
+        # lower_bound = 0.30
+        # upper_bound = 0.65
+
+        # if combined < lower_bound:
+        #     density = 0.0
+        # elif combined > upper_bound:
+        #     density = 1.0
+        # else:
+        #     t = (combined - lower_bound) / (upper_bound - lower_bound)
+        #     density = t * t * (3.0 - 2.0 * t)
+
+        # return density
+
+    def distribute(self, garden):
+        vdata_mem = garden.get_vdata_memview('flowerbed')
+
+
+        arr = np.asarray(vdata_mem)
+        verts = arr.reshape(-1, 12)[:, :3]
+        verts = verts[verts[:, 2] >= garden.height]
+        rounded_verts = np.round(verts, decimals=3)
+        unique_verts = np.unique(rounded_verts, axis=0)
+        jitter = np.random.uniform(-10, 10, size=unique_verts.shape)
+        jitter[:, 2] = 0.0
+        unique_verts += jitter
+
+        wx, wy, wz = garden.get_pos()
+        dummy = NodePath(PandaNode("dummy_transform"))
+        shrink_factor = 0.75
+
+        for vert in unique_verts:
+            x = vert[0] * shrink_factor
+            y = vert[1] * shrink_factor
+            z = vert[2] 
+
+            # import pdb; pdb.set_trace()
+            pos = Point3(x + wx, y + wy, z)
+
+            if (density := self.get_density(x, y)) >= 0.65: 
+                scale = Vec3(0.4)
+                self.transform_plant(self.matrices_plants1, dummy, pos, Vec3.up(), scale)
+            elif density >= 0.55:
+                scale = Vec3(0.02)
+                self.transform_plant(self.matrices_shrubbery2, dummy, pos, Vec3.up(), scale)
+
+            elif density >= 0.4:
+                scale = Vec3(0.03)
+                self.transform_plant(self.matrices_fern, dummy, pos, Vec3.up(), scale)
+
+            # print(density)
+
+    # def distribute(self, flowerbed, plants_cnt=200):
+    #         cx, cy, cz = flowerbed.get_pos()
+    #         dummy = NodePath(PandaNode("dummy_transform"))
+    
+    #         for _ in range(plants_cnt):
+    #             theta = random.uniform(0.0, 2.0 * math.pi)
+    #             # 平方根をとることで、外側ほど面積が広くなる分を相殺し、均一にする
+    #             r = flowerbed.inner_radius * math.sqrt(random.uniform(0.0, 1.0))
+    
+    #             # 円の数式を元に座標へ変換
+    #             x = cx + r * math.cos(theta)
+    #             y = cy + r * math.sin(theta)
+    
+    #             if (density := self.get_density(x, y, cz, cx, cy, flowerbed.inner_radius)) >= 0:    
+    #                 scale = Vec3(0.4)
+    #                 self.transform_plant(self.matrices_plants1, dummy, Point3(x, y, cz), Vec3.up(), scale)
+    #             elif density >= 0.55:
+    #                 scale = Vec3(0.02)
+    #                 self.transform_plant(self.matrices_shrubbery2, dummy, Point3(x, y, cz), Vec3.up(), scale)
+    
+    #             elif density >= 0.4:
+    #                 scale = Vec3(0.03)
+    #                 self.transform_plant(self.matrices_fern, dummy, Point3(x, y, cz), Vec3.up(), scale)
+    
+    #             print(density)
+
+    def transform_plant(self, matrices_list, dummy_np, pos, normal, scale):
+        """Using a dummy NodePath, calculate the plant's translation, rotation, and scaling,
+            and store the results in a temporary list.
+        """
+        dummy_np.set_pos(pos)
+        dummy_np.set_scale(scale)
+
+        if normal.length_squared() > 0.001:
+            # If the plant is on a wall, rotate it so that it appears to be growing outward from the wall.
+            dummy_np.look_at(pos + normal, Vec3(0, 0, 1))
+            dummy_np.set_p(dummy_np, -90)
+            dummy_np.set_h(dummy_np, random.uniform(0, 360))
+        else:
+            # If the plants are located on the rooftop, place it upright.
+            dummy_np.set_h(random.uniform(0, 360))
+
+        mat = dummy_np.get_mat()
+        # Convert to a flat list.
+        mat_data = [mat.get_cell(r, c) for r in range(4) for c in range(4)]
+        matrices_list.append(mat_data)
+
+    def planting(self):
+        # plants1
+        if len(self.matrices_plants1) > 0:
+            self.create_model(self.matrices_plants1, 'plants1/plants1.egg')
+
+        # # plants1 which color_scale is changed
+        # if len(self.matrices_plants2) > 0:
+        #     color_scale = LColor(1.1, 1.4, 1.1, 1.0)
+        #     self.create_model(self.matrices_plants2, 'plants1/plants1.egg', color_scale=color_scale)
+
+        # shrubbery
+        if len(self.matrices_shrubbery2) > 0:
+            self.create_model(self.matrices_shrubbery2, 'shrubbery2/shrubbery2.egg')
+
+        # fern
+        if len(self.matrices_fern) > 0:
+            color_scale = LColor(0.2, 0.6, 0.2, 1.0)
+            self.create_model(self.matrices_fern, 'fern/Fern.egg', color_scale=color_scale)
+
+    def create_model(self, matrices, file_path, color_scale=None):
+        arr_matrices = np.array(matrices, dtype=np.float32)
+        raw_buffer_data = arr_matrices.tobytes()
+        model = base.loader.load_model(f'models/{file_path}')
+
+        if color_scale is not None:
+            # Set the color to white first, since the color of plant1 didn't change with just set_color_scale.
+            model.set_color(1, 1, 1, 1)
+            model.set_color_scale(*color_scale, 1)
+
+        model.flatten_light()
+        model.reparent_to(self)
+        model.set_pos(0, 0, 0)
+        model.set_hpr(0, 0, 0)
+
         # Prevent curling.
         model.node().set_bounds(OmniBoundingVolume())
         model.node().set_final(True)
@@ -371,6 +630,9 @@ class Vegetation(NodePath):
         model.set_instance_count(instance_cnt)
         model.set_shader(Shader.load(Shader.SL_GLSL, vertex='shaders/instancing_v.glsl', fragment='shaders/instancing_f.glsl'))
         model.set_shader_input("instanced_object", ShaderBuffer('DataBuffer', raw_buffer_data, GeomEnums.UH_static))
+
+
+
 
 
 class TownBuilder(Polygon2DMixin):
@@ -385,114 +647,93 @@ class TownBuilder(Polygon2DMixin):
         self.roof_tex = base.loader.load_texture('textures/dark_gray_concrete.jpg')
         self.spot_tex = base.loader.load_texture('textures/concrete_01.jpg')
         self.grass_tex = base.loader.load_texture('textures/grass_04.jpg')
+        self.ground_tex = base.loader.load_texture('textures/board_01.jpg')
         # self.tree_model = base.loader.load_model('models/pinetree/tree2.bam')
         self.tree_model = base.loader.load_model('models/plants3/plants3.egg')
 
     def build(self):
         for i, region in enumerate(BoundedVoronoiGenerator(cnt_points=6, shrink=0.06)):
-            if i == 3:
-                return
+            # if i == 3:
+            #     return
 
-            has_land = False
+
+            land_pts = self.round_corners(region, buffer_size_dilation=0.05, quad_seg=16)
+            land_pts = np.insert(land_pts, land_pts.shape[1], 0, axis=1)
+            print('create land')
+            land = self.create_land(land_pts, i)
+            yield land
+
+            if i % 2 != 0:
+                print('this is a garden')
+                # if nd := self.create_garden(land_pts * 0.8, i, land.get_pos()):
+                if nd := self.create_garden(land_pts, i):
+                    yield nd
+                    continue
+
             poly_pts = np.array([pt for pt in ConvexPolygonGenerator(region)])
 
             for j, pts in enumerate(RoundedVoronoiGenerator(pts=poly_pts, bnd=region)):
                 if len(pts) == 0:
                     continue
 
-                if not has_land:
-                    land_pts = self.round_corners(region, buffer_size_dilation=0.05, quad_seg=16)
-                    land_pts = np.insert(land_pts, land_pts.shape[1], 0, axis=1)
-                    has_land = True
-                    print('create land')
-                    yield (self.create_land(land_pts, i), False)
-
                 polygon = np.insert(pts, pts.shape[1], 0, axis=1)
                 serial = f'{i}_{j}'
 
                 # if j == 0 or j == 3:
                 #     print('this is a garden')
-                #     if nd := self.create_green(polygon, serial):
+                #     if nd := self.create_garden(polygon, serial):
                 #         yield (nd, False)
                 #         continue
 
                 sorted_pts = self.sort_counter_clockwise(polygon)
-                yield (self.create_building(sorted_pts, serial), True)
+                yield self.create_building(sorted_pts, serial)
                 # yield self.create_building(sorted_pts, serial)
 
-    def create_green(self, sorted_pts, serial):
-        center, radius = self.get_max_inscribed_circle(sorted_pts)
-        spot_rad = radius * self.scale
-        inner_radius = spot_rad - 0.5
-        height = 0.001 * self.scale
+    def get_max_distance_from_center(self, verts):
+        """Calculate the center point from the vertex coordinates that form a convex polygon,
+           and retrieve the coordinates of the vertex farthest from the center point
+            Args:
+                verts (Numpy.ndarray): vertex coordinates that form a convex polygon
+        """
+        center = np.mean(verts, axis=0)
+        distances = np.sum((verts - center) ** 2, axis=1)
+        max_distance = np.max(distances) ** 0.5
+        return center, max_distance
 
-        # If the radius of a circular garden is too small, do not create the garden.
-        if (n := int(inner_radius) - 2) <= 0:
-            return None
+    def create_garden(self, sorted_pts, serial):
+        garden = Garden(serial, height=2.0)
+        scaled_pts = sorted_pts * self.scale
 
-        garden = CircularGarden(
-            serial,
-            radius=spot_rad,
-            inner_radius=inner_radius,
-            height=height
-        )
+        # Determine the value of segs_top_cap based on the vertex farthest from the center.
+        center, max_distance = self.get_max_distance_from_center(scaled_pts)
+        segs_top_cap = 3 if max_distance <= 2 else int(max_distance / 2)
 
-        garden.create_garden(self.spot_tex, self.grass_tex)
-        garden.plant_tree(self.tree_model, n)
+        # Make the area where plants will be planted slightly smaller than the base.
+        model_creator = RandomPolygonalPrism(
+            list(scaled_pts * 0.8), segs_bottom_cap=segs_top_cap)
+        garden.create_flowerbed(model_creator, self.ground_tex)
 
-        pos = Point3(*center, 0) * self.scale - Vec3(self.scale / 2, self.scale / 2, 0)
+        # Create garden fence
+        model_creator = RandomPolygonalPrism(
+            list(scaled_pts * 0.805), segs_top_cap=1, segs_bottom_cap=1, thickness=0.5)
+        garden.create_fence(model_creator, self.foundation_tex)
+
+        pos = Point3(*center) - Vec3(self.scale / 2, self.scale / 2, 0)
         garden.set_pos(pos)
         return garden
 
-        # garden_np = Garden(serial)
-        # # Create the edge of the circular garden.
-        # edge = Cylinder(spot_rad, inner_radius=inner_radius, height=height).create()
-        # edge.set_texture(self.spot_tex)
-        # garden_np.assemble(edge, Point3(0, 0, 0), is_convex=False)
-
-        # # Create the lawn area of the circular garden
-        # green = Cylinder(inner_radius, height=height - 0.1).create()
-        # green.set_texture(self.grass_tex)
-        # garden_np.assemble(green, Point3(0, 0, 0))
-
-        # # Plant trees.
-        # pos_candidates = random.sample(range(-n, n), 2 * n - 2)
-
-        # for i in range(0, len(pos_candidates) - 1, 2):
-        #     x, y = pos_candidates[i: i + 2]
-        #     dist = (x ** 2 + y ** 2) ** 0.5
-        #     if dist < inner_radius:
-        #         garden_np.plant_tree(self.tree_model, Point3(x, y, 0))
-
-        # pos = Point3(*center, 0) * self.scale - Vec3(self.scale / 2, self.scale / 2, 0)
-        # garden_np.set_pos(pos)
-        # return garden_np
-
     def create_land(self, sorted_pts, serial):
+        land = Land(serial, land_h=4)
         scaled_pts = sorted_pts * self.scale
         model_creator = RandomPolygonalPrism(list(scaled_pts))
-
-        land = Land(
-            serial,
-            land_h=4
-        )
-
         land.create_land(model_creator, self.spot_tex)
-        # land.reparent_to(land_np)
+
         pos = Point3(*model_creator.center) - Vec3(self.scale / 2, self.scale / 2, 0)
         pos.z = -land.land_h
         land.set_pos(pos)
         return land
 
     def create_building(self, sorted_pts, serial):
-        scaled_pts = sorted_pts * self.scale
-        # Determine the value of segs_top_cap based on the vertex farthest from the center.
-        center = np.mean(scaled_pts, axis=0)
-        distances = np.sum((scaled_pts - center) ** 2, axis=1)
-        max_distance = np.max(distances) ** 0.5
-        segs_top_cap = 3 if max_distance <= 2 else int(max_distance / 2)
-        model_creator = RandomPolygonalPrism(list(scaled_pts), segs_top_cap=segs_top_cap)
-
         building = Building(
             serial,
             foundation_h=0.02 * self.scale,
@@ -500,6 +741,12 @@ class TownBuilder(Polygon2DMixin):
             roof_h=0.01
         )
 
+        scaled_pts = sorted_pts * self.scale
+        # Determine the value of segs_top_cap based on the vertex farthest from the center.
+        _, max_distance = self.get_max_distance_from_center(scaled_pts)
+        segs_top_cap = 3 if max_distance <= 2 else int(max_distance / 2)
+
+        model_creator = RandomPolygonalPrism(list(scaled_pts), segs_top_cap=segs_top_cap)
         building.create_foundation(model_creator, self.foundation_tex)
         building.create_wall(model_creator, self.wall_tex)
         building.create_roof(model_creator, self.roof_tex)
@@ -577,19 +824,27 @@ class Scene(NodePath):
         vegetation = Vegetation()
         vegetation.reparent_to(self)
 
+        gardening = Gardening()
+        gardening.reparent_to(self)
+
         # for building in builder.build():
         #     building.reparent_to(self.buildings_root)
         #     base.world.attach(building.node())
         #     vegetation.distribute(building)
 
-        for building, is_building in builder.build():
+        for building in builder.build():
             building.reparent_to(self.buildings_root)
             base.world.attach(building.node())
 
-            if is_building:
+            if building.name.startswith('building'):
                 vegetation.distribute(building)
+                continue
+
+            if building.name.startswith('garden'):
+                gardening.distribute(building)
 
         vegetation.planting()
+        gardening.planting()
 
     def setup_light(self):
         ambient_light = NodePath(AmbientLight('ambient_light'))
