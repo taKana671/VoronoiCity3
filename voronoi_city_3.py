@@ -24,7 +24,8 @@ load_prc_file_data("", """
     stm-max-views 8
     stm-max-chunk-count 2048
     framebuffer-multisample 1
-    multisamples 2""")
+    multisamples 2
+    load-file-type p3assimp""")
 
 
 class Status(Enum):
@@ -92,6 +93,7 @@ class VoronoiCity2(ShowBase):
         self.accept('t', self.toggle_debug)
         self.accept('v', self.toggle_view)
         self.accept('w', self.toggle_wireframe)
+        self.accept('d', self.toggle_debug)
 
         # viewer control
         inputState.watch_with_modifiers(Motions.FORWARD, 'arrow_up')
@@ -102,6 +104,12 @@ class VoronoiCity2(ShowBase):
         inputState.watch_with_modifiers(Motions.UP, 'u')
 
         self.taskMgr.add(self.update, 'update')
+
+    def toggle_debug(self):
+        if self.debug.is_hidden():
+            self.debug.show()
+        else:
+            self.debug.hide()
 
     def toggle_view(self):
         self.status = Status.SCREEN_CHANGE

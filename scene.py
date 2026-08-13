@@ -1,5 +1,6 @@
 import math
 import random
+from enum import Enum, auto
 
 import numpy as np
 from panda3d.bullet import BulletRigidBodyNode
@@ -9,12 +10,12 @@ from panda3d.core import NodePath, PandaNode
 from panda3d.core import Point3, Vec3, BitMask32, LColor
 from panda3d.core import TextureStage, TransformState, TexGenAttrib
 from panda3d.core import AmbientLight, DirectionalLight
-from panda3d.core import OmniBoundingVolume
+from panda3d.core import OmniBoundingVolume, Quat
 from panda3d.core import Shader, ShaderBuffer, GeomEnums
 
 from noise import Fractal2D, Fractal3D, PerlinNoise
 from shapes import RandomPolygonalPrism
-from shapes import Plane, Cylinder, Sphere
+from shapes import Plane, Sphere
 from voronoi_generator.voronoi_2d import BoundedVoronoiGenerator, ConvexPolygonGenerator
 from voronoi_generator.voronoi_2d import Polygon2DMixin
 from voronoi_generator.polygon_mixin import PolygonMixin
@@ -66,14 +67,6 @@ class Building(BuildingRoot):
         self.foundation_h = foundation_h
         self.wall_h = wall_h
         self.roof_h = roof_h
-
-    def assemble(self, model, pos, name):
-        shape = BulletConvexHullShape()
-        shape.add_geom(model.node().get_geom(0))
-        self.node().add_shape(shape, TransformState.make_pos(pos))
-        model.set_pos(pos)
-        model.set_name(name)
-        model.reparent_to(self)
 
     def create_foundation(self, model_creator, foundation_tex):
         """Create building foundation.
@@ -169,119 +162,65 @@ class Garden(BuildingRoot):
 
         self.assemble(model, Point3(0, 0, 0), 'fence', is_convex=False)
 
-    # def plant_tree(self, model, n):
-    #     pos_candidates = random.sample(range(-n, n), 2 * n - 2)
+    def plant_palmtree(self, pos):
+        tree = base.loader.load_model('models/palmtree/tree3.bam')
+        hpr = Vec3(random.uniform(0, 360), 0, 0)
+        tree.set_pos_hpr_scale(pos, hpr, Vec3(5))
 
-    #     for i in range(0, len(pos_candidates) - 1, 2):
-    #         x, y = pos_candidates[i: i + 2]
-    #         dist = (x ** 2 + y ** 2) ** 0.5
-    #         if dist < self.inner_radius:
-    #             pos = Point3(x, y, 0)
+        # tree.clear_material()
+        tree.set_shader_off()
+        tree.set_color_scale(LColor(1.3, 1.4, 1.0, 1.0), 1)
 
-    #             tree = model.copy_to(self)
-    #             tree.set_transform(TransformState.make_pos(Vec3(0, 0, -4)))
+        # The 3D model of the palmtree is designed so that the center and the root section are
+        # offset from each other. Place a CollisionShape at the coordinates of the root section.
+        q = Quat()
+        q.setFromAxisAngle(hpr.x, Vec3.up())
+        shape_rel_pos = q.xform(Vec3(3, 0, 0))
 
-    #             end, tip = tree.get_tight_bounds()
-    #             height = (tip - end).z
-    #             shape = BulletCylinderShape(0.5, height, ZUp)
-    #             self.node().add_shape(shape, TransformState.make_pos(pos))
+        end, tip = tree.get_tight_bounds()
+        size = tip - end
+        height_offset = Vec3(0, 0, size.z / 2.0)
 
-    #             tree.set_pos_hpr_scale(pos, Vec3(random.uniform(0, 360), 0, 0), Vec3(0.6, 0.6, 0.6))
-
-    #             # tree.set_pos_hpr_scale(pos, Vec3(), 1.6)
-    #             tree.reparent_to(self)
-    #             break
+        shape = BulletCylinderShape(2.0, size.z, ZUp)
+        self.node().add_shape(shape, TransformState.make_pos(shape_rel_pos + pos + height_offset))
+        tree.reparent_to(self)
 
 
-class Vegetation(NodePath):
+class VegetationMixin:
 
-    def __init__(self):
-        super().__init__(PandaNode("vegetation"))
-        self.create_noise()
+    def create_model(self, matrices, file_path, color_scale=None):
+        arr_matrices = np.array(matrices, dtype=np.float32)
+        raw_buffer_data = arr_matrices.tobytes()
+        model = base.loader.load_model(f'models/{file_path}')
 
-        self.matrices_plants1 = []
-        self.matrices_plants2 = []
-        self.matrices_shrubbery = []
-        self.matrices_fern = []
+        if color_scale is not None:
+            # Set the color to white first, since the color of plant1 didn't change with just set_color_scale.
+            model.set_color(1, 1, 1, 1)
+            model.set_color_scale(*color_scale, 1)
 
-    def create_noise(self):
-        perlin = PerlinNoise()
+        model.flatten_light()
+        model.reparent_to(self)
+        model.set_pos(0, 0, 0)
+        model.set_hpr(0, 0, 0)
 
-        self.noise_a = Fractal3D(
-            perlin.pnoise3,
-            gain=0.5,
-            lacunarity=2.01,
-            octaves=4,
-            amplitude=1.0,
-            frequency=1.2
-        )
-        self.noise_b = Fractal3D(
-            perlin.pnoise3,
-            gain=0.4,
-            octaves=2,
-            amplitude=1.0,
-            frequency=0.09
-        )
-        self.noise_c = Fractal3D(
-            perlin.pnoise3,
-            gain=0.3,
-            octaves=1,
-            amplitude=1.0,
-            frequency=0.08
-        )
+        # Prevent curling.
+        for geom_np in model.find_all_matches("**/+GeomNode"):
+            geom_nd = geom_np.node()
+            geom_nd.set_bounds(OmniBoundingVolume())
+            geom_nd.set_final(True)
 
-    def get_dentisy(self, x, y, z, max_height=10.0):
-        """Calculating the density of plants covering a wall based on noise.
-        """
-        # Noise for planting plants in narrow rows.
-        raw_a = self.noise_a.fractal(x, y, z)
-        # Rough and Fine
-        raw_b = self.noise_b.fractal(x, y, z)
-        # Noise that determines how far down from the roof to plant the plants
-        raw_c = self.noise_c.fractal(x, y, 0.0)
+        # model.node().set_bounds(OmniBoundingVolume())
+        # model.node().set_final(True)
 
-        # Just to be safe, clamp the range to 0.0–1.0
-        noise_a = max(0.0, min(raw_a, 1.0))
-        noise_b = max(0.0, min(raw_b, 1.0))
-        noise_c = max(0.0, min(raw_c, 1.0))
-
-        # Multiply the two noise patterns to create an area on the wall without plants.
-        combined_noise = noise_a * noise_b
-        combined_noise = math.sqrt(combined_noise)
-
-        # Choose from four levels to determine how far down the wall from the roof the plants will cover.
-        # The larger the value of hang_exponent, the larger the portion of the wall that is bare.
-        if noise_c < 0.25:
-            hang_exponent = 6.0
-        elif noise_c < 0.50:
-            hang_exponent = 3.5
-        elif noise_c < 0.75:
-            hang_exponent = 1.8
-        else:
-            hang_exponent = 0.8
-
-        # Calculation of the Height Coefficient（0.0 〜 1.0）
-        normalized_z = max(0.0, min(z / max_height, 1.0))
-        height_factor = normalized_z ** hang_exponent
-
-        # The smaller the height_factor, the higher the lower_bound becomes, and the fewer plants there are.
-        lower_bound = 0.55 - (height_factor * 0.35)
-        upper_bound = 0.75 - (height_factor * 0.25)
-
-        if combined_noise < lower_bound:
-            density = 0.0
-        elif combined_noise > upper_bound:
-            density = 1.0
-        else:
-            # smoothstep
-            t = (combined_noise - lower_bound) / (upper_bound - lower_bound)
-            density = t * t * (3.0 - 2.0 * t)
-
-        return density
+        # Set the number of instances.
+        instance_cnt = len(matrices)
+        model.set_instance_count(instance_cnt)
+        model.set_shader(Shader.load(Shader.SL_GLSL, vertex='shaders/instancing_v.glsl', fragment='shaders/instancing_f.glsl'))
+        model.set_shader_input("instanced_object", ShaderBuffer('DataBuffer', raw_buffer_data, GeomEnums.UH_static))
 
     def transform_plant(self, matrices_list, dummy_np, pos, normal, scale):
-        """Using a dummy NodePath, calculate the plant's translation, rotation, and scaling,
-           and store the results in a temporary list.
+        """Using a dummy NodePath, calculate the plant's translation, rotation,
+           and scaling, and store the results in a temporary list.
         """
         dummy_np.set_pos(pos)
         dummy_np.set_scale(scale)
@@ -300,12 +239,104 @@ class Vegetation(NodePath):
         mat_data = [mat.get_cell(r, c) for r in range(4) for c in range(4)]
         matrices_list.append(mat_data)
 
+    def determine_density(self, noise, lower_bound, upper_bound):
+        if noise < lower_bound:
+            return 0.0
+
+        if noise > upper_bound:
+            return 1.0
+
+        # smoothstep
+        t = (noise - lower_bound) / (upper_bound - lower_bound)
+        density = t * t * (3.0 - 2.0 * t)
+        return density
+
+
+class WallGreening(VegetationMixin, NodePath):
+
+    def __init__(self):
+        super().__init__(PandaNode("vegetation"))
+        self.create_noise()
+
+        self.mat_plants1 = []
+        self.mat_plants2 = []
+        self.mat_shrubbery = []
+        self.mat_fern = []
+
+    def create_noise(self):
+        perlin = PerlinNoise()
+
+        # Noise for planting plants in narrow rows.
+        self.noise_a = Fractal3D(
+            perlin.pnoise3,
+            gain=0.5,
+            lacunarity=2.01,
+            octaves=4,
+            amplitude=1.0,
+            frequency=1.2
+        )
+        # Noise for rough and fine
+        self.noise_b = Fractal3D(
+            perlin.pnoise3,
+            gain=0.4,
+            octaves=2,
+            amplitude=1.0,
+            frequency=0.09
+        )
+        # Noise that determines how far down from the roof to plant the plants.
+        self.noise_c = Fractal3D(
+            perlin.pnoise3,
+            gain=0.3,
+            octaves=1,
+            amplitude=1.0,
+            frequency=0.08
+        )
+
+    def get_dentisy(self, x, y, z, max_height=10.0, bias=0.0):
+        """Calculating the density of plants covering a wall based on noise.
+        """
+        raw_a = self.noise_a.fractal(x, y, z)
+        raw_b = self.noise_b.fractal(x, y, z)
+        raw_c = self.noise_c.fractal(x, y, 0.0)
+
+        # Just to be safe, clamp the range to 0.0–1.0
+        noise_a = max(0.0, min(raw_a, 1.0))
+        noise_b = max(0.0, min(raw_b, 1.0))
+        noise_c = max(0.0, min(raw_c, 1.0))
+
+        # Multiply the two noise patterns to create an area on the wall without plants.
+        combined_noise = noise_a * noise_b
+        combined_noise = math.sqrt(combined_noise)
+
+        # Choose from four levels to determine how far down the wall from the roof the plants will cover.
+        # The larger the value of hang_exponent, the larger the portion of the wall that is bare.
+        if noise_c < 0.25:
+            hang_exponent = max(0.1, 6.0 + bias)
+        elif noise_c < 0.50:
+            hang_exponent = max(0.1, 3.5 + bias)
+        elif noise_c < 0.75:
+            hang_exponent = max(0.1, 1.8 + bias)
+        else:
+            hang_exponent = max(0.1, 0.8 + bias)
+
+        # Calculation of the Height Coefficient（0.0 〜 1.0）
+        normalized_z = max(0.0, min(z / max_height, 1.0))
+        height_factor = normalized_z ** hang_exponent
+
+        # The smaller the height_factor, the higher the lower_bound becomes, and the fewer plants there are.
+        lower_bound = 0.55 - (height_factor * 0.35)
+        upper_bound = 0.75 - (height_factor * 0.25)
+
+        density = self.determine_density(combined_noise, lower_bound, upper_bound)
+        return density
+
     def distribute(self, building):
         """Using noise to plant vegetation on the walls and rooftops of buildings
         """
         vdata_mem = building.get_vdata_memview('wall')
         dummy = NodePath(PandaNode("dummy_transform"))
         wx, wy, wz = building.get_pos(base.render)
+        bias = random.uniform(-1.2, 4.0)
 
         # Store the array data in a temporary list by plant type.
         for i in range(0, len(vdata_mem), 12):
@@ -319,85 +350,52 @@ class Vegetation(NodePath):
             pos = Point3(x + wx, y + wy, z + wz + building.foundation_h)
             normal = Vec3(*vdata_mem[i + 7: i + 10])
 
-            if (dentisy := self.get_dentisy(x, y, z, max_height=building.wall_h)) >= 1.0:
-                scale = Vec3(0.1)
-                self.transform_plant(self.matrices_plants2, dummy, pos, normal, scale)
+            if (dentisy := self.get_dentisy(x, y, z, max_height=building.wall_h, bias=bias)) >= 1.0:
+                scale = Vec3(0.09)
+                self.transform_plant(self.mat_plants2, dummy, pos, normal, scale)
             elif dentisy >= 0.8:
-                scale = Vec3(0.1)
-                self.transform_plant(self.matrices_plants1, dummy, pos, normal, scale)
+                scale = Vec3(0.09)
+                self.transform_plant(self.mat_plants1, dummy, pos, normal, scale)
             elif dentisy >= 0.35:
                 scale = Vec3(0.08)
-                self.transform_plant(self.matrices_shrubbery, dummy, pos, normal, scale)
+                self.transform_plant(self.mat_shrubbery, dummy, pos, normal, scale)
             elif dentisy >= 0.25:
                 scale = Vec3(0.01)
-                self.transform_plant(self.matrices_fern, dummy, pos, normal, scale)
+                self.transform_plant(self.mat_fern, dummy, pos, normal, scale)
             else:
                 continue
 
     def planting(self):
         # plants1
-        if len(self.matrices_plants1) > 0:
-            self.create_model(self.matrices_plants1, 'plants1/plants1.egg')
+        if len(self.mat_plants1) > 0:
+            self.create_model(self.mat_plants1, 'plants1/plants1.egg')
 
         # plants1 which color_scale is changed
-        if len(self.matrices_plants2) > 0:
+        if len(self.mat_plants2) > 0:
             color_scale = LColor(1.1, 1.4, 1.1, 1.0)
-            self.create_model(self.matrices_plants2, 'plants1/plants1.egg', color_scale=color_scale)
+            self.create_model(self.mat_plants2, 'plants1/plants1.egg', color_scale=color_scale)
 
         # shrubbery
-        if len(self.matrices_shrubbery) > 0:
-            self.create_model(self.matrices_shrubbery, 'shrubbery/shrubbery.egg')
+        if len(self.mat_shrubbery) > 0:
+            self.create_model(self.mat_shrubbery, 'shrubbery/shrubbery.egg')
 
         # fern
-        if len(self.matrices_fern) > 0:
+        if len(self.mat_fern) > 0:
             color_scale = LColor(0.2, 0.6, 0.2, 1.0)
-            self.create_model(self.matrices_fern, 'fern/Fern.egg', color_scale=color_scale)
-
-    def create_model(self, matrices, file_path, color_scale=None):
-        arr_matrices = np.array(matrices, dtype=np.float32)
-        raw_buffer_data = arr_matrices.tobytes()
-        model = base.loader.load_model(f'models/{file_path}')
-
-        if color_scale is not None:
-            # Set the color to white first, since the color of plant1 didn't change with just set_color_scale.
-            model.set_color(1, 1, 1, 1)
-            model.set_color_scale(*color_scale, 1)
-
-        model.flatten_light()
-        model.reparent_to(self)
-        model.set_pos(0, 0, 0)
-        model.set_hpr(0, 0, 0)
-
-        # import pdb; pdb.set_trace()
-        # Prevent curling.
-
-        for geom_np in model.find_all_matches("**/+GeomNode"):
-            print(geom_np)
-            g_node = geom_np.node()
-            g_node.set_bounds(OmniBoundingVolume())
-            g_node.set_final(True)
+            self.create_model(self.mat_fern, 'fern/Fern.egg', color_scale=color_scale)
 
 
-        # model.node().set_bounds(OmniBoundingVolume())
-        # model.node().set_final(True)
-
-        # Set the number of instances.
-        instance_cnt = len(matrices)
-        model.set_instance_count(instance_cnt)
-        model.set_shader(Shader.load(Shader.SL_GLSL, vertex='shaders/instancing_v.glsl', fragment='shaders/instancing_f.glsl'))
-        model.set_shader_input("instanced_object", ShaderBuffer('DataBuffer', raw_buffer_data, GeomEnums.UH_static))
-
-
-class Gardening(NodePath):
+class Gardening(VegetationMixin, NodePath):
 
     def __init__(self):
         super().__init__(PandaNode("gardening"))
         self.create_noise()
 
-        self.matrices_plants1 = []
-        # self.matrices_plants2 = []
-        self.matrices_shrubbery2 = []
-        self.matrices_fern = []
+        self.mat_plants1 = []
+        self.mat_shrubbery2 = []
+        self.mat_fern = []
+        self.mat_sunflower = []
+        self.mat_daisy = []
 
     def create_noise(self):
         perlin = PerlinNoise()
@@ -418,221 +416,88 @@ class Gardening(NodePath):
             frequency=0.25
         )
 
-    # def get_density(self, x, y, z, cx, cy, radius):
     def get_density(self, x, y):
-        # 庭の中心からの距離（0.0＝中心、1.0＝フチ）
-        # distance = ((x - cx) ** 2 + (y - cy) ** 2) ** 0.5
-        # dist_ratio = distance / radius
-        # dist_ratio = max(0.0, min(dist_ratio, 1.0))
-
-        # if dist_ratio > 0.85:
-        #     return 0.0
-
-        # Combining Two Types of Noise.
-        # ノイズA: 植物の細かなばらつき（周波数高め）
+        # Combining two types of noise.
         raw_a = self.noise_a.fractal(x, y)
         raw_b = self.noise_b.fractal(x, y)
         noise_a = max(0.0, min(raw_a, 1.0))
         noise_b = max(0.0, min(raw_b, 1.0))
-
         combined_noise = math.sqrt(noise_a * noise_b)
-        # combined_noise = noise_a * noise_b
 
-        # 「中心に近いほど生えやすく、外側に行くほどノイズの判定を厳しくする」
-        # 反転バグを防ぐため、単純に「(1.0 - dist_ratio)」をベースのボーナス値として加算します。
-        # これにより、中心（dist_ratio=0）に近づくほど、ノイズが弱くても強制的に高い密度になります。
-        
-        # 中心ボーナス（中心ほど大きな値になる。1.5乗して中心部に偏らせる）
-        # mask = (1.0 - dist_ratio) ** 0.3
-        # combined_noise = combined_noise + (center_bonus * 0.65)
-        # combined_noise = combined_noise * mask
-        # combined_noise = max(0, min(combined_noise, 1.0))
-
-        # Thresholding and Determining Density
-        # lower_bound = 0.25 + (dist_ratio * 0.40)
-        # # lower_bound = 0.15 + (dist_ratio * 0.40)
-        # upper_bound = 0.45 + (dist_ratio * 0.30)
-        lower_bound = 0.15   #  0.30
-        upper_bound = 0.75       #  0.60
-
-        if combined_noise < lower_bound:
-            density = 0.0
-        elif combined_noise > upper_bound:
-            density = 1.0
-        else:
-            t = (combined_noise - lower_bound) / (upper_bound - lower_bound)
-            density = t * t * (3.0 - 2.0 * t)
-
+        # Thresholding and determining density
+        lower_bound = 0.15
+        upper_bound = 0.75
+        density = self.determine_density(combined_noise, lower_bound, upper_bound)
         return density
-        
 
-
-        # # Mask Based on Distance from the Center of the Garden (Circular Gradient)
-        # distance = ((x - cx) ** 2 + (y - cy) ** 2) ** 0.5
-
-        # # 中心なら 1.0、フチ（radius）に近づくほど 0.0 になる割合
-        # dist_factor = 1.0 - (distance / radius)
-        # dist_factor = max(0.0, min(dist_factor, 1.0))
-        # # カーブをかけて、フチの2割くらいは完全に草を生やさない（綺麗な芝生にする）
-        # dist_factor = dist_factor ** 1.5
-
-        # # Combining Two Types of Noise.
-        # # ノイズA: 植物の細かなばらつき（周波数高め）
-        # raw_a = self.noise_a.fractal(x, y, z)
-        # noise_a = max(0.0, min((raw_a + 1.0) / 2.0, 1.0))
-
-        # raw_b = self.noise_b.fractal(x, y, z)
-        # noise_b = max(0.0, min((raw_b + 1.0) / 2.0, 1.0))
-
-        # # 掛け合わせて群落を作り、距離マスクでフチを削る
-        # combined = noise_a * noise_b * dist_factor
-        # combined = math.sqrt(combined)
-
-        # # Thresholding and Determining Density
-        # lower_bound = 0.30
-        # upper_bound = 0.65
-
-        # if combined < lower_bound:
-        #     density = 0.0
-        # elif combined > upper_bound:
-        #     density = 1.0
-        # else:
-        #     t = (combined - lower_bound) / (upper_bound - lower_bound)
-        #     density = t * t * (3.0 - 2.0 * t)
-
-        # return density
-
-    def distribute(self, garden):
+    def distribute(self, garden, flower_type):
+        # Retrieve the vertex coordinates of only the top face of a Voronoi cell's column.
         vdata_mem = garden.get_vdata_memview('flowerbed')
-
-
         arr = np.asarray(vdata_mem)
         verts = arr.reshape(-1, 12)[:, :3]
         verts = verts[verts[:, 2] >= garden.height]
         rounded_verts = np.round(verts, decimals=3)
         unique_verts = np.unique(rounded_verts, axis=0)
+
+        # Ensure that the acquired vertex coordinates are scattered irregularly.
         jitter = np.random.uniform(-10, 10, size=unique_verts.shape)
         jitter[:, 2] = 0.0
         unique_verts += jitter
 
-        wx, wy, wz = garden.get_pos()
+        # Just as plants are within a garden, move the vertex coordinates toward the inside of the garden.
+        shrink_factor = np.array([0.75, 0.75, 1])
+        unique_verts *= shrink_factor
+
+        tree_z_offsets = np.linspace(0, garden.height, 2 + 1)
+        wx, wy, _ = garden.get_pos()
         dummy = NodePath(PandaNode("dummy_transform"))
-        shrink_factor = 0.75
 
-        for vert in unique_verts:
-            x = vert[0] * shrink_factor
-            y = vert[1] * shrink_factor
-            z = vert[2] 
+        for x, y, z in unique_verts:
+            # Apply a CollisionShape only to the trunk of the palm tree.
+            if (density := self.get_density(x, y)) >= 0.85:
+                offset = random.choice(tree_z_offsets)
+                pos = Point3(x, y, z - offset)
+                garden.plant_palmtree(pos)
+                continue
 
-            # import pdb; pdb.set_trace()
             pos = Point3(x + wx, y + wy, z)
 
-            if (density := self.get_density(x, y)) >= 0.65: 
-                scale = Vec3(0.4)
-                self.transform_plant(self.matrices_plants1, dummy, pos, Vec3.up(), scale)
-            elif density >= 0.55:
-                scale = Vec3(0.02)
-                self.transform_plant(self.matrices_shrubbery2, dummy, pos, Vec3.up(), scale)
-
+            if density >= 0.7:
+                self.transform_plant(self.mat_plants1, dummy, pos, Vec3.up(), Vec3(0.3))
+            elif density >= 0.6:
+                self.transform_plant(self.mat_fern, dummy, pos, Vec3.up(), Vec3(0.05))
             elif density >= 0.4:
-                scale = Vec3(0.03)
-                self.transform_plant(self.matrices_fern, dummy, pos, Vec3.up(), scale)
-
-            # print(density)
-
-    # def distribute(self, flowerbed, plants_cnt=200):
-    #         cx, cy, cz = flowerbed.get_pos()
-    #         dummy = NodePath(PandaNode("dummy_transform"))
-    
-    #         for _ in range(plants_cnt):
-    #             theta = random.uniform(0.0, 2.0 * math.pi)
-    #             # 平方根をとることで、外側ほど面積が広くなる分を相殺し、均一にする
-    #             r = flowerbed.inner_radius * math.sqrt(random.uniform(0.0, 1.0))
-    
-    #             # 円の数式を元に座標へ変換
-    #             x = cx + r * math.cos(theta)
-    #             y = cy + r * math.sin(theta)
-    
-    #             if (density := self.get_density(x, y, cz, cx, cy, flowerbed.inner_radius)) >= 0:    
-    #                 scale = Vec3(0.4)
-    #                 self.transform_plant(self.matrices_plants1, dummy, Point3(x, y, cz), Vec3.up(), scale)
-    #             elif density >= 0.55:
-    #                 scale = Vec3(0.02)
-    #                 self.transform_plant(self.matrices_shrubbery2, dummy, Point3(x, y, cz), Vec3.up(), scale)
-    
-    #             elif density >= 0.4:
-    #                 scale = Vec3(0.03)
-    #                 self.transform_plant(self.matrices_fern, dummy, Point3(x, y, cz), Vec3.up(), scale)
-    
-    #             print(density)
-
-    def transform_plant(self, matrices_list, dummy_np, pos, normal, scale):
-        """Using a dummy NodePath, calculate the plant's translation, rotation, and scaling,
-            and store the results in a temporary list.
-        """
-        dummy_np.set_pos(pos)
-        dummy_np.set_scale(scale)
-
-        if normal.length_squared() > 0.001:
-            # If the plant is on a wall, rotate it so that it appears to be growing outward from the wall.
-            dummy_np.look_at(pos + normal, Vec3(0, 0, 1))
-            dummy_np.set_p(dummy_np, -90)
-            dummy_np.set_h(dummy_np, random.uniform(0, 360))
-        else:
-            # If the plants are located on the rooftop, place it upright.
-            dummy_np.set_h(random.uniform(0, 360))
-
-        mat = dummy_np.get_mat()
-        # Convert to a flat list.
-        mat_data = [mat.get_cell(r, c) for r in range(4) for c in range(4)]
-        matrices_list.append(mat_data)
+                match flower_type:
+                    case Flowers.SUNFLOWER:
+                        self.transform_plant(self.mat_sunflower, dummy, pos, Vec3.up(), Vec3(6))
+                    case Flowers.SHRUBBERY:
+                        self.transform_plant(self.mat_shrubbery2, dummy, pos, Vec3.up(), Vec3(0.02))
+                    case Flowers.DAYSY:
+                        self.transform_plant(self.mat_daisy, dummy, pos, Vec3.up(), Vec3(15))
 
     def planting(self):
         # plants1
-        if len(self.matrices_plants1) > 0:
-            self.create_model(self.matrices_plants1, 'plants1/plants1.egg')
-
-        # # plants1 which color_scale is changed
-        # if len(self.matrices_plants2) > 0:
-        #     color_scale = LColor(1.1, 1.4, 1.1, 1.0)
-        #     self.create_model(self.matrices_plants2, 'plants1/plants1.egg', color_scale=color_scale)
-
-        # shrubbery
-        if len(self.matrices_shrubbery2) > 0:
-            self.create_model(self.matrices_shrubbery2, 'shrubbery2/shrubbery2.egg')
+        if len(self.mat_plants1) > 0:
+            color_scale = LColor(1.2, 1.8, 1.4, 1.0)
+            self.create_model(self.mat_plants1, 'plants1/plants1.egg', color_scale=color_scale)
 
         # fern
-        if len(self.matrices_fern) > 0:
-            color_scale = LColor(0.2, 0.6, 0.2, 1.0)
-            self.create_model(self.matrices_fern, 'fern/Fern.egg', color_scale=color_scale)
+        if len(self.mat_fern) > 0:
+            color_scale = LColor(0.45, 0.65, 0.15, 1.0)
+            self.create_model(self.mat_fern, 'fern/Fern.egg', color_scale=color_scale)
 
-    def create_model(self, matrices, file_path, color_scale=None):
-        arr_matrices = np.array(matrices, dtype=np.float32)
-        raw_buffer_data = arr_matrices.tobytes()
-        model = base.loader.load_model(f'models/{file_path}')
+        # sunflower
+        if len(self.mat_sunflower) > 0:
+            color_scale = LColor(1.1, 0.85, 0.2, 1.0)
+            self.create_model(self.mat_sunflower, 'Sunflower/Sunflower.egg', color_scale=color_scale)
 
-        if color_scale is not None:
-            # Set the color to white first, since the color of plant1 didn't change with just set_color_scale.
-            model.set_color(1, 1, 1, 1)
-            model.set_color_scale(*color_scale, 1)
+        # shrubbery
+        if len(self.mat_shrubbery2) > 0:
+            self.create_model(self.mat_shrubbery2, 'shrubbery2/shrubbery2.egg')
 
-        model.flatten_light()
-        model.reparent_to(self)
-        model.set_pos(0, 0, 0)
-        model.set_hpr(0, 0, 0)
-
-        # Prevent curling.
-        model.node().set_bounds(OmniBoundingVolume())
-        model.node().set_final(True)
-
-        # Set the number of instances.
-        instance_cnt = len(matrices)
-        model.set_instance_count(instance_cnt)
-        model.set_shader(Shader.load(Shader.SL_GLSL, vertex='shaders/instancing_v.glsl', fragment='shaders/instancing_f.glsl'))
-        model.set_shader_input("instanced_object", ShaderBuffer('DataBuffer', raw_buffer_data, GeomEnums.UH_static))
-
-
-
+        # daisy
+        if len(self.mat_daisy) > 0:
+            self.create_model(self.mat_daisy, 'daisy/daisy.egg')
 
 
 class TownBuilder(Polygon2DMixin):
@@ -653,9 +518,6 @@ class TownBuilder(Polygon2DMixin):
 
     def build(self):
         for i, region in enumerate(BoundedVoronoiGenerator(cnt_points=6, shrink=0.06)):
-            # if i == 3:
-            #     return
-
 
             land_pts = self.round_corners(region, buffer_size_dilation=0.05, quad_seg=16)
             land_pts = np.insert(land_pts, land_pts.shape[1], 0, axis=1)
@@ -678,12 +540,6 @@ class TownBuilder(Polygon2DMixin):
 
                 polygon = np.insert(pts, pts.shape[1], 0, axis=1)
                 serial = f'{i}_{j}'
-
-                # if j == 0 or j == 3:
-                #     print('this is a garden')
-                #     if nd := self.create_garden(polygon, serial):
-                #         yield (nd, False)
-                #         continue
 
                 sorted_pts = self.sort_counter_clockwise(polygon)
                 yield self.create_building(sorted_pts, serial)
@@ -796,6 +652,13 @@ class SkyBox(NodePath):
         self.sphere.set_texture(imgs)
 
 
+class Flowers(Enum):
+
+    SUNFLOWER = auto()
+    SHRUBBERY = auto()
+    DAYSY = auto()
+
+
 class Scene(NodePath):
 
     def __init__(self):
@@ -821,11 +684,13 @@ class Scene(NodePath):
         self.buildings_root = NodePath('buildings')
         self.buildings_root.reparent_to(self)
         builder = TownBuilder()
-        vegetation = Vegetation()
+        vegetation = WallGreening()
         vegetation.reparent_to(self)
 
         gardening = Gardening()
         gardening.reparent_to(self)
+        flower_types = list(Flowers)
+        flowers_idx = 0
 
         # for building in builder.build():
         #     building.reparent_to(self.buildings_root)
@@ -841,7 +706,9 @@ class Scene(NodePath):
                 continue
 
             if building.name.startswith('garden'):
-                gardening.distribute(building)
+                flower_type = flower_types[flowers_idx % len(flower_types)]
+                gardening.distribute(building, flower_type)
+                flowers_idx += 1
 
         vegetation.planting()
         gardening.planting()
