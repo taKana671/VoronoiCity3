@@ -12,14 +12,14 @@ from panda3d.core import TextureStage, TransformState, TexGenAttrib
 from panda3d.core import AmbientLight, DirectionalLight
 from panda3d.core import OmniBoundingVolume, Quat
 from panda3d.core import Shader, ShaderBuffer, GeomEnums
+from panda3d.core import TransparencyAttrib
 
 from noise import Fractal2D, Fractal3D, PerlinNoise
 from shapes import RandomPolygonalPrism
 from shapes import Plane, Sphere
-from voronoi_generator.voronoi_2d import BoundedVoronoiGenerator, ConvexPolygonGenerator
+from voronoi_generator.voronoi_2d import BoundedVoronoiGenerator, VoronoiSitesGenerator, RoundedVoronoiGenerator
 from voronoi_generator.voronoi_2d import Polygon2DMixin
 from voronoi_generator.polygon_mixin import PolygonMixin
-from voronoi_generator.voronoi_2d.rounded_voronoi import RoundedVoronoiGenerator
 
 
 class BuildingRoot(PolygonMixin, NodePath):
@@ -167,6 +167,7 @@ class Garden(BuildingRoot):
         hpr = Vec3(random.uniform(0, 360), 0, 0)
         tree.set_pos_hpr_scale(pos, hpr, Vec3(5))
 
+        # Unless I executed set_shader_off, I couldn't change the color scale.
         # tree.clear_material()
         tree.set_shader_off()
         tree.set_color_scale(LColor(1.3, 1.4, 1.0, 1.0), 1)
@@ -188,7 +189,7 @@ class Garden(BuildingRoot):
 
 class VegetationMixin:
 
-    def create_model(self, matrices, file_path, color_scale=None):
+    def create_model(self, matrices, file_path, is_flower=True, color_scale=None):
         arr_matrices = np.array(matrices, dtype=np.float32)
         raw_buffer_data = arr_matrices.tobytes()
         model = base.loader.load_model(f'models/{file_path}')
@@ -215,7 +216,9 @@ class VegetationMixin:
         # Set the number of instances.
         instance_cnt = len(matrices)
         model.set_instance_count(instance_cnt)
-        model.set_shader(Shader.load(Shader.SL_GLSL, vertex='shaders/instancing_v.glsl', fragment='shaders/instancing_f.glsl'))
+        # Set shader.
+        v_shader = 'instancing_flower_v.glsl' if is_flower else 'instancing_v.glsl'
+        model.set_shader(Shader.load(Shader.SL_GLSL, vertex=f'shaders/{v_shader}', fragment='shaders/instancing_f.glsl'))
         model.set_shader_input("instanced_object", ShaderBuffer('DataBuffer', raw_buffer_data, GeomEnums.UH_static))
 
     def transform_plant(self, matrices_list, dummy_np, pos, normal, scale):
@@ -368,21 +371,21 @@ class WallGreening(VegetationMixin, NodePath):
     def planting(self):
         # plants1
         if len(self.mat_plants1) > 0:
-            self.create_model(self.mat_plants1, 'plants1/plants1.egg')
+            self.create_model(self.mat_plants1, 'plants1/plants1.egg', False)
 
         # plants1 which color_scale is changed
         if len(self.mat_plants2) > 0:
             color_scale = LColor(1.1, 1.4, 1.1, 1.0)
-            self.create_model(self.mat_plants2, 'plants1/plants1.egg', color_scale=color_scale)
+            self.create_model(self.mat_plants2, 'plants1/plants1.egg', False, color_scale)
 
         # shrubbery
         if len(self.mat_shrubbery) > 0:
-            self.create_model(self.mat_shrubbery, 'shrubbery/shrubbery.egg')
+            self.create_model(self.mat_shrubbery, 'shrubbery/shrubbery.egg', False)
 
         # fern
         if len(self.mat_fern) > 0:
             color_scale = LColor(0.2, 0.6, 0.2, 1.0)
-            self.create_model(self.mat_fern, 'fern/Fern.egg', color_scale=color_scale)
+            self.create_model(self.mat_fern, 'fern/Fern.egg', False, color_scale)
 
 
 class Gardening(VegetationMixin, NodePath):
@@ -392,8 +395,8 @@ class Gardening(VegetationMixin, NodePath):
         self.create_noise()
 
         self.mat_plants1 = []
-        self.mat_shrubbery2 = []
         self.mat_fern = []
+        self.mat_tulip = []
         self.mat_sunflower = []
         self.mat_daisy = []
 
@@ -470,34 +473,39 @@ class Gardening(VegetationMixin, NodePath):
                 match flower_type:
                     case Flowers.SUNFLOWER:
                         self.transform_plant(self.mat_sunflower, dummy, pos, Vec3.up(), Vec3(6))
-                    case Flowers.SHRUBBERY:
-                        self.transform_plant(self.mat_shrubbery2, dummy, pos, Vec3.up(), Vec3(0.02))
+                    case Flowers.TULIP:
+                        # self.transform_plant(self.mat_shrubbery2, dummy, pos, Vec3.up(), Vec3(0.02))
+                        self.transform_plant(self.mat_tulip, dummy, pos, Vec3.up(), Vec3(15))
                     case Flowers.DAYSY:
                         self.transform_plant(self.mat_daisy, dummy, pos, Vec3.up(), Vec3(15))
 
     def planting(self):
+        p_shader = 'instancing_v.glsl'
+        f_shader = 'instancing_flower_v.glsl'
+
         # plants1
         if len(self.mat_plants1) > 0:
             color_scale = LColor(1.2, 1.8, 1.4, 1.0)
-            self.create_model(self.mat_plants1, 'plants1/plants1.egg', color_scale=color_scale)
+            self.create_model(self.mat_plants1, 'plants1/plants1.egg', False, color_scale)
 
         # fern
         if len(self.mat_fern) > 0:
             color_scale = LColor(0.45, 0.65, 0.15, 1.0)
-            self.create_model(self.mat_fern, 'fern/Fern.egg', color_scale=color_scale)
+            self.create_model(self.mat_fern, 'fern/Fern.egg', False, color_scale)
 
         # sunflower
         if len(self.mat_sunflower) > 0:
             color_scale = LColor(1.1, 0.85, 0.2, 1.0)
-            self.create_model(self.mat_sunflower, 'Sunflower/Sunflower.egg', color_scale=color_scale)
+            self.create_model(self.mat_sunflower, 'Sunflower/Sunflower.egg', True, color_scale)
 
         # shrubbery
-        if len(self.mat_shrubbery2) > 0:
-            self.create_model(self.mat_shrubbery2, 'shrubbery2/shrubbery2.egg')
+        if len(self.mat_tulip) > 0:
+            color_scale = LColor(0.9, 0.22, 0.32, 1.0)
+            self.create_model(self.mat_tulip, 'Tulip/Tulip.egg', True, color_scale)
 
         # daisy
         if len(self.mat_daisy) > 0:
-            self.create_model(self.mat_daisy, 'daisy/daisy.egg')
+            self.create_model(self.mat_daisy, 'daisy/daisy.egg', True)
 
 
 class TownBuilder(Polygon2DMixin):
@@ -510,40 +518,39 @@ class TownBuilder(Polygon2DMixin):
         self.foundation_tex = base.loader.load_texture('textures/foundation2.png')
         self.wall_tex = base.loader.load_texture('textures/gray_brick.png')
         self.roof_tex = base.loader.load_texture('textures/dark_gray_concrete.jpg')
-        self.spot_tex = base.loader.load_texture('textures/concrete_01.jpg')
+        self.land_tex = base.loader.load_texture('textures/concrete_01.jpg')
         self.grass_tex = base.loader.load_texture('textures/grass_04.jpg')
         self.ground_tex = base.loader.load_texture('textures/board_01.jpg')
-        # self.tree_model = base.loader.load_model('models/pinetree/tree2.bam')
         self.tree_model = base.loader.load_model('models/plants3/plants3.egg')
 
     def build(self):
-        for i, region in enumerate(BoundedVoronoiGenerator(cnt_points=6, shrink=0.06)):
+        segs = 0.0029
 
-            land_pts = self.round_corners(region, buffer_size_dilation=0.05, quad_seg=16)
-            land_pts = np.insert(land_pts, land_pts.shape[1], 0, axis=1)
-            print('create land')
+        # Generate the vertex coordinates of a Voronoi cell clipped to a 1x1 square.
+        for i, region in enumerate(BoundedVoronoiGenerator(cnt_points=6, buffer_size_erosion=-0.06)):
+            # The ground on which buildings and parks are built.
+            rounded_poly = self.round_polygon_corners(
+                region, buffer_size_dilation=0.05, segment_length=0.01)
+            land_pts = np.insert(rounded_poly, rounded_poly.shape[1], 0, axis=1)
             land = self.create_land(land_pts, i)
             yield land
 
-            if i % 2 != 0:
-                print('this is a garden')
-                # if nd := self.create_garden(land_pts * 0.8, i, land.get_pos()):
-                if nd := self.create_garden(land_pts, i):
-                    yield nd
-                    continue
+            if i % 2 == 0:
+                garden = self.create_garden(land_pts, i)
+                yield garden
+                continue
 
-            poly_pts = np.array([pt for pt in ConvexPolygonGenerator(region)])
+            # Generate voronoi sites to further subdivide the Voronoi cell.
+            sites = np.array([pt for pt in VoronoiSitesGenerator(region)])
 
-            for j, pts in enumerate(RoundedVoronoiGenerator(pts=poly_pts, bnd=region)):
+            # Generate vertex coordinates of a rounded-corner Voronoi cell.
+            for j, pts in enumerate(RoundedVoronoiGenerator(pts=sites, bnd=region, segment_length=segs)):
                 if len(pts) == 0:
                     continue
 
                 polygon = np.insert(pts, pts.shape[1], 0, axis=1)
-                serial = f'{i}_{j}'
-
                 sorted_pts = self.sort_counter_clockwise(polygon)
-                yield self.create_building(sorted_pts, serial)
-                # yield self.create_building(sorted_pts, serial)
+                yield self.create_building(sorted_pts, f'{i}_{j}')
 
     def get_max_distance_from_center(self, verts):
         """Calculate the center point from the vertex coordinates that form a convex polygon,
@@ -579,10 +586,10 @@ class TownBuilder(Polygon2DMixin):
         return garden
 
     def create_land(self, sorted_pts, serial):
-        land = Land(serial, land_h=4)
+        land = Land(serial, land_h=6)
         scaled_pts = sorted_pts * self.scale
         model_creator = RandomPolygonalPrism(list(scaled_pts))
-        land.create_land(model_creator, self.spot_tex)
+        land.create_land(model_creator, self.land_tex)
 
         pos = Point3(*model_creator.center) - Vec3(self.scale / 2, self.scale / 2, 0)
         pos.z = -land.land_h
@@ -612,14 +619,18 @@ class TownBuilder(Polygon2DMixin):
         return building
 
 
-class Ground(NodePath):
+class WaterCanal(NodePath):
 
-    def __init__(self, w=280, d=280, segs_w=16, segs_d=16):
+    def __init__(self, w=320, d=320, segs_w=64, segs_d=64):
         super().__init__(BulletRigidBodyNode('ground'))
         plane = Plane(w, d, segs_w, segs_d)
         self.model = plane.create()
-        self.model.set_texture(base.loader.load_texture('textures/concrete_01.jpg'))
         self.model.reparent_to(self)
+        self.model.set_transparency(TransparencyAttrib.M_alpha)
+
+        self.model.set_shader(Shader.load(Shader.SL_GLSL, vertex='shaders/water_canal_v.glsl', fragment='shaders/water_canal_f.glsl'))
+        tex = base.loader.load_texture('textures/water_02.png')
+        self.model.set_shader_input("water_tex", tex)
 
         mesh = BulletTriangleMesh()
         mesh.add_geom(self.model.node().get_geom(0))
@@ -655,7 +666,7 @@ class SkyBox(NodePath):
 class Flowers(Enum):
 
     SUNFLOWER = auto()
-    SHRUBBERY = auto()
+    TULIP = auto()
     DAYSY = auto()
 
 
@@ -665,10 +676,10 @@ class Scene(NodePath):
         super().__init__(PandaNode('scene'))
         self.reparent_to(base.render)
 
-        # self.ground = Ground()
-        # self.ground.set_pos(Point3(0, 0, 0))
-        # self.ground.reparent_to(self)
-        # base.world.attach(self.ground.node())
+        self.ground = WaterCanal()
+        self.ground.set_pos(Point3(0, 0, -3))
+        self.ground.reparent_to(self)
+        base.world.attach(self.ground.node())
 
         self.sky = SkyBox()
         self.sky.reparent_to(self)
@@ -684,6 +695,7 @@ class Scene(NodePath):
         self.buildings_root = NodePath('buildings')
         self.buildings_root.reparent_to(self)
         builder = TownBuilder()
+
         vegetation = WallGreening()
         vegetation.reparent_to(self)
 
@@ -692,22 +704,17 @@ class Scene(NodePath):
         flower_types = list(Flowers)
         flowers_idx = 0
 
-        # for building in builder.build():
-        #     building.reparent_to(self.buildings_root)
-        #     base.world.attach(building.node())
-        #     vegetation.distribute(building)
+        for structure in builder.build():
+            structure.reparent_to(self.buildings_root)
+            base.world.attach(structure.node())
 
-        for building in builder.build():
-            building.reparent_to(self.buildings_root)
-            base.world.attach(building.node())
-
-            if building.name.startswith('building'):
-                vegetation.distribute(building)
+            if structure.name.startswith('building'):
+                vegetation.distribute(structure)
                 continue
 
-            if building.name.startswith('garden'):
+            if structure.name.startswith('garden'):
                 flower_type = flower_types[flowers_idx % len(flower_types)]
-                gardening.distribute(building, flower_type)
+                gardening.distribute(structure, flower_type)
                 flowers_idx += 1
 
         vegetation.planting()
