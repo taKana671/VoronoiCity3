@@ -19,7 +19,7 @@ from viewer import Viewer, Motions
 load_prc_file_data("", """
     textures-power-2 none
     gl-coordinate-system default
-    window-title Panda3D Voronoi City
+    window-title Panda3D Voronoi City3
     filled-wireframe-apply-shader true
     stm-max-views 8
     stm-max-chunk-count 2048
@@ -41,7 +41,7 @@ class View(Enum):
     GROUND = auto()
 
 
-class VoronoiCity2(ShowBase):
+class VoronoiCity3(ShowBase):
 
     def __init__(self):
         super().__init__()
@@ -93,7 +93,6 @@ class VoronoiCity2(ShowBase):
         self.accept('t', self.toggle_debug)
         self.accept('v', self.toggle_view)
         self.accept('w', self.toggle_wireframe)
-        self.accept('d', self.toggle_debug)
 
         # viewer control
         inputState.watch_with_modifiers(Motions.FORWARD, 'arrow_up')
@@ -167,12 +166,6 @@ class VoronoiCity2(ShowBase):
 
     def end_fade(self):
         self.screen_changed = True
-
-    def toggle_debug(self):
-        if self.debug.is_hidden():
-            self.debug.show()
-        else:
-            self.debug.hide()
 
     def mouse_click(self):
         self.dragging = True
@@ -258,5 +251,5 @@ class VoronoiCity2(ShowBase):
 
 
 if __name__ == '__main__':
-    app = VoronoiCity2()
+    app = VoronoiCity3()
     app.run()

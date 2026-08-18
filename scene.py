@@ -189,7 +189,7 @@ class Garden(BuildingRoot):
 
 class VegetationMixin:
 
-    def create_model(self, matrices, file_path, is_flower=True, color_scale=None):
+    def create_model(self, matrices, file_path, v_shader, color_scale=None):
         arr_matrices = np.array(matrices, dtype=np.float32)
         raw_buffer_data = arr_matrices.tobytes()
         model = base.loader.load_model(f'models/{file_path}')
@@ -217,7 +217,6 @@ class VegetationMixin:
         instance_cnt = len(matrices)
         model.set_instance_count(instance_cnt)
         # Set shader.
-        v_shader = 'instancing_flower_v.glsl' if is_flower else 'instancing_v.glsl'
         model.set_shader(Shader.load(Shader.SL_GLSL, vertex=f'shaders/{v_shader}', fragment='shaders/instancing_f.glsl'))
         model.set_shader_input("instanced_object", ShaderBuffer('DataBuffer', raw_buffer_data, GeomEnums.UH_static))
 
@@ -369,23 +368,25 @@ class WallGreening(VegetationMixin, NodePath):
                 continue
 
     def planting(self):
+        v_shader = "instancing_v.glsl"
+
         # plants1
         if len(self.mat_plants1) > 0:
-            self.create_model(self.mat_plants1, 'plants1/plants1.egg', False)
+            self.create_model(self.mat_plants1, 'plants1/plants1.egg', v_shader)
 
         # plants1 which color_scale is changed
         if len(self.mat_plants2) > 0:
             color_scale = LColor(1.1, 1.4, 1.1, 1.0)
-            self.create_model(self.mat_plants2, 'plants1/plants1.egg', False, color_scale)
+            self.create_model(self.mat_plants2, 'plants1/plants1.egg', v_shader, color_scale)
 
         # shrubbery
         if len(self.mat_shrubbery) > 0:
-            self.create_model(self.mat_shrubbery, 'shrubbery/shrubbery.egg', False)
+            self.create_model(self.mat_shrubbery, 'shrubbery/shrubbery.egg', v_shader)
 
         # fern
         if len(self.mat_fern) > 0:
             color_scale = LColor(0.2, 0.6, 0.2, 1.0)
-            self.create_model(self.mat_fern, 'fern/Fern.egg', False, color_scale)
+            self.create_model(self.mat_fern, 'fern/Fern.egg', v_shader, color_scale)
 
 
 class Gardening(VegetationMixin, NodePath):
@@ -486,26 +487,26 @@ class Gardening(VegetationMixin, NodePath):
         # plants1
         if len(self.mat_plants1) > 0:
             color_scale = LColor(1.2, 1.8, 1.4, 1.0)
-            self.create_model(self.mat_plants1, 'plants1/plants1.egg', False, color_scale)
+            self.create_model(self.mat_plants1, 'plants1/plants1.egg', p_shader, color_scale)
 
         # fern
         if len(self.mat_fern) > 0:
             color_scale = LColor(0.45, 0.65, 0.15, 1.0)
-            self.create_model(self.mat_fern, 'fern/Fern.egg', False, color_scale)
+            self.create_model(self.mat_fern, 'fern/Fern.egg', p_shader, color_scale)
 
         # sunflower
         if len(self.mat_sunflower) > 0:
             color_scale = LColor(1.1, 0.85, 0.2, 1.0)
-            self.create_model(self.mat_sunflower, 'Sunflower/Sunflower.egg', True, color_scale)
+            self.create_model(self.mat_sunflower, 'Sunflower/Sunflower.egg', f_shader, color_scale)
 
         # shrubbery
         if len(self.mat_tulip) > 0:
             color_scale = LColor(0.9, 0.22, 0.32, 1.0)
-            self.create_model(self.mat_tulip, 'Tulip/Tulip.egg', True, color_scale)
+            self.create_model(self.mat_tulip, 'Tulip/Tulip.egg', f_shader, color_scale)
 
         # daisy
         if len(self.mat_daisy) > 0:
-            self.create_model(self.mat_daisy, 'daisy/daisy.egg', True)
+            self.create_model(self.mat_daisy, 'daisy/daisy.egg', f_shader)
 
 
 class TownBuilder(Polygon2DMixin):
@@ -519,13 +520,9 @@ class TownBuilder(Polygon2DMixin):
         self.wall_tex = base.loader.load_texture('textures/gray_brick.png')
         self.roof_tex = base.loader.load_texture('textures/dark_gray_concrete.jpg')
         self.land_tex = base.loader.load_texture('textures/concrete_01.jpg')
-        self.grass_tex = base.loader.load_texture('textures/grass_04.jpg')
         self.ground_tex = base.loader.load_texture('textures/board_01.jpg')
-        self.tree_model = base.loader.load_model('models/plants3/plants3.egg')
 
     def build(self):
-        segs = 0.0029
-
         # Generate the vertex coordinates of a Voronoi cell clipped to a 1x1 square.
         for i, region in enumerate(BoundedVoronoiGenerator(cnt_points=6, buffer_size_erosion=-0.06)):
             # The ground on which buildings and parks are built.
@@ -544,7 +541,8 @@ class TownBuilder(Polygon2DMixin):
             sites = np.array([pt for pt in VoronoiSitesGenerator(region)])
 
             # Generate vertex coordinates of a rounded-corner Voronoi cell.
-            for j, pts in enumerate(RoundedVoronoiGenerator(pts=sites, bnd=region, segment_length=segs)):
+            for j, pts in enumerate(RoundedVoronoiGenerator(
+                    pts=sites, bnd=region, segment_length=0.0029)):
                 if len(pts) == 0:
                     continue
 
@@ -628,7 +626,8 @@ class WaterCanal(NodePath):
         self.model.reparent_to(self)
         self.model.set_transparency(TransparencyAttrib.M_alpha)
 
-        self.model.set_shader(Shader.load(Shader.SL_GLSL, vertex='shaders/water_canal_v.glsl', fragment='shaders/water_canal_f.glsl'))
+        self.model.set_shader(Shader.load(
+            Shader.SL_GLSL, vertex='shaders/water_canal_v.glsl', fragment='shaders/water_canal_f.glsl'))
         tex = base.loader.load_texture('textures/water_02.png')
         self.model.set_shader_input("water_tex", tex)
 
@@ -737,27 +736,9 @@ class Scene(NodePath):
         base.render.set_shader_auto()
 
 
-# 犯人はこれだ！：T:m(scale 3.28084) の正体ログの最後にある T:m(scale 3.28084) という表記。
-# これこそが、Panda3Dの内部で特定のモデル（shrubbery.egg や plants1.egg）のインスタンス（SSBO）の座標をドーナツ状に歪ませ、
-# 巨大化させていた本当の真犯人です！
-# これは、このモデルがロードされた瞬間に、メッシュの親ノードに対して「3.28084倍に拡大しろ！」
-# というトランスフォーム（変換行列：Transform）が最初から焼き付けられていることを意味しています。
-# （※ちなみに 3.28084 という中途半端な数値は、3Dソフトの内部単位である「フィート」を
-# Panda3Dの「メートル」に自動変換したときに発生する、公式モデル特有の単位変換のゴミです！）💡 
-# なぜこれがドーナツバグとカメラ全消えバグを引き起こすのか？Panda3Dで Hardware Instancing（SSBO）を実行するとき、
-# 頂点シェーダーに渡される生の頂点 p3d_Vertex には、この scale 3.28084 という親の行列が適用される前の生データ が入ってきます。
-# しかし、Panda3Dの内部システムは、このノードに scale 3.28084 というトランスフォームが乗っていることを知っているため、
-# バウンディングボックス（Bounds）の大きさを自動的に「3.28倍」として計算してしまいます。その結果：あなたの SSBO の行列（transform）と、
-# モデル自身が持っている scale 3.28084 が、GPU側とCPU側で二重に掛け算されて計算が完全に破綻します。
-# 回転を掛けたときに、この3.28倍のズレのせいで中心軸が外側に大きく吹き飛ばされ、あの綺麗な「ドーナツ状の浮遊」 が発生します。
-# 前回 find() を使ったときにカメラの角度で草が消えてしまったのも、この T:m(scale 3.28084) という行列情報が途中で引き剥がされたり残ったりして、
-# Panda3Dの空間計算が完全にパニックを起こしたからです！🛠️ 
-# 
-# 100%解決するクリーンな正攻法：ノードの「ゴミ行列」を完全にクリア（フリーズ）する原因が「ノードに最初から乗っている scale 3.28084 という行列のゴミ」
-# だと分かれば、解決策はめちゃくちゃシンプルです！Python側でモデルをロードした直後に、model.flatten_light() というPanda3Dの超強力な
-# 最適化メソッドを1行実行するだけです [INDEX]！このメソッドは、ノードに乗っている余計な位置・回転・拡大（トランスフォーム）のデータを、
-# 「生の頂点データ（メッシュ）の中に完全に焼き付けて（フリーズして）、ノードの行列を真っ新な単位行列（リセット状態）にする」 
-# という魔法のような機能を持っています。Blenderでいう「トランスフォームの適用（Apply）」を、Panda3Dの実行時にリアルタイムで行う処理です。
+# When I tried to use a shader to place specific models (such as shrubbery.egg, plants1.egg, Fern.egg) perpendicular to a wall,
+# the models ended up being placed far away from the wall.
+# I checked using model.ls() and found that the cause was `T:m(scale 3.28084)`. The problem was resolved after I ran model.flatten_light().
 
 # (Pdb) model.ls()
 # ModelRoot Fern.egg
