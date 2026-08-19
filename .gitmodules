@@ -1,0 +1,9 @@
+[submodule "voronoi_generator"]
+	path = voronoi_generator
+	url = https://github.com/taKana671/voronoi_generator.git
+[submodule "shapes"]
+	path = shapes
+	url = https://github.com/taKana671/shapes.git
+[submodule "noise"]
+	path = noise
+	url = https://github.com/taKana671/NoiseTexture.git

@@ -1,0 +1,3040 @@
+<CoordinateSystem> { y-up-left }
+
+<Texture> TextureMap { "maps/TextureMap.tif"
+	<Scalar> format { rgb }
+	<Scalar> wrap { repeat }
+}
+
+<Group> Sunflower {
+	<Transform> {
+		<Matrix4> { 
+			3.2808398950131235 0.0 0.0 0.0 
+			0.0 3.2808398950131235 0.0 0.0 
+			0.0 0.0 3.2808398950131235 0.0 
+			0.0 0.0 0.0 1.0 
+		}
+	}
+	<Group> Blossom {
+		<Transform> {
+			<Matrix4> { 
+				1.0 0.0 0.0 0.0 
+				0.0 1.0 0.0 0.0 
+				0.0 0.0 1.0 0.0 
+				5.956271382362432E-7 0.34928004174481686 0.014016393374504506 1.0 
+			}
+		}
+		<VertexPool> Sunflower.Blossom.verts {
+			<Vertex> 0 { -4.720972572203991E-4 1.1633073299890886 0.045985542567272004
+				<Normal> { 0.0 0.0 -3.2808398950131235 }
+				<UV> { 0.565913 0.604262 }
+			}
+			<Vertex> 1 { 0.05686675482533424 1.1770876461602533 0.045985542567272004
+				<Normal> { 0.0 0.0 -3.2808398950131235 }
+				<UV> { 0.580127 0.663389 }
+			}
+			<Vertex> 2 { 0.18106336898111433 1.1843905355139246 0.045985542567272004
+				<Normal> { 0.0 0.0 -3.2808398950131235 }
+				<UV> { 0.58766 0.791458 }
+			}
+			<Vertex> 3 { 1.0978142898365301E-4 1.1622847315689024 0.045985542567272004
+				<Normal> { 0.0 0.0 -3.2808398950131235 }
+				<UV> { 0.564858 0.604862 }
+			}
+			<Vertex> 4 { -1.0587311442829709E-4 1.129579059407586 0.045985542567272004
+				<Normal> { 0.0 0.0 -3.2808398950131235 }
+				<UV> { 0.531122 0.60464 }
+			}
+			<Vertex> 5 { 0.05645001631062442 1.1140283731696292 0.045985542567272004
+				<Normal> { 0.0 0.0 -3.2808398950131235 }
+				<UV> { 0.515082 0.662959 }
+			}
+			<Vertex> 6 { 0.18106336898111433 1.1067002356334985 0.045985542567272004
+				<Normal> { 0.0 0.0 -3.2808398950131235 }
+				<UV> { 0.507523 0.791458 }
+			}
+			<Vertex> 7 { 0.3462042210377662 1.1261237828702675 0.045985542567272004
+				<Normal> { 0.0 0.0 -3.2808398950131235 }
+				<UV> { 0.527558 0.9617483 }
+			}
+			<Vertex> 8 { 0.37534672774781985 1.145545386252037 0.045985542567272004
+				<Normal> { 0.0 0.0 -3.2808398950131235 }
+				<UV> { 0.547591 0.99179953 }
+			}
+			<Vertex> 9 { 0.3462042210377662 1.1649679614482522 0.045985542567272004
+				<Normal> { 0.0 0.0 -3.2808398950131235 }
+				<UV> { 0.567625 0.9617483 }
+			}
+			<Vertex> 10 { 1.0978142898365301E-4 1.1622847315689024 0.045985542567272004
+				<Normal> { 0.0 0.0 3.2808398950131235 }
+				<UV> { 0.564858 0.604862 }
+			}
+			<Vertex> 11 { -1.0587311442829709E-4 1.129579059407586 0.045985542567272004
+				<Normal> { 0.0 0.0 3.2808398950131235 }
+				<UV> { 0.531122 0.60464 }
+			}
+			<Vertex> 12 { 0.05645001631062442 1.1140283731696292 0.045985542567272004
+				<Normal> { 0.0 0.0 3.2808398950131235 }
+				<UV> { 0.515082 0.662959 }
+			}
+			<Vertex> 13 { 0.18106336898111433 1.1067002356334985 0.045985542567272004
+				<Normal> { 0.0 0.0 3.2808398950131235 }
+				<UV> { 0.507523 0.791458 }
+			}
+			<Vertex> 14 { 0.3462042210377662 1.1261237828702675 0.045985542567272004
+				<Normal> { 0.0 0.0 3.2808398950131235 }
+				<UV> { 0.527558 0.9617483 }
+			}
+			<Vertex> 15 { 0.37534672774781985 1.145545386252037 0.045985542567272004
+				<Normal> { 0.0 0.0 3.2808398950131235 }
+				<UV> { 0.547591 0.99179953 }
+			}
+			<Vertex> 16 { 0.3462042210377662 1.1649679614482522 0.045985542567272004
+				<Normal> { 0.0 0.0 3.2808398950131235 }
+				<UV> { 0.567625 0.9617483 }
+			}
+			<Vertex> 17 { 0.18106336898111433 1.1843905355139246 0.045985542567272004
+				<Normal> { 0.0 0.0 3.2808398950131235 }
+				<UV> { 0.58766 0.791458 }
+			}
+			<Vertex> 18 { 0.05686675482533424 1.1770876461602533 0.045985542567272004
+				<Normal> { 0.0 0.0 3.2808398950131235 }
+				<UV> { 0.580127 0.663389 }
+			}
+			<Vertex> 19 { -4.720972572203991E-4 1.1633073299890886 0.045985542567272004
+				<Normal> { 0.0 0.0 3.2808398950131235 }
+				<UV> { 0.565913 0.604262 }
+			}
+		}
+		<Polygon>  {
+			<TRef> { TextureMap }
+			<RGBA> { 1.0 1.0 1.0 1.0 }
+			<BFace> { 0 }
+			<VertexRef> { 2 1 0 <Ref> { Sunflower.Blossom.verts } }
+		}
+		<Polygon>  {
+			<TRef> { TextureMap }
+			<RGBA> { 1.0 1.0 1.0 1.0 }
+			<BFace> { 0 }
+			<VertexRef> { 2 0 3 <Ref> { Sunflower.Blossom.verts } }
+		}
+		<Polygon>  {
+			<TRef> { TextureMap }
+			<RGBA> { 1.0 1.0 1.0 1.0 }
+			<BFace> { 0 }
+			<VertexRef> { 2 3 4 <Ref> { Sunflower.Blossom.verts } }
+		}
+		<Polygon>  {
+			<TRef> { TextureMap }
+			<RGBA> { 1.0 1.0 1.0 1.0 }
+			<BFace> { 0 }
+			<VertexRef> { 2 4 5 <Ref> { Sunflower.Blossom.verts } }
+		}
+		<Polygon>  {
+			<TRef> { TextureMap }
+			<RGBA> { 1.0 1.0 1.0 1.0 }
+			<BFace> { 0 }
+			<VertexRef> { 2 5 6 <Ref> { Sunflower.Blossom.verts } }
+		}
+		<Polygon>  {
+			<TRef> { TextureMap }
+			<RGBA> { 1.0 1.0 1.0 1.0 }
+			<BFace> { 0 }
+			<VertexRef> { 2 6 7 <Ref> { Sunflower.Blossom.verts } }
+		}
+		<Polygon>  {
+			<TRef> { TextureMap }
+			<RGBA> { 1.0 1.0 1.0 1.0 }
+			<BFace> { 0 }
+			<VertexRef> { 2 7 8 <Ref> { Sunflower.Blossom.verts } }
+		}
+		<Polygon>  {
+			<TRef> { TextureMap }
+			<RGBA> { 1.0 1.0 1.0 1.0 }
+			<BFace> { 0 }
+			<VertexRef> { 2 8 9 <Ref> { Sunflower.Blossom.verts } }
+		}
+		<Polygon>  {
+			<TRef> { TextureMap }
+			<RGBA> { 1.0 1.0 1.0 1.0 }
+			<BFace> { 0 }
+			<VertexRef> { 12 11 10 <Ref> { Sunflower.Blossom.verts } }
+		}
+		<Polygon>  {
+			<TRef> { TextureMap }
+			<RGBA> { 1.0 1.0 1.0 1.0 }
+			<BFace> { 0 }
+			<VertexRef> { 13 12 10 <Ref> { Sunflower.Blossom.verts } }
+		}
+		<Polygon>  {
+			<TRef> { TextureMap }
+			<RGBA> { 1.0 1.0 1.0 1.0 }
+			<BFace> { 0 }
+			<VertexRef> { 14 13 10 <Ref> { Sunflower.Blossom.verts } }
+		}
+		<Polygon>  {
+			<TRef> { TextureMap }
+			<RGBA> { 1.0 1.0 1.0 1.0 }
+			<BFace> { 0 }
+			<VertexRef> { 15 14 10 <Ref> { Sunflower.Blossom.verts } }
+		}
+		<Polygon>  {
+			<TRef> { TextureMap }
+			<RGBA> { 1.0 1.0 1.0 1.0 }
+			<BFace> { 0 }
+			<VertexRef> { 16 15 10 <Ref> { Sunflower.Blossom.verts } }
+		}
+		<Polygon>  {
+			<TRef> { TextureMap }
+			<RGBA> { 1.0 1.0 1.0 1.0 }
+			<BFace> { 0 }
+			<VertexRef> { 17 16 10 <Ref> { Sunflower.Blossom.verts } }
+		}
+		<Polygon>  {
+			<TRef> { TextureMap }
+			<RGBA> { 1.0 1.0 1.0 1.0 }
+			<BFace> { 0 }
+			<VertexRef> { 18 17 10 <Ref> { Sunflower.Blossom.verts } }
+		}
+		<Polygon>  {
+			<TRef> { TextureMap }
+			<RGBA> { 1.0 1.0 1.0 1.0 }
+			<BFace> { 0 }
+			<VertexRef> { 19 18 10 <Ref> { Sunflower.Blossom.verts } }
+		}
+		<Group> Petals {
+			<Transform> {
+				<Matrix4> { 
+					1.0 0.0 0.0 0.0 
+					0.0 1.0 0.0 0.0 
+					0.0 0.0 1.0 0.0 
+					0.0 0.017760002122617802 0.030983606625495486 1.0 
+				}
+			}
+			<VertexPool> Sunflower.Blossom.Petals.verts {
+				<Vertex> 0 { -4.720972572203991E-4 1.2215750534884908 0.14763779527559054
+					<Normal> { 0.0 0.0 -3.2808398950131235 }
+					<UV> { 0.565913 0.604262 }
+				}
+				<Vertex> 1 { 0.05686675482533424 1.2353553696596555 0.14763779527559054
+					<Normal> { 0.0 0.0 -3.2808398950131235 }
+					<UV> { 0.580127 0.663389 }
+				}
+				<Vertex> 2 { 0.18106336898111433 1.2426582590133268 0.14763779527559054
+					<Normal> { 0.0 0.0 -3.2808398950131235 }
+					<UV> { 0.58766 0.791458 }
+				}
+				<Vertex> 3 { 1.0978142898365301E-4 1.2205524550683047 0.14763779527559054
+					<Normal> { 0.0 0.0 -3.2808398950131235 }
+					<UV> { 0.564858 0.604862 }
+				}
+				<Vertex> 4 { -1.0587311442829709E-4 1.1878467829069883 0.14763779527559054
+					<Normal> { 0.0 0.0 -3.2808398950131235 }
+					<UV> { 0.531122 0.60464 }
+				}
+				<Vertex> 5 { 0.05645001631062442 1.1722960966690315 0.14763779527559054
+					<Normal> { 0.0 0.0 -3.2808398950131235 }
+					<UV> { 0.515082 0.662959 }
+				}
+				<Vertex> 6 { 0.18106336898111433 1.1649679591329007 0.14763779527559054
+					<Normal> { 0.0 0.0 -3.2808398950131235 }
+					<UV> { 0.507523 0.791458 }
+				}
+				<Vertex> 7 { 0.3462042210377662 1.1843915063696697 0.14763779527559054
+					<Normal> { 0.0 0.0 -3.2808398950131235 }
+					<UV> { 0.527558 0.9617483 }
+				}
+				<Vertex> 8 { 0.37534672774781985 1.2038131097514393 0.14763779527559054
+					<Normal> { 0.0 0.0 -3.2808398950131235 }
+					<UV> { 0.547591 0.99179953 }
+				}
+				<Vertex> 9 { 0.3462042210377662 1.2232356849476544 0.14763779527559054
+					<Normal> { 0.0 0.0 -3.2808398950131235 }
+					<UV> { 0.567625 0.9617483 }
+				}
+				<Vertex> 10 { 1.0978142898365301E-4 1.2205524550683047 0.14763779527559054
+					<Normal> { 0.0 0.0 3.2808398950131235 }
+					<UV> { 0.564858 0.604862 }
+				}
+				<Vertex> 11 { -1.0587311442829709E-4 1.1878467829069883 0.14763779527559054
+					<Normal> { 0.0 0.0 3.2808398950131235 }
+					<UV> { 0.531122 0.60464 }
+				}
+				<Vertex> 12 { 0.05645001631062442 1.1722960966690315 0.14763779527559054
+					<Normal> { 0.0 0.0 3.2808398950131235 }
+					<UV> { 0.515082 0.662959 }
+				}
+				<Vertex> 13 { 0.18106336898111433 1.1649679591329007 0.14763779527559054
+					<Normal> { 0.0 0.0 3.2808398950131235 }
+					<UV> { 0.507523 0.791458 }
+				}
+				<Vertex> 14 { 0.3462042210377662 1.1843915063696697 0.14763779527559054
+					<Normal> { 0.0 0.0 3.2808398950131235 }
+					<UV> { 0.527558 0.9617483 }
+				}
+				<Vertex> 15 { 0.37534672774781985 1.2038131097514393 0.14763779527559054
+					<Normal> { 0.0 0.0 3.2808398950131235 }
+					<UV> { 0.547591 0.99179953 }
+				}
+				<Vertex> 16 { 0.3462042210377662 1.2232356849476544 0.14763779527559054
+					<Normal> { 0.0 0.0 3.2808398950131235 }
+					<UV> { 0.567625 0.9617483 }
+				}
+				<Vertex> 17 { 0.18106336898111433 1.2426582590133268 0.14763779527559054
+					<Normal> { 0.0 0.0 3.2808398950131235 }
+					<UV> { 0.58766 0.791458 }
+				}
+				<Vertex> 18 { 0.05686675482533424 1.2353553696596555 0.14763779527559054
+					<Normal> { 0.0 0.0 3.2808398950131235 }
+					<UV> { 0.580127 0.663389 }
+				}
+				<Vertex> 19 { -4.720972572203991E-4 1.2215750534884908 0.14763779527559054
+					<Normal> { 0.0 0.0 3.2808398950131235 }
+					<UV> { 0.565913 0.604262 }
+				}
+			}
+			<Polygon>  {
+				<TRef> { TextureMap }
+				<RGBA> { 1.0 1.0 1.0 1.0 }
+				<BFace> { 0 }
+				<VertexRef> { 2 1 0 <Ref> { Sunflower.Blossom.Petals.verts } }
+			}
+			<Polygon>  {
+				<TRef> { TextureMap }
+				<RGBA> { 1.0 1.0 1.0 1.0 }
+				<BFace> { 0 }
+				<VertexRef> { 2 0 3 <Ref> { Sunflower.Blossom.Petals.verts } }
+			}
+			<Polygon>  {
+				<TRef> { TextureMap }
+				<RGBA> { 1.0 1.0 1.0 1.0 }
+				<BFace> { 0 }
+				<VertexRef> { 2 3 4 <Ref> { Sunflower.Blossom.Petals.verts } }
+			}
+			<Polygon>  {
+				<TRef> { TextureMap }
+				<RGBA> { 1.0 1.0 1.0 1.0 }
+				<BFace> { 0 }
+				<VertexRef> { 2 4 5 <Ref> { Sunflower.Blossom.Petals.verts } }
+			}
+			<Polygon>  {
+				<TRef> { TextureMap }
+				<RGBA> { 1.0 1.0 1.0 1.0 }
+				<BFace> { 0 }
+				<VertexRef> { 2 5 6 <Ref> { Sunflower.Blossom.Petals.verts } }
+			}
+			<Polygon>  {
+				<TRef> { TextureMap }
+				<RGBA> { 1.0 1.0 1.0 1.0 }
+				<BFace> { 0 }
+				<VertexRef> { 2 6 7 <Ref> { Sunflower.Blossom.Petals.verts } }
+			}
+			<Polygon>  {
+				<TRef> { TextureMap }
+				<RGBA> { 1.0 1.0 1.0 1.0 }
+				<BFace> { 0 }
+				<VertexRef> { 2 7 8 <Ref> { Sunflower.Blossom.Petals.verts } }
+			}
+			<Polygon>  {
+				<TRef> { TextureMap }
+				<RGBA> { 1.0 1.0 1.0 1.0 }
+				<BFace> { 0 }
+				<VertexRef> { 2 8 9 <Ref> { Sunflower.Blossom.Petals.verts } }
+			}
+			<Polygon>  {
+				<TRef> { TextureMap }
+				<RGBA> { 1.0 1.0 1.0 1.0 }
+				<BFace> { 0 }
+				<VertexRef> { 12 11 10 <Ref> { Sunflower.Blossom.Petals.verts } }
+			}
+			<Polygon>  {
+				<TRef> { TextureMap }
+				<RGBA> { 1.0 1.0 1.0 1.0 }
+				<BFace> { 0 }
+				<VertexRef> { 13 12 10 <Ref> { Sunflower.Blossom.Petals.verts } }
+			}
+			<Polygon>  {
+				<TRef> { TextureMap }
+				<RGBA> { 1.0 1.0 1.0 1.0 }
+				<BFace> { 0 }
+				<VertexRef> { 14 13 10 <Ref> { Sunflower.Blossom.Petals.verts } }
+			}
+			<Polygon>  {
+				<TRef> { TextureMap }
+				<RGBA> { 1.0 1.0 1.0 1.0 }
+				<BFace> { 0 }
+				<VertexRef> { 15 14 10 <Ref> { Sunflower.Blossom.Petals.verts } }
+			}
+			<Polygon>  {
+				<TRef> { TextureMap }
+				<RGBA> { 1.0 1.0 1.0 1.0 }
+				<BFace> { 0 }
+				<VertexRef> { 16 15 10 <Ref> { Sunflower.Blossom.Petals.verts } }
+			}
+			<Polygon>  {
+				<TRef> { TextureMap }
+				<RGBA> { 1.0 1.0 1.0 1.0 }
+				<BFace> { 0 }
+				<VertexRef> { 17 16 10 <Ref> { Sunflower.Blossom.Petals.verts } }
+			}
+			<Polygon>  {
+				<TRef> { TextureMap }
+				<RGBA> { 1.0 1.0 1.0 1.0 }
+				<BFace> { 0 }
+				<VertexRef> { 18 17 10 <Ref> { Sunflower.Blossom.Petals.verts } }
+			}
+			<Polygon>  {
+				<TRef> { TextureMap }
+				<RGBA> { 1.0 1.0 1.0 1.0 }
+				<BFace> { 0 }
+				<VertexRef> { 19 18 10 <Ref> { Sunflower.Blossom.Petals.verts } }
+			}
+			<Group> Petal1 {
+				<Transform> {
+					<Matrix4> { 
+						1.0 0.0 0.0 0.0 
+						0.0 1.0 0.0 0.0 
+						0.0 0.0 1.0 0.0 
+						-0.009208332334309658 0.016161601931582226 -8.852459035855881E-4 1.0 
+					}
+				}
+				<VertexPool> Sunflower.Blossom.Petals.Petal1.verts {
+					<Vertex> 0 { -0.044429681620885335 1.2491405431759393 0.14473344519821
+						<Normal> { 0.0 0.0 3.2808398950131235 }
+						<UV> { 0.594793 0.49602 }
+					}
+					<Vertex> 1 { -0.015988538242444207 1.265305951568266 0.14473344519821
+						<Normal> { 0.0 0.0 3.2808398950131235 }
+						<UV> { 0.611468 0.525348 }
+					}
+					<Vertex> 2 { -0.08563135531612884 1.290876741150718 0.14473344519821
+						<Normal> { 0.0 0.0 3.2808398950131235 }
+						<UV> { 0.637844 0.453533 }
+					}
+					<Vertex> 3 { -0.030795845710839778 1.322046087276185 0.14473344519821
+						<Normal> { 0.0 0.0 3.2808398950131235 }
+						<UV> { 0.669995 0.510079 }
+					}
+					<Vertex> 4 { -0.08675431179576236 1.433595755461552 0.14473344519821
+						<Normal> { 0.0 0.0 3.2808398950131235 }
+						<UV> { 0.785057 0.452375 }
+					}
+					<Vertex> 5 { -0.18615065803922431 1.5668589112104576 0.14473344519821
+						<Normal> { 0.0 0.0 3.2808398950131235 }
+						<UV> { 0.922516 0.34988 }
+					}
+					<Vertex> 6 { -0.217546843674319 1.5823775244062028 0.14473344519821
+						<Normal> { 0.0 0.0 3.2808398950131235 }
+						<UV> { 0.938523 0.317505 }
+					}
+					<Vertex> 7 { -0.21980150691561845 1.547436326291576 0.14473344519821
+						<Normal> { 0.0 0.0 3.2808398950131235 }
+						<UV> { 0.902482 0.31518 }
+					}
+					<Vertex> 8 { -0.15405601316736037 1.39475061456568 0.14473344519821
+						<Normal> { 0.0 0.0 3.2808398950131235 }
+						<UV> { 0.744988 0.382975 }
+					}
+					<Vertex> 9 { -0.08563135531612884 1.290876741150718 0.14473344519821
+						<Normal> { 0.0 0.0 -3.2808398950131235 }
+						<UV> { 0.637844 0.453533 }
+					}
+					<Vertex> 10 { -0.15405601316736037 1.39475061456568 0.14473344519821
+						<Normal> { 0.0 0.0 -3.2808398950131235 }
+						<UV> { 0.744988 0.382975 }
+					}
+					<Vertex> 11 { -0.044429681620885335 1.2491405431759393 0.14473344519821
+						<Normal> { 0.0 0.0 -3.2808398950131235 }
+						<UV> { 0.594793 0.49602 }
+					}
+					<Vertex> 12 { -0.21980150691561845 1.547436326291576 0.14473344519821
+						<Normal> { 0.0 0.0 -3.2808398950131235 }
+						<UV> { 0.902482 0.31518 }
+					}
+					<Vertex> 13 { -0.217546843674319 1.5823775244062028 0.14473344519821
+						<Normal> { 0.0 0.0 -3.2808398950131235 }
+						<UV> { 0.938523 0.317505 }
+					}
+					<Vertex> 14 { -0.18615065803922431 1.5668589112104576 0.14473344519821
+						<Normal> { 0.0 0.0 -3.2808398950131235 }
+						<UV> { 0.922516 0.34988 }
+					}
+					<Vertex> 15 { -0.08675431179576236 1.433595755461552 0.14473344519821
+						<Normal> { 0.0 0.0 -3.2808398950131235 }
+						<UV> { 0.785057 0.452375 }
+					}
+					<Vertex> 16 { -0.030795845710839778 1.322046087276185 0.14473344519821
+						<Normal> { 0.0 0.0 -3.2808398950131235 }
+						<UV> { 0.669995 0.510079 }
+					}
+					<Vertex> 17 { -0.015988538242444207 1.265305951568266 0.14473344519821
+						<Normal> { 0.0 0.0 -3.2808398950131235 }
+						<UV> { 0.611468 0.525348 }
+					}
+				}
+				<Polygon>  {
+					<TRef> { TextureMap }
+					<RGBA> { 1.0 1.0 1.0 1.0 }
+					<BFace> { 0 }
+					<VertexRef> { 2 1 0 <Ref> { Sunflower.Blossom.Petals.Petal1.verts } }
+				}
+				<Polygon>  {
+					<TRef> { TextureMap }
+					<RGBA> { 1.0 1.0 1.0 1.0 }
+					<BFace> { 0 }
+					<VertexRef> { 2 3 1 <Ref> { Sunflower.Blossom.Petals.Petal1.verts } }
+				}
+				<Polygon>  {
+					<TRef> { TextureMap }
+					<RGBA> { 1.0 1.0 1.0 1.0 }
+					<BFace> { 0 }
+					<VertexRef> { 2 4 3 <Ref> { Sunflower.Blossom.Petals.Petal1.verts } }
+				}
+				<Polygon>  {
+					<TRef> { TextureMap }
+					<RGBA> { 1.0 1.0 1.0 1.0 }
+					<BFace> { 0 }
+					<VertexRef> { 2 5 4 <Ref> { Sunflower.Blossom.Petals.Petal1.verts } }
+				}
+				<Polygon>  {
+					<TRef> { TextureMap }
+					<RGBA> { 1.0 1.0 1.0 1.0 }
+					<BFace> { 0 }
+					<VertexRef> { 2 6 5 <Ref> { Sunflower.Blossom.Petals.Petal1.verts } }
+				}
+				<Polygon>  {
+					<TRef> { TextureMap }
+					<RGBA> { 1.0 1.0 1.0 1.0 }
+					<BFace> { 0 }
+					<VertexRef> { 2 7 6 <Ref> { Sunflower.Blossom.Petals.Petal1.verts } }
+				}
+				<Polygon>  {
+					<TRef> { TextureMap }
+					<RGBA> { 1.0 1.0 1.0 1.0 }
+					<BFace> { 0 }
+					<VertexRef> { 2 8 7 <Ref> { Sunflower.Blossom.Petals.Petal1.verts } }
+				}
+				<Polygon>  {
+					<TRef> { TextureMap }
+					<RGBA> { 1.0 1.0 1.0 1.0 }
+					<BFace> { 0 }
+					<VertexRef> { 11 10 9 <Ref> { Sunflower.Blossom.Petals.Petal1.verts } }
+				}
+				<Polygon>  {
+					<TRef> { TextureMap }
+					<RGBA> { 1.0 1.0 1.0 1.0 }
+					<BFace> { 0 }
+					<VertexRef> { 11 12 10 <Ref> { Sunflower.Blossom.Petals.Petal1.verts } }
+				}
+				<Polygon>  {
+					<TRef> { TextureMap }
+					<RGBA> { 1.0 1.0 1.0 1.0 }
+					<BFace> { 0 }
+					<VertexRef> { 11 13 12 <Ref> { Sunflower.Blossom.Petals.Petal1.verts } }
+				}
+				<Polygon>  {
+					<TRef> { TextureMap }
+					<RGBA> { 1.0 1.0 1.0 1.0 }
+					<BFace> { 0 }
+					<VertexRef> { 11 14 13 <Ref> { Sunflower.Blossom.Petals.Petal1.verts } }
+				}
+				<Polygon>  {
+					<TRef> { TextureMap }
+					<RGBA> { 1.0 1.0 1.0 1.0 }
+					<BFace> { 0 }
+					<VertexRef> { 11 15 14 <Ref> { Sunflower.Blossom.Petals.Petal1.verts } }
+				}
+				<Polygon>  {
+					<TRef> { TextureMap }
+					<RGBA> { 1.0 1.0 1.0 1.0 }
+					<BFace> { 0 }
+					<VertexRef> { 11 16 15 <Ref> { Sunflower.Blossom.Petals.Petal1.verts } }
+				}
+				<Polygon>  {
+					<TRef> { TextureMap }
+					<RGBA> { 1.0 1.0 1.0 1.0 }
+					<BFace> { 0 }
+					<VertexRef> { 11 17 16 <Ref> { Sunflower.Blossom.Petals.Petal1.verts } }
+				}
+			}
+
+			<Group> Petal9 {
+				<Transform> {
+					<Matrix4> { 
+						1.0 0.0 0.0 0.0 
+						0.0 1.0 0.0 0.0 
+						0.0 0.0 1.0 0.0 
+						0.018594317382464517 -1.1840001415081014E-4 -8.852459035855881E-4 1.0 
+					}
+				}
+				<VertexPool> Sunflower.Blossom.Petals.Petal9.verts {
+					<Vertex> 0 { 0.06053288103170519 1.2211866019984947 0.14473344519821
+						<Normal> { 0.0 0.0 -3.2808398950131235 }
+						<UV> { 0.565913 0.604262 }
+					}
+					<Vertex> 1 { 0.11787173311425982 1.2349669181696594 0.14473344519821
+						<Normal> { 0.0 0.0 -3.2808398950131235 }
+						<UV> { 0.580127 0.663389 }
+					}
+					<Vertex> 2 { 0.24206834727003995 1.2422698075233307 0.14473344519821
+						<Normal> { 0.0 0.0 -3.2808398950131235 }
+						<UV> { 0.58766 0.791458 }
+					}
+					<Vertex> 3 { 0.06111475971790924 1.2201640035783086 0.14473344519821
+						<Normal> { 0.0 0.0 -3.2808398950131235 }
+						<UV> { 0.564858 0.604862 }
+					}
+					<Vertex> 4 { 0.060899105174497294 1.1874583314169924 0.14473344519821
+						<Normal> { 0.0 0.0 -3.2808398950131235 }
+						<UV> { 0.531122 0.60464 }
+					}
+					<Vertex> 5 { 0.11745499459954999 1.1719076451790353 0.14473344519821
+						<Normal> { 0.0 0.0 -3.2808398950131235 }
+						<UV> { 0.515082 0.662959 }
+					}
+					<Vertex> 6 { 0.24206834727003995 1.1645795076429046 0.14473344519821
+						<Normal> { 0.0 0.0 -3.2808398950131235 }
+						<UV> { 0.507523 0.791458 }
+					}
+					<Vertex> 7 { 0.4072091993266918 1.1840030548796736 0.14473344519821
+						<Normal> { 0.0 0.0 -3.2808398950131235 }
+						<UV> { 0.527558 0.9617483 }
+					}
+					<Vertex> 8 { 0.43635170603674545 1.2034246582614432 0.14473344519821
+						<Normal> { 0.0 0.0 -3.2808398950131235 }
+						<UV> { 0.547591 0.99179953 }
+					}
+					<Vertex> 9 { 0.4072091993266918 1.2228472334576583 0.14473344519821
+						<Normal> { 0.0 0.0 -3.2808398950131235 }
+						<UV> { 0.567625 0.9617483 }
+					}
+					<Vertex> 10 { 0.06111475971790924 1.2201640035783086 0.14473344519821
+						<Normal> { 0.0 0.0 3.2808398950131235 }
+						<UV> { 0.564858 0.604862 }
+					}
+					<Vertex> 11 { 0.060899105174497294 1.1874583314169924 0.14473344519821
+						<Normal> { 0.0 0.0 3.2808398950131235 }
+						<UV> { 0.531122 0.60464 }
+					}
+					<Vertex> 12 { 0.11745499459954999 1.1719076451790353 0.14473344519821
+						<Normal> { 0.0 0.0 3.2808398950131235 }
+						<UV> { 0.515082 0.662959 }
+					}
+					<Vertex> 13 { 0.24206834727003995 1.1645795076429046 0.14473344519821
+						<Normal> { 0.0 0.0 3.2808398950131235 }
+						<UV> { 0.507523 0.791458 }
+					}
+					<Vertex> 14 { 0.4072091993266918 1.1840030548796736 0.14473344519821
+						<Normal> { 0.0 0.0 3.2808398950131235 }
+						<UV> { 0.527558 0.9617483 }
+					}
+					<Vertex> 15 { 0.43635170603674545 1.2034246582614432 0.14473344519821
+						<Normal> { 0.0 0.0 3.2808398950131235 }
+						<UV> { 0.547591 0.99179953 }
+					}
+					<Vertex> 16 { 0.4072091993266918 1.2228472334576583 0.14473344519821
+						<Normal> { 0.0 0.0 3.2808398950131235 }
+						<UV> { 0.567625 0.9617483 }
+					}
+					<Vertex> 17 { 0.24206834727003995 1.2422698075233307 0.14473344519821
+						<Normal> { 0.0 0.0 3.2808398950131235 }
+						<UV> { 0.58766 0.791458 }
+					}
+					<Vertex> 18 { 0.11787173311425982 1.2349669181696594 0.14473344519821
+						<Normal> { 0.0 0.0 3.2808398950131235 }
+						<UV> { 0.580127 0.663389 }
+					}
+					<Vertex> 19 { 0.06053288103170519 1.2211866019984947 0.14473344519821
+						<Normal> { 0.0 0.0 3.2808398950131235 }
+						<UV> { 0.565913 0.604262 }
+					}
+				}
+				<Polygon>  {
+					<TRef> { TextureMap }
+					<RGBA> { 1.0 1.0 1.0 1.0 }
+					<BFace> { 0 }
+					<VertexRef> { 2 1 0 <Ref> { Sunflower.Blossom.Petals.Petal9.verts } }
+				}
+				<Polygon>  {
+					<TRef> { TextureMap }
+					<RGBA> { 1.0 1.0 1.0 1.0 }
+					<BFace> { 0 }
+					<VertexRef> { 2 0 3 <Ref> { Sunflower.Blossom.Petals.Petal9.verts } }
+				}
+				<Polygon>  {
+					<TRef> { TextureMap }
+					<RGBA> { 1.0 1.0 1.0 1.0 }
+					<BFace> { 0 }
+					<VertexRef> { 2 3 4 <Ref> { Sunflower.Blossom.Petals.Petal9.verts } }
+				}
+				<Polygon>  {
+					<TRef> { TextureMap }
+					<RGBA> { 1.0 1.0 1.0 1.0 }
+					<BFace> { 0 }
+					<VertexRef> { 2 4 5 <Ref> { Sunflower.Blossom.Petals.Petal9.verts } }
+				}
+				<Polygon>  {
+					<TRef> { TextureMap }
+					<RGBA> { 1.0 1.0 1.0 1.0 }
+					<BFace> { 0 }
+					<VertexRef> { 2 5 6 <Ref> { Sunflower.Blossom.Petals.Petal9.verts } }
+				}
+				<Polygon>  {
+					<TRef> { TextureMap }
+					<RGBA> { 1.0 1.0 1.0 1.0 }
+					<BFace> { 0 }
+					<VertexRef> { 2 6 7 <Ref> { Sunflower.Blossom.Petals.Petal9.verts } }
+				}
+				<Polygon>  {
+					<TRef> { TextureMap }
+					<RGBA> { 1.0 1.0 1.0 1.0 }
+					<BFace> { 0 }
+					<VertexRef> { 2 7 8 <Ref> { Sunflower.Blossom.Petals.Petal9.verts } }
+				}
+				<Polygon>  {
+					<TRef> { TextureMap }
+					<RGBA> { 1.0 1.0 1.0 1.0 }
+					<BFace> { 0 }
+					<VertexRef> { 2 8 9 <Ref> { Sunflower.Blossom.Petals.Petal9.verts } }
+				}
+				<Polygon>  {
+					<TRef> { TextureMap }
+					<RGBA> { 1.0 1.0 1.0 1.0 }
+					<BFace> { 0 }
+					<VertexRef> { 12 11 10 <Ref> { Sunflower.Blossom.Petals.Petal9.verts } }
+				}
+				<Polygon>  {
+					<TRef> { TextureMap }
+					<RGBA> { 1.0 1.0 1.0 1.0 }
+					<BFace> { 0 }
+					<VertexRef> { 13 12 10 <Ref> { Sunflower.Blossom.Petals.Petal9.verts } }
+				}
+				<Polygon>  {
+					<TRef> { TextureMap }
+					<RGBA> { 1.0 1.0 1.0 1.0 }
+					<BFace> { 0 }
+					<VertexRef> { 14 13 10 <Ref> { Sunflower.Blossom.Petals.Petal9.verts } }
+				}
+				<Polygon>  {
+					<TRef> { TextureMap }
+					<RGBA> { 1.0 1.0 1.0 1.0 }
+					<BFace> { 0 }
+					<VertexRef> { 15 14 10 <Ref> { Sunflower.Blossom.Petals.Petal9.verts } }
+				}
+				<Polygon>  {
+					<TRef> { TextureMap }
+					<RGBA> { 1.0 1.0 1.0 1.0 }
+					<BFace> { 0 }
+					<VertexRef> { 16 15 10 <Ref> { Sunflower.Blossom.Petals.Petal9.verts } }
+				}
+				<Polygon>  {
+					<TRef> { TextureMap }
+					<RGBA> { 1.0 1.0 1.0 1.0 }
+					<BFace> { 0 }
+					<VertexRef> { 17 16 10 <Ref> { Sunflower.Blossom.Petals.Petal9.verts } }
+				}
+				<Polygon>  {
+					<TRef> { TextureMap }
+					<RGBA> { 1.0 1.0 1.0 1.0 }
+					<BFace> { 0 }
+					<VertexRef> { 18 17 10 <Ref> { Sunflower.Blossom.Petals.Petal9.verts } }
+				}
+				<Polygon>  {
+					<TRef> { TextureMap }
+					<RGBA> { 1.0 1.0 1.0 1.0 }
+					<BFace> { 0 }
+					<VertexRef> { 19 18 10 <Ref> { Sunflower.Blossom.Petals.Petal9.verts } }
+				}
+			}
+
+			<Group> Petal6 {
+				<Transform> {
+					<Matrix4> { 
+						1.0 0.0 0.0 0.0 
+						0.0 1.0 0.0 0.0 
+						0.0 0.0 1.0 0.0 
+						-1.1843514256346829E-4 -0.018588802221673306 -8.852459035855881E-4 1.0 
+					}
+				}
+				<VertexPool> Sunflower.Blossom.Petals.Petal6.verts {
+					<Vertex> 0 { 0.01597107526333768 1.143104939768635 0.14473344519821
+						<Normal> { 0.0 0.0 3.2808398950131235 }
+						<UV> { 0.485343 0.558252 }
+					}
+					<Vertex> 1 { -0.016744300430169907 1.1433205303479093 0.14473344519821
+						<Normal> { 0.0 0.0 3.2808398950131235 }
+						<UV> { 0.485565 0.524516 }
+					}
+					<Vertex> 2 { 0.0307783817704869 1.086364800753879 0.14473344519821
+						<Normal> { 0.0 0.0 3.2808398950131235 }
+						<UV> { 0.426816 0.573521 }
+					}
+					<Vertex> 3 { -0.03229960044226846 1.0867814156620121 0.14473344519821
+						<Normal> { 0.0 0.0 3.2808398950131235 }
+						<UV> { 0.427246 0.508476 }
+					}
+					<Vertex> 4 { -0.03962991218286541 0.9622050238899825 0.14473344519821
+						<Normal> { 0.0 0.0 3.2808398950131235 }
+						<UV> { 0.298747 0.500917 }
+					}
+					<Vertex> 5 { -0.02020060212260382 0.7971131533761082 0.14473344519821
+						<Normal> { 0.0 0.0 3.2808398950131235 }
+						<UV> { 0.128457 0.520952 }
+					}
+					<Vertex> 6 { -7.732364940686757E-4 0.7679792904687315 0.14473344519821
+						<Normal> { 0.0 0.0 3.2808398950131235 }
+						<UV> { 0.0984055 0.540985 }
+					}
+					<Vertex> 7 { 0.018655101237241886 0.7971131533761082 0.14473344519821
+						<Normal> { 0.0 0.0 3.2808398950131235 }
+						<UV> { 0.128457 0.56102 }
+					}
+					<Vertex> 8 { 0.03808343783767439 0.9622050238899825 0.14473344519821
+						<Normal> { 0.0 0.0 3.2808398950131235 }
+						<UV> { 0.298747 0.581054 }
+					}
+					<Vertex> 9 { -0.016744300430169907 1.1433205303479093 0.14473344519821
+						<Normal> { 0.0 0.0 -3.2808398950131235 }
+						<UV> { 0.485565 0.524516 }
+					}
+					<Vertex> 10 { 0.01597107526333768 1.143104939768635 0.14473344519821
+						<Normal> { 0.0 0.0 -3.2808398950131235 }
+						<UV> { 0.485343 0.558252 }
+					}
+					<Vertex> 11 { -0.03229960044226846 1.0867814156620121 0.14473344519821
+						<Normal> { 0.0 0.0 -3.2808398950131235 }
+						<UV> { 0.427246 0.508476 }
+					}
+					<Vertex> 12 { 0.0307783817704869 1.086364800753879 0.14473344519821
+						<Normal> { 0.0 0.0 -3.2808398950131235 }
+						<UV> { 0.426816 0.573521 }
+					}
+					<Vertex> 13 { 0.03808343783767439 0.9622050238899825 0.14473344519821
+						<Normal> { 0.0 0.0 -3.2808398950131235 }
+						<UV> { 0.298747 0.581054 }
+					}
+					<Vertex> 14 { 0.018655101237241886 0.7971131533761082 0.14473344519821
+						<Normal> { 0.0 0.0 -3.2808398950131235 }
+						<UV> { 0.128457 0.56102 }
+					}
+					<Vertex> 15 { -7.732364940686757E-4 0.7679792904687315 0.14473344519821
+						<Normal> { 0.0 0.0 -3.2808398950131235 }
+						<UV> { 0.0984055 0.540985 }
+					}
+					<Vertex> 16 { -0.02020060212260382 0.7971131533761082 0.14473344519821
+						<Normal> { 0.0 0.0 -3.2808398950131235 }
+						<UV> { 0.128457 0.520952 }
+					}
+					<Vertex> 17 { -0.03962991218286541 0.9622050238899825 0.14473344519821
+						<Normal> { 0.0 0.0 -3.2808398950131235 }
+						<UV> { 0.298747 0.500917 }
+					}
+				}
+				<Polygon>  {
+					<TRef> { TextureMap }
+					<RGBA> { 1.0 1.0 1.0 1.0 }
+					<BFace> { 0 }
+					<VertexRef> { 2 1 0 <Ref> { Sunflower.Blossom.Petals.Petal6.verts } }
+				}
+				<Polygon>  {
+					<TRef> { TextureMap }
+					<RGBA> { 1.0 1.0 1.0 1.0 }
+					<BFace> { 0 }
+					<VertexRef> { 2 3 1 <Ref> { Sunflower.Blossom.Petals.Petal6.verts } }
+				}
+				<Polygon>  {
+					<TRef> { TextureMap }
+					<RGBA> { 1.0 1.0 1.0 1.0 }
+					<BFace> { 0 }
+					<VertexRef> { 2 4 3 <Ref> { Sunflower.Blossom.Petals.Petal6.verts } }
+				}
+				<Polygon>  {
+					<TRef> { TextureMap }
+					<RGBA> { 1.0 1.0 1.0 1.0 }
+					<BFace> { 0 }
+					<VertexRef> { 2 5 4 <Ref> { Sunflower.Blossom.Petals.Petal6.verts } }
+				}
+				<Polygon>  {
+					<TRef> { TextureMap }
+					<RGBA> { 1.0 1.0 1.0 1.0 }
+					<BFace> { 0 }
+					<VertexRef> { 2 6 5 <Ref> { Sunflower.Blossom.Petals.Petal6.verts } }
+				}
+				<Polygon>  {
+					<TRef> { TextureMap }
+					<RGBA> { 1.0 1.0 1.0 1.0 }
+					<BFace> { 0 }
+					<VertexRef> { 2 7 6 <Ref> { Sunflower.Blossom.Petals.Petal6.verts } }
+				}
+				<Polygon>  {
+					<TRef> { TextureMap }
+					<RGBA> { 1.0 1.0 1.0 1.0 }
+					<BFace> { 0 }
+					<VertexRef> { 2 8 7 <Ref> { Sunflower.Blossom.Petals.Petal6.verts } }
+				}
+				<Polygon>  {
+					<TRef> { TextureMap }
+					<RGBA> { 1.0 1.0 1.0 1.0 }
+					<BFace> { 0 }
+					<VertexRef> { 11 10 9 <Ref> { Sunflower.Blossom.Petals.Petal6.verts } }
+				}
+				<Polygon>  {
+					<TRef> { TextureMap }
+					<RGBA> { 1.0 1.0 1.0 1.0 }
+					<BFace> { 0 }
+					<VertexRef> { 11 12 10 <Ref> { Sunflower.Blossom.Petals.Petal6.verts } }
+				}
+				<Polygon>  {
+					<TRef> { TextureMap }
+					<RGBA> { 1.0 1.0 1.0 1.0 }
+					<BFace> { 0 }
+					<VertexRef> { 11 13 12 <Ref> { Sunflower.Blossom.Petals.Petal6.verts } }
+				}
+				<Polygon>  {
+					<TRef> { TextureMap }
+					<RGBA> { 1.0 1.0 1.0 1.0 }
+					<BFace> { 0 }
+					<VertexRef> { 11 14 13 <Ref> { Sunflower.Blossom.Petals.Petal6.verts } }
+				}
+				<Polygon>  {
+					<TRef> { TextureMap }
+					<RGBA> { 1.0 1.0 1.0 1.0 }
+					<BFace> { 0 }
+					<VertexRef> { 11 15 14 <Ref> { Sunflower.Blossom.Petals.Petal6.verts } }
+				}
+				<Polygon>  {
+					<TRef> { TextureMap }
+					<RGBA> { 1.0 1.0 1.0 1.0 }
+					<BFace> { 0 }
+					<VertexRef> { 11 16 15 <Ref> { Sunflower.Blossom.Petals.Petal6.verts } }
+				}
+				<Polygon>  {
+					<TRef> { TextureMap }
+					<RGBA> { 1.0 1.0 1.0 1.0 }
+					<BFace> { 0 }
+					<VertexRef> { 11 17 16 <Ref> { Sunflower.Blossom.Petals.Petal6.verts } }
+				}
+			}
+
+			<Group> Petal2 {
+				<Transform> {
+					<Matrix4> { 
+						1.0 0.0 0.0 0.0 
+						0.0 1.0 0.0 0.0 
+						0.0 0.0 1.0 0.0 
+						-0.015959135460427352 0.009590401146213623 -8.852459035855881E-4 1.0 
+					}
+				}
+				<VertexPool> Sunflower.Blossom.Petals.Petal2.verts {
+					<Vertex> 0 { -0.11752588868107991 1.2365265519944197 0.14473344519821
+						<Normal> { 0.0 0.0 -3.2808398950131235 }
+						<UV> { 0.581729 0.42064 }
+					}
+					<Vertex> 1 { -0.22873659576146957 1.2922819672085553 0.14473344519821
+						<Normal> { 0.0 0.0 -3.2808398950131235 }
+						<UV> { 0.63924 0.305962 }
+					}
+					<Vertex> 2 { -0.06029000440241637 1.222136366183964 0.14473344519821
+						<Normal> { 0.0 0.0 -3.2808398950131235 }
+						<UV> { 0.566885 0.479661 }
+					}
+					<Vertex> 3 { -0.3620383053915077 1.391647858863544 0.14473344519821
+						<Normal> { 0.0 0.0 -3.2808398950131235 }
+						<UV> { 0.741734 0.168503 }
+					}
+					<Vertex> 4 { -0.37756250716181744 1.423035701797698 0.14473344519821
+						<Normal> { 0.0 0.0 -3.2808398950131235 }
+						<UV> { 0.77411 0.152495 }
+					}
+					<Vertex> 5 { -0.3426099579346459 1.4252887267420613 0.14473344519821
+						<Normal> { 0.0 0.0 -3.2808398950131235 }
+						<UV> { 0.776434 0.188537 }
+					}
+					<Vertex> 6 { -0.18987992979822413 1.35956370296559 0.14473344519821
+						<Normal> { 0.0 0.0 -3.2808398950131235 }
+						<UV> { 0.70864 0.34603 }
+					}
+					<Vertex> 7 { -0.0856264966905467 1.2909291834121248 0.14473344519821
+						<Normal> { 0.0 0.0 -3.2808398950131235 }
+						<UV> { 0.637844 0.453534 }
+					}
+					<Vertex> 8 { -0.04442482390000565 1.2491920131706837 0.14473344519821
+						<Normal> { 0.0 0.0 -3.2808398950131235 }
+						<UV> { 0.594793 0.49602 }
+					}
+					<Vertex> 9 { -0.11752588868107991 1.2365265519944197 0.14473344519821
+						<Normal> { 0.0 0.0 3.2808398950131235 }
+						<UV> { 0.581729 0.42064 }
+					}
+					<Vertex> 10 { -0.06029000440241637 1.222136366183964 0.14473344519821
+						<Normal> { 0.0 0.0 3.2808398950131235 }
+						<UV> { 0.566885 0.479661 }
+					}
+					<Vertex> 11 { -0.22873659576146957 1.2922819672085553 0.14473344519821
+						<Normal> { 0.0 0.0 3.2808398950131235 }
+						<UV> { 0.63924 0.305962 }
+					}
+					<Vertex> 12 { -0.04442482390000565 1.2491920131706837 0.14473344519821
+						<Normal> { 0.0 0.0 3.2808398950131235 }
+						<UV> { 0.594793 0.49602 }
+					}
+					<Vertex> 13 { -0.0856264966905467 1.2909291834121248 0.14473344519821
+						<Normal> { 0.0 0.0 3.2808398950131235 }
+						<UV> { 0.637844 0.453534 }
+					}
+					<Vertex> 14 { -0.18987992979822413 1.35956370296559 0.14473344519821
+						<Normal> { 0.0 0.0 3.2808398950131235 }
+						<UV> { 0.70864 0.34603 }
+					}
+					<Vertex> 15 { -0.3426099579346459 1.4252887267420613 0.14473344519821
+						<Normal> { 0.0 0.0 3.2808398950131235 }
+						<UV> { 0.776434 0.188537 }
+					}
+					<Vertex> 16 { -0.37756250716181744 1.423035701797698 0.14473344519821
+						<Normal> { 0.0 0.0 3.2808398950131235 }
+						<UV> { 0.77411 0.152495 }
+					}
+					<Vertex> 17 { -0.3620383053915077 1.391647858863544 0.14473344519821
+						<Normal> { 0.0 0.0 3.2808398950131235 }
+						<UV> { 0.741734 0.168503 }
+					}
+				}
+				<Polygon>  {
+					<TRef> { TextureMap }
+					<RGBA> { 1.0 1.0 1.0 1.0 }
+					<BFace> { 0 }
+					<VertexRef> { 2 1 0 <Ref> { Sunflower.Blossom.Petals.Petal2.verts } }
+				}
+				<Polygon>  {
+					<TRef> { TextureMap }
+					<RGBA> { 1.0 1.0 1.0 1.0 }
+					<BFace> { 0 }
+					<VertexRef> { 2 3 1 <Ref> { Sunflower.Blossom.Petals.Petal2.verts } }
+				}
+				<Polygon>  {
+					<TRef> { TextureMap }
+					<RGBA> { 1.0 1.0 1.0 1.0 }
+					<BFace> { 0 }
+					<VertexRef> { 2 4 3 <Ref> { Sunflower.Blossom.Petals.Petal2.verts } }
+				}
+				<Polygon>  {
+					<TRef> { TextureMap }
+					<RGBA> { 1.0 1.0 1.0 1.0 }
+					<BFace> { 0 }
+					<VertexRef> { 2 5 4 <Ref> { Sunflower.Blossom.Petals.Petal2.verts } }
+				}
+				<Polygon>  {
+					<TRef> { TextureMap }
+					<RGBA> { 1.0 1.0 1.0 1.0 }
+					<BFace> { 0 }
+					<VertexRef> { 2 6 5 <Ref> { Sunflower.Blossom.Petals.Petal2.verts } }
+				}
+				<Polygon>  {
+					<TRef> { TextureMap }
+					<RGBA> { 1.0 1.0 1.0 1.0 }
+					<BFace> { 0 }
+					<VertexRef> { 2 7 6 <Ref> { Sunflower.Blossom.Petals.Petal2.verts } }
+				}
+				<Polygon>  {
+					<TRef> { TextureMap }
+					<RGBA> { 1.0 1.0 1.0 1.0 }
+					<BFace> { 0 }
+					<VertexRef> { 2 8 7 <Ref> { Sunflower.Blossom.Petals.Petal2.verts } }
+				}
+				<Polygon>  {
+					<TRef> { TextureMap }
+					<RGBA> { 1.0 1.0 1.0 1.0 }
+					<BFace> { 0 }
+					<VertexRef> { 11 10 9 <Ref> { Sunflower.Blossom.Petals.Petal2.verts } }
+				}
+				<Polygon>  {
+					<TRef> { TextureMap }
+					<RGBA> { 1.0 1.0 1.0 1.0 }
+					<BFace> { 0 }
+					<VertexRef> { 11 12 10 <Ref> { Sunflower.Blossom.Petals.Petal2.verts } }
+				}
+				<Polygon>  {
+					<TRef> { TextureMap }
+					<RGBA> { 1.0 1.0 1.0 1.0 }
+					<BFace> { 0 }
+					<VertexRef> { 11 13 12 <Ref> { Sunflower.Blossom.Petals.Petal2.verts } }
+				}
+				<Polygon>  {
+					<TRef> { TextureMap }
+					<RGBA> { 1.0 1.0 1.0 1.0 }
+					<BFace> { 0 }
+					<VertexRef> { 11 14 13 <Ref> { Sunflower.Blossom.Petals.Petal2.verts } }
+				}
+				<Polygon>  {
+					<TRef> { TextureMap }
+					<RGBA> { 1.0 1.0 1.0 1.0 }
+					<BFace> { 0 }
+					<VertexRef> { 11 15 14 <Ref> { Sunflower.Blossom.Petals.Petal2.verts } }
+				}
+				<Polygon>  {
+					<TRef> { TextureMap }
+					<RGBA> { 1.0 1.0 1.0 1.0 }
+					<BFace> { 0 }
+					<VertexRef> { 11 16 15 <Ref> { Sunflower.Blossom.Petals.Petal2.verts } }
+				}
+				<Polygon>  {
+					<TRef> { TextureMap }
+					<RGBA> { 1.0 1.0 1.0 1.0 }
+					<BFace> { 0 }
+					<VertexRef> { 11 17 16 <Ref> { Sunflower.Blossom.Petals.Petal2.verts } }
+				}
+			}
+
+			<Group> Petal3 {
+				<Transform> {
+					<Matrix4> { 
+						1.0 0.0 0.0 0.0 
+						0.0 1.0 0.0 0.0 
+						0.0 0.0 1.0 0.0 
+						-0.018594317382464517 2.960000353769421E-4 -8.852459035855881E-4 1.0 
+					}
+				}
+				<VertexPool> Sunflower.Blossom.Petals.Petal3.verts {
+					<Vertex> 0 { -0.0611069657346315 1.1893928187882026 0.14473344519821
+						<Normal> { 0.0 0.0 3.2808398950131235 }
+						<UV> { 0.533139 0.478745 }
+					}
+					<Vertex> 1 { -0.06089908252866431 1.2209486766370705 0.14473344519821
+						<Normal> { 0.0 0.0 3.2808398950131235 }
+						<UV> { 0.565689 0.478959 }
+					}
+					<Vertex> 2 { -0.11787170778259146 1.1734400880755351 0.14473344519821
+						<Normal> { 0.0 0.0 3.2808398950131235 }
+						<UV> { 0.516684 0.42021 }
+					}
+					<Vertex> 3 { -0.24206831831956177 1.1661362291685038 0.14473344519821
+						<Normal> { 0.0 0.0 3.2808398950131235 }
+						<UV> { 0.509151 0.292141 }
+					}
+					<Vertex> 4 { -0.40720919932669186 1.1855588032341764 0.14473344519821
+						<Normal> { 0.0 0.0 3.2808398950131235 }
+						<UV> { 0.529185 0.121851 }
+					}
+					<Vertex> 5 { -0.43635170603674545 1.204981377610748 0.14473344519821
+						<Normal> { 0.0 0.0 3.2808398950131235 }
+						<UV> { 0.549219 0.0918 }
+					}
+					<Vertex> 6 { -0.40720919932669186 1.2244039513655212 0.14473344519821
+						<Normal> { 0.0 0.0 3.2808398950131235 }
+						<UV> { 0.569253 0.121851 }
+					}
+					<Vertex> 7 { -0.24206831831956177 1.2438265254311935 0.14473344519821
+						<Normal> { 0.0 0.0 3.2808398950131235 }
+						<UV> { 0.589287 0.292141 }
+					}
+					<Vertex> 8 { -0.11745497288669142 1.2364983878950628 0.14473344519821
+						<Normal> { 0.0 0.0 3.2808398950131235 }
+						<UV> { 0.581728 0.42064 }
+					}
+					<Vertex> 9 { -0.060219090756696195 1.2221082045718006 0.14473344519821
+						<Normal> { 0.0 0.0 3.2808398950131235 }
+						<UV> { 0.566885 0.479661 }
+					}
+					<Vertex> 10 { -0.24206831831956177 1.2438265254311935 0.14473344519821
+						<Normal> { 0.0 0.0 -3.2808398950131235 }
+						<UV> { 0.589287 0.292141 }
+					}
+					<Vertex> 11 { -0.11745497288669142 1.2364983878950628 0.14473344519821
+						<Normal> { 0.0 0.0 -3.2808398950131235 }
+						<UV> { 0.581728 0.42064 }
+					}
+					<Vertex> 12 { -0.060219090756696195 1.2221082045718006 0.14473344519821
+						<Normal> { 0.0 0.0 -3.2808398950131235 }
+						<UV> { 0.566885 0.479661 }
+					}
+					<Vertex> 13 { -0.06089908252866431 1.2209486766370705 0.14473344519821
+						<Normal> { 0.0 0.0 -3.2808398950131235 }
+						<UV> { 0.565689 0.478959 }
+					}
+					<Vertex> 14 { -0.0611069657346315 1.1893928187882026 0.14473344519821
+						<Normal> { 0.0 0.0 -3.2808398950131235 }
+						<UV> { 0.533139 0.478745 }
+					}
+					<Vertex> 15 { -0.11787170778259146 1.1734400880755351 0.14473344519821
+						<Normal> { 0.0 0.0 -3.2808398950131235 }
+						<UV> { 0.516684 0.42021 }
+					}
+					<Vertex> 16 { -0.24206831831956177 1.1661362291685038 0.14473344519821
+						<Normal> { 0.0 0.0 -3.2808398950131235 }
+						<UV> { 0.509151 0.292141 }
+					}
+					<Vertex> 17 { -0.40720919932669186 1.1855588032341764 0.14473344519821
+						<Normal> { 0.0 0.0 -3.2808398950131235 }
+						<UV> { 0.529185 0.121851 }
+					}
+					<Vertex> 18 { -0.43635170603674545 1.204981377610748 0.14473344519821
+						<Normal> { 0.0 0.0 -3.2808398950131235 }
+						<UV> { 0.549219 0.0918 }
+					}
+					<Vertex> 19 { -0.40720919932669186 1.2244039513655212 0.14473344519821
+						<Normal> { 0.0 0.0 -3.2808398950131235 }
+						<UV> { 0.569253 0.121851 }
+					}
+				}
+				<Polygon>  {
+					<TRef> { TextureMap }
+					<RGBA> { 1.0 1.0 1.0 1.0 }
+					<BFace> { 0 }
+					<VertexRef> { 2 1 0 <Ref> { Sunflower.Blossom.Petals.Petal3.verts } }
+				}
+				<Polygon>  {
+					<TRef> { TextureMap }
+					<RGBA> { 1.0 1.0 1.0 1.0 }
+					<BFace> { 0 }
+					<VertexRef> { 1 2 3 <Ref> { Sunflower.Blossom.Petals.Petal3.verts } }
+				}
+				<Polygon>  {
+					<TRef> { TextureMap }
+					<RGBA> { 1.0 1.0 1.0 1.0 }
+					<BFace> { 0 }
+					<VertexRef> { 1 3 4 <Ref> { Sunflower.Blossom.Petals.Petal3.verts } }
+				}
+				<Polygon>  {
+					<TRef> { TextureMap }
+					<RGBA> { 1.0 1.0 1.0 1.0 }
+					<BFace> { 0 }
+					<VertexRef> { 1 4 5 <Ref> { Sunflower.Blossom.Petals.Petal3.verts } }
+				}
+				<Polygon>  {
+					<TRef> { TextureMap }
+					<RGBA> { 1.0 1.0 1.0 1.0 }
+					<BFace> { 0 }
+					<VertexRef> { 1 5 6 <Ref> { Sunflower.Blossom.Petals.Petal3.verts } }
+				}
+				<Polygon>  {
+					<TRef> { TextureMap }
+					<RGBA> { 1.0 1.0 1.0 1.0 }
+					<BFace> { 0 }
+					<VertexRef> { 1 6 7 <Ref> { Sunflower.Blossom.Petals.Petal3.verts } }
+				}
+				<Polygon>  {
+					<TRef> { TextureMap }
+					<RGBA> { 1.0 1.0 1.0 1.0 }
+					<BFace> { 0 }
+					<VertexRef> { 1 7 8 <Ref> { Sunflower.Blossom.Petals.Petal3.verts } }
+				}
+				<Polygon>  {
+					<TRef> { TextureMap }
+					<RGBA> { 1.0 1.0 1.0 1.0 }
+					<BFace> { 0 }
+					<VertexRef> { 1 8 9 <Ref> { Sunflower.Blossom.Petals.Petal3.verts } }
+				}
+				<Polygon>  {
+					<TRef> { TextureMap }
+					<RGBA> { 1.0 1.0 1.0 1.0 }
+					<BFace> { 0 }
+					<VertexRef> { 12 11 10 <Ref> { Sunflower.Blossom.Petals.Petal3.verts } }
+				}
+				<Polygon>  {
+					<TRef> { TextureMap }
+					<RGBA> { 1.0 1.0 1.0 1.0 }
+					<BFace> { 0 }
+					<VertexRef> { 13 12 10 <Ref> { Sunflower.Blossom.Petals.Petal3.verts } }
+				}
+				<Polygon>  {
+					<TRef> { TextureMap }
+					<RGBA> { 1.0 1.0 1.0 1.0 }
+					<BFace> { 0 }
+					<VertexRef> { 14 13 10 <Ref> { Sunflower.Blossom.Petals.Petal3.verts } }
+				}
+				<Polygon>  {
+					<TRef> { TextureMap }
+					<RGBA> { 1.0 1.0 1.0 1.0 }
+					<BFace> { 0 }
+					<VertexRef> { 15 14 10 <Ref> { Sunflower.Blossom.Petals.Petal3.verts } }
+				}
+				<Polygon>  {
+					<TRef> { TextureMap }
+					<RGBA> { 1.0 1.0 1.0 1.0 }
+					<BFace> { 0 }
+					<VertexRef> { 16 15 10 <Ref> { Sunflower.Blossom.Petals.Petal3.verts } }
+				}
+				<Polygon>  {
+					<TRef> { TextureMap }
+					<RGBA> { 1.0 1.0 1.0 1.0 }
+					<BFace> { 0 }
+					<VertexRef> { 17 16 10 <Ref> { Sunflower.Blossom.Petals.Petal3.verts } }
+				}
+				<Polygon>  {
+					<TRef> { TextureMap }
+					<RGBA> { 1.0 1.0 1.0 1.0 }
+					<BFace> { 0 }
+					<VertexRef> { 18 17 10 <Ref> { Sunflower.Blossom.Petals.Petal3.verts } }
+				}
+				<Polygon>  {
+					<TRef> { TextureMap }
+					<RGBA> { 1.0 1.0 1.0 1.0 }
+					<BFace> { 0 }
+					<VertexRef> { 19 18 10 <Ref> { Sunflower.Blossom.Petals.Petal3.verts } }
+				}
+			}
+
+			<Group> Petal10 {
+				<Transform> {
+					<Matrix4> { 
+						1.0 0.0 0.0 0.0 
+						0.0 1.0 0.0 0.0 
+						0.0 0.0 1.0 0.0 
+						0.01607757060299082 0.009353601117912058 -8.852459035855881E-4 1.0 
+					}
+				}
+				<VertexPool> Sunflower.Blossom.Petals.Petal10.verts {
+					<Vertex> 0 { 0.04495524074620217 1.2485918556078157 0.14473344519821
+						<Normal> { 0.0 0.0 3.2808398950131235 }
+						<UV> { 0.594185 0.588187 }
+					}
+					<Vertex> 1 { 0.06054453766671814 1.221182717786848 0.14473344519821
+						<Normal> { 0.0 0.0 3.2808398950131235 }
+						<UV> { 0.565913 0.604263 }
+					}
+					<Vertex> 2 { 0.08670479409883596 1.2897813105043825 0.14473344519821
+						<Normal> { 0.0 0.0 3.2808398950131235 }
+						<UV> { 0.636671 0.631239 }
+					}
+					<Vertex> 3 { 0.1178824144800388 1.234963034735261 0.14473344519821
+						<Normal> { 0.0 0.0 3.2808398950131235 }
+						<UV> { 0.580127 0.663388 }
+					}
+					<Vertex> 4 { 0.22946615570950343 1.290904903463275 0.14473344519821
+						<Normal> { 0.0 0.0 3.2808398950131235 }
+						<UV> { 0.63783 0.778451 }
+					}
+					<Vertex> 5 { 0.36276785086430247 1.3902708023537365 0.14473344519821
+						<Normal> { 0.0 0.0 3.2808398950131235 }
+						<UV> { 0.740325 0.9159097 }
+					}
+					<Vertex> 6 { 0.3782920815850904 1.4216586452878905 0.14473344519821
+						<Normal> { 0.0 0.0 3.2808398950131235 }
+						<UV> { 0.772701 0.931918 }
+					}
+					<Vertex> 7 { 0.3433395323579188 1.4239116702322536 0.14473344519821
+						<Normal> { 0.0 0.0 3.2808398950131235 }
+						<UV> { 0.775025 0.895876 }
+					}
+					<Vertex> 8 { 0.19060948974625794 1.3581866464557824 0.14473344519821
+						<Normal> { 0.0 0.0 3.2808398950131235 }
+						<UV> { 0.70723 0.738383 }
+					}
+					<Vertex> 9 { 0.06054453766671814 1.221182717786848 0.14473344519821
+						<Normal> { 0.0 0.0 -3.2808398950131235 }
+						<UV> { 0.565913 0.604263 }
+					}
+					<Vertex> 10 { 0.04495524074620217 1.2485918556078157 0.14473344519821
+						<Normal> { 0.0 0.0 -3.2808398950131235 }
+						<UV> { 0.594185 0.588187 }
+					}
+					<Vertex> 11 { 0.1178824144800388 1.234963034735261 0.14473344519821
+						<Normal> { 0.0 0.0 -3.2808398950131235 }
+						<UV> { 0.580127 0.663388 }
+					}
+					<Vertex> 12 { 0.08670479409883596 1.2897813105043825 0.14473344519821
+						<Normal> { 0.0 0.0 -3.2808398950131235 }
+						<UV> { 0.636671 0.631239 }
+					}
+					<Vertex> 13 { 0.19060948974625794 1.3581866464557824 0.14473344519821
+						<Normal> { 0.0 0.0 -3.2808398950131235 }
+						<UV> { 0.70723 0.738383 }
+					}
+					<Vertex> 14 { 0.3433395323579188 1.4239116702322536 0.14473344519821
+						<Normal> { 0.0 0.0 -3.2808398950131235 }
+						<UV> { 0.775025 0.895876 }
+					}
+					<Vertex> 15 { 0.3782920815850904 1.4216586452878905 0.14473344519821
+						<Normal> { 0.0 0.0 -3.2808398950131235 }
+						<UV> { 0.772701 0.931918 }
+					}
+					<Vertex> 16 { 0.36276785086430247 1.3902708023537365 0.14473344519821
+						<Normal> { 0.0 0.0 -3.2808398950131235 }
+						<UV> { 0.740325 0.9159097 }
+					}
+					<Vertex> 17 { 0.22946615570950343 1.290904903463275 0.14473344519821
+						<Normal> { 0.0 0.0 -3.2808398950131235 }
+						<UV> { 0.63783 0.778451 }
+					}
+				}
+				<Polygon>  {
+					<TRef> { TextureMap }
+					<RGBA> { 1.0 1.0 1.0 1.0 }
+					<BFace> { 0 }
+					<VertexRef> { 2 1 0 <Ref> { Sunflower.Blossom.Petals.Petal10.verts } }
+				}
+				<Polygon>  {
+					<TRef> { TextureMap }
+					<RGBA> { 1.0 1.0 1.0 1.0 }
+					<BFace> { 0 }
+					<VertexRef> { 2 3 1 <Ref> { Sunflower.Blossom.Petals.Petal10.verts } }
+				}
+				<Polygon>  {
+					<TRef> { TextureMap }
+					<RGBA> { 1.0 1.0 1.0 1.0 }
+					<BFace> { 0 }
+					<VertexRef> { 2 4 3 <Ref> { Sunflower.Blossom.Petals.Petal10.verts } }
+				}
+				<Polygon>  {
+					<TRef> { TextureMap }
+					<RGBA> { 1.0 1.0 1.0 1.0 }
+					<BFace> { 0 }
+					<VertexRef> { 2 5 4 <Ref> { Sunflower.Blossom.Petals.Petal10.verts } }
+				}
+				<Polygon>  {
+					<TRef> { TextureMap }
+					<RGBA> { 1.0 1.0 1.0 1.0 }
+					<BFace> { 0 }
+					<VertexRef> { 2 6 5 <Ref> { Sunflower.Blossom.Petals.Petal10.verts } }
+				}
+				<Polygon>  {
+					<TRef> { TextureMap }
+					<RGBA> { 1.0 1.0 1.0 1.0 }
+					<BFace> { 0 }
+					<VertexRef> { 2 7 6 <Ref> { Sunflower.Blossom.Petals.Petal10.verts } }
+				}
+				<Polygon>  {
+					<TRef> { TextureMap }
+					<RGBA> { 1.0 1.0 1.0 1.0 }
+					<BFace> { 0 }
+					<VertexRef> { 2 8 7 <Ref> { Sunflower.Blossom.Petals.Petal10.verts } }
+				}
+				<Polygon>  {
+					<TRef> { TextureMap }
+					<RGBA> { 1.0 1.0 1.0 1.0 }
+					<BFace> { 0 }
+					<VertexRef> { 11 10 9 <Ref> { Sunflower.Blossom.Petals.Petal10.verts } }
+				}
+				<Polygon>  {
+					<TRef> { TextureMap }
+					<RGBA> { 1.0 1.0 1.0 1.0 }
+					<BFace> { 0 }
+					<VertexRef> { 11 12 10 <Ref> { Sunflower.Blossom.Petals.Petal10.verts } }
+				}
+				<Polygon>  {
+					<TRef> { TextureMap }
+					<RGBA> { 1.0 1.0 1.0 1.0 }
+					<BFace> { 0 }
+					<VertexRef> { 11 13 12 <Ref> { Sunflower.Blossom.Petals.Petal10.verts } }
+				}
+				<Polygon>  {
+					<TRef> { TextureMap }
+					<RGBA> { 1.0 1.0 1.0 1.0 }
+					<BFace> { 0 }
+					<VertexRef> { 11 14 13 <Ref> { Sunflower.Blossom.Petals.Petal10.verts } }
+				}
+				<Polygon>  {
+					<TRef> { TextureMap }
+					<RGBA> { 1.0 1.0 1.0 1.0 }
+					<BFace> { 0 }
+					<VertexRef> { 11 15 14 <Ref> { Sunflower.Blossom.Petals.Petal10.verts } }
+				}
+				<Polygon>  {
+					<TRef> { TextureMap }
+					<RGBA> { 1.0 1.0 1.0 1.0 }
+					<BFace> { 0 }
+					<VertexRef> { 11 16 15 <Ref> { Sunflower.Blossom.Petals.Petal10.verts } }
+				}
+				<Polygon>  {
+					<TRef> { TextureMap }
+					<RGBA> { 1.0 1.0 1.0 1.0 }
+					<BFace> { 0 }
+					<VertexRef> { 11 17 16 <Ref> { Sunflower.Blossom.Petals.Petal10.verts } }
+				}
+			}
+
+			<Group> Petal11 {
+				<Transform> {
+					<Matrix4> { 
+						1.0 0.0 0.0 0.0 
+						0.0 1.0 0.0 0.0 
+						0.0 0.0 1.0 0.0 
+						0.009415593833795729 0.016043201917431416 -8.852459035855881E-4 1.0 
+					}
+				}
+				<VertexPool> Sunflower.Blossom.Petals.Petal11.verts {
+					<Vertex> 0 { 0.03233556408206091 1.321644040332731 0.14473344519821
+						<Normal> { 0.0 0.0 -3.2808398950131235 }
+						<UV> { 0.669565 0.575123 }
+					}
+					<Vertex> 1 { 0.08810751801176557 1.4328217690369878 0.14473344519821
+						<Normal> { 0.0 0.0 -3.2808398950131235 }
+						<UV> { 0.784243 0.632634 }
+					}
+					<Vertex> 2 { 0.016781237869054853 1.2651049277666016 0.14473344519821
+						<Normal> { 0.0 0.0 -3.2808398950131235 }
+						<UV> { 0.611246 0.559083 }
+					}
+					<Vertex> 3 { 0.18750289441420823 1.5660839407615879 0.14473344519821
+						<Normal> { 0.0 0.0 -3.2808398950131235 }
+						<UV> { 0.921702 0.735128 }
+					}
+					<Vertex> 4 { 0.21890004989032222 1.5816035379816384 0.14473344519821
+						<Normal> { 0.0 0.0 -3.2808398950131235 }
+						<UV> { 0.93771 0.767504 }
+					}
+					<Vertex> 5 { 0.22115374329060233 1.5466613558427063 0.14473344519821
+						<Normal> { 0.0 0.0 -3.2808398950131235 }
+						<UV> { 0.901668 0.769828 }
+					}
+					<Vertex> 6 { 0.15540921938336358 1.393976628141116 0.14473344519821
+						<Normal> { 0.0 0.0 -3.2808398950131235 }
+						<UV> { 0.744175 0.702034 }
+					}
+					<Vertex> 7 { 0.08675433647314991 1.2897541170853104 0.14473344519821
+						<Normal> { 0.0 0.0 -3.2808398950131235 }
+						<UV> { 0.636671 0.631238 }
+					}
+					<Vertex> 8 { 0.045004782215813686 1.2485646639976118 0.14473344519821
+						<Normal> { 0.0 0.0 -3.2808398950131235 }
+						<UV> { 0.594185 0.588187 }
+					}
+					<Vertex> 9 { 0.08675433647314991 1.2897541170853104 0.14473344519821
+						<Normal> { 0.0 0.0 3.2808398950131235 }
+						<UV> { 0.636671 0.631238 }
+					}
+					<Vertex> 10 { 0.15540921938336358 1.393976628141116 0.14473344519821
+						<Normal> { 0.0 0.0 3.2808398950131235 }
+						<UV> { 0.744175 0.702034 }
+					}
+					<Vertex> 11 { 0.045004782215813686 1.2485646639976118 0.14473344519821
+						<Normal> { 0.0 0.0 3.2808398950131235 }
+						<UV> { 0.594185 0.588187 }
+					}
+					<Vertex> 12 { 0.22115374329060233 1.5466613558427063 0.14473344519821
+						<Normal> { 0.0 0.0 3.2808398950131235 }
+						<UV> { 0.901668 0.769828 }
+					}
+					<Vertex> 13 { 0.21890004989032222 1.5816035379816384 0.14473344519821
+						<Normal> { 0.0 0.0 3.2808398950131235 }
+						<UV> { 0.93771 0.767504 }
+					}
+					<Vertex> 14 { 0.18750289441420823 1.5660839407615879 0.14473344519821
+						<Normal> { 0.0 0.0 3.2808398950131235 }
+						<UV> { 0.921702 0.735128 }
+					}
+					<Vertex> 15 { 0.08810751801176557 1.4328217690369878 0.14473344519821
+						<Normal> { 0.0 0.0 3.2808398950131235 }
+						<UV> { 0.784243 0.632634 }
+					}
+					<Vertex> 16 { 0.03233556408206091 1.321644040332731 0.14473344519821
+						<Normal> { 0.0 0.0 3.2808398950131235 }
+						<UV> { 0.669565 0.575123 }
+					}
+					<Vertex> 17 { 0.016781237869054853 1.2651049277666016 0.14473344519821
+						<Normal> { 0.0 0.0 3.2808398950131235 }
+						<UV> { 0.611246 0.559083 }
+					}
+				}
+				<Polygon>  {
+					<TRef> { TextureMap }
+					<RGBA> { 1.0 1.0 1.0 1.0 }
+					<BFace> { 0 }
+					<VertexRef> { 2 1 0 <Ref> { Sunflower.Blossom.Petals.Petal11.verts } }
+				}
+				<Polygon>  {
+					<TRef> { TextureMap }
+					<RGBA> { 1.0 1.0 1.0 1.0 }
+					<BFace> { 0 }
+					<VertexRef> { 2 3 1 <Ref> { Sunflower.Blossom.Petals.Petal11.verts } }
+				}
+				<Polygon>  {
+					<TRef> { TextureMap }
+					<RGBA> { 1.0 1.0 1.0 1.0 }
+					<BFace> { 0 }
+					<VertexRef> { 2 4 3 <Ref> { Sunflower.Blossom.Petals.Petal11.verts } }
+				}
+				<Polygon>  {
+					<TRef> { TextureMap }
+					<RGBA> { 1.0 1.0 1.0 1.0 }
+					<BFace> { 0 }
+					<VertexRef> { 2 5 4 <Ref> { Sunflower.Blossom.Petals.Petal11.verts } }
+				}
+				<Polygon>  {
+					<TRef> { TextureMap }
+					<RGBA> { 1.0 1.0 1.0 1.0 }
+					<BFace> { 0 }
+					<VertexRef> { 2 6 5 <Ref> { Sunflower.Blossom.Petals.Petal11.verts } }
+				}
+				<Polygon>  {
+					<TRef> { TextureMap }
+					<RGBA> { 1.0 1.0 1.0 1.0 }
+					<BFace> { 0 }
+					<VertexRef> { 2 7 6 <Ref> { Sunflower.Blossom.Petals.Petal11.verts } }
+				}
+				<Polygon>  {
+					<TRef> { TextureMap }
+					<RGBA> { 1.0 1.0 1.0 1.0 }
+					<BFace> { 0 }
+					<VertexRef> { 2 8 7 <Ref> { Sunflower.Blossom.Petals.Petal11.verts } }
+				}
+				<Polygon>  {
+					<TRef> { TextureMap }
+					<RGBA> { 1.0 1.0 1.0 1.0 }
+					<BFace> { 0 }
+					<VertexRef> { 11 10 9 <Ref> { Sunflower.Blossom.Petals.Petal11.verts } }
+				}
+				<Polygon>  {
+					<TRef> { TextureMap }
+					<RGBA> { 1.0 1.0 1.0 1.0 }
+					<BFace> { 0 }
+					<VertexRef> { 11 12 10 <Ref> { Sunflower.Blossom.Petals.Petal11.verts } }
+				}
+				<Polygon>  {
+					<TRef> { TextureMap }
+					<RGBA> { 1.0 1.0 1.0 1.0 }
+					<BFace> { 0 }
+					<VertexRef> { 11 13 12 <Ref> { Sunflower.Blossom.Petals.Petal11.verts } }
+				}
+				<Polygon>  {
+					<TRef> { TextureMap }
+					<RGBA> { 1.0 1.0 1.0 1.0 }
+					<BFace> { 0 }
+					<VertexRef> { 11 14 13 <Ref> { Sunflower.Blossom.Petals.Petal11.verts } }
+				}
+				<Polygon>  {
+					<TRef> { TextureMap }
+					<RGBA> { 1.0 1.0 1.0 1.0 }
+					<BFace> { 0 }
+					<VertexRef> { 11 15 14 <Ref> { Sunflower.Blossom.Petals.Petal11.verts } }
+				}
+				<Polygon>  {
+					<TRef> { TextureMap }
+					<RGBA> { 1.0 1.0 1.0 1.0 }
+					<BFace> { 0 }
+					<VertexRef> { 11 16 15 <Ref> { Sunflower.Blossom.Petals.Petal11.verts } }
+				}
+				<Polygon>  {
+					<TRef> { TextureMap }
+					<RGBA> { 1.0 1.0 1.0 1.0 }
+					<BFace> { 0 }
+					<VertexRef> { 11 17 16 <Ref> { Sunflower.Blossom.Petals.Petal11.verts } }
+				}
+			}
+
+			<Group> Petal12 {
+				<Transform> {
+					<Matrix4> { 
+						1.0 0.0 0.0 0.0 
+						0.0 1.0 0.0 0.0 
+						0.0 0.0 1.0 0.0 
+						1.1843514256346829E-4 0.018588802221673306 -8.852459035855881E-4 1.0 
+					}
+				}
+				<VertexPool> Sunflower.Blossom.Petals.Petal12.verts {
+					<Vertex> 0 { -0.01596716694878232 1.265294298206658 0.14473344519821
+						<Normal> { 0.0 0.0 3.2808398950131235 }
+						<UV> { 0.611468 0.525347 }
+					}
+					<Vertex> 1 { 0.016748208744725265 1.265078707627384 0.14473344519821
+						<Normal> { 0.0 0.0 3.2808398950131235 }
+						<UV> { 0.611246 0.559083 }
+					}
+					<Vertex> 2 { -0.030774473455931546 1.3220344372214141 0.14473344519821
+						<Normal> { 0.0 0.0 3.2808398950131235 }
+						<UV> { 0.669995 0.510078 }
+					}
+					<Vertex> 3 { 0.032303508756823814 1.321617822313281 0.14473344519821
+						<Normal> { 0.0 0.0 3.2808398950131235 }
+						<UV> { 0.669565 0.575123 }
+					}
+					<Vertex> 4 { 0.039633820497420764 1.4461942140853106 0.14473344519821
+						<Normal> { 0.0 0.0 3.2808398950131235 }
+						<UV> { 0.798064 0.582682 }
+					}
+					<Vertex> 5 { 0.020204510437159175 1.611286084599185 0.14473344519821
+						<Normal> { 0.0 0.0 3.2808398950131235 }
+						<UV> { 0.968354 0.562647 }
+					}
+					<Vertex> 6 { 7.771448086240316E-4 1.6404199475065617 0.14473344519821
+						<Normal> { 0.0 0.0 3.2808398950131235 }
+						<UV> { 0.998406 0.542614 }
+					}
+					<Vertex> 7 { -0.01865119292268653 1.611286084599185 0.14473344519821
+						<Normal> { 0.0 0.0 3.2808398950131235 }
+						<UV> { 0.968354 0.52258 }
+					}
+					<Vertex> 8 { -0.038079529523119035 1.4461942140853106 0.14473344519821
+						<Normal> { 0.0 0.0 3.2808398950131235 }
+						<UV> { 0.798064 0.502545 }
+					}
+					<Vertex> 9 { -0.030774473455931546 1.3220344372214141 0.14473344519821
+						<Normal> { 0.0 0.0 -3.2808398950131235 }
+						<UV> { 0.669995 0.510078 }
+					}
+					<Vertex> 10 { -0.038079529523119035 1.4461942140853106 0.14473344519821
+						<Normal> { 0.0 0.0 -3.2808398950131235 }
+						<UV> { 0.798064 0.502545 }
+					}
+					<Vertex> 11 { -0.01596716694878232 1.265294298206658 0.14473344519821
+						<Normal> { 0.0 0.0 -3.2808398950131235 }
+						<UV> { 0.611468 0.525347 }
+					}
+					<Vertex> 12 { -0.01865119292268653 1.611286084599185 0.14473344519821
+						<Normal> { 0.0 0.0 -3.2808398950131235 }
+						<UV> { 0.968354 0.52258 }
+					}
+					<Vertex> 13 { 7.771448086240316E-4 1.6404199475065617 0.14473344519821
+						<Normal> { 0.0 0.0 -3.2808398950131235 }
+						<UV> { 0.998406 0.542614 }
+					}
+					<Vertex> 14 { 0.020204510437159175 1.611286084599185 0.14473344519821
+						<Normal> { 0.0 0.0 -3.2808398950131235 }
+						<UV> { 0.968354 0.562647 }
+					}
+					<Vertex> 15 { 0.039633820497420764 1.4461942140853106 0.14473344519821
+						<Normal> { 0.0 0.0 -3.2808398950131235 }
+						<UV> { 0.798064 0.582682 }
+					}
+					<Vertex> 16 { 0.032303508756823814 1.321617822313281 0.14473344519821
+						<Normal> { 0.0 0.0 -3.2808398950131235 }
+						<UV> { 0.669565 0.575123 }
+					}
+					<Vertex> 17 { 0.016748208744725265 1.265078707627384 0.14473344519821
+						<Normal> { 0.0 0.0 -3.2808398950131235 }
+						<UV> { 0.611246 0.559083 }
+					}
+				}
+				<Polygon>  {
+					<TRef> { TextureMap }
+					<RGBA> { 1.0 1.0 1.0 1.0 }
+					<BFace> { 0 }
+					<VertexRef> { 2 1 0 <Ref> { Sunflower.Blossom.Petals.Petal12.verts } }
+				}
+				<Polygon>  {
+					<TRef> { TextureMap }
+					<RGBA> { 1.0 1.0 1.0 1.0 }
+					<BFace> { 0 }
+					<VertexRef> { 2 3 1 <Ref> { Sunflower.Blossom.Petals.Petal12.verts } }
+				}
+				<Polygon>  {
+					<TRef> { TextureMap }
+					<RGBA> { 1.0 1.0 1.0 1.0 }
+					<BFace> { 0 }
+					<VertexRef> { 2 4 3 <Ref> { Sunflower.Blossom.Petals.Petal12.verts } }
+				}
+				<Polygon>  {
+					<TRef> { TextureMap }
+					<RGBA> { 1.0 1.0 1.0 1.0 }
+					<BFace> { 0 }
+					<VertexRef> { 2 5 4 <Ref> { Sunflower.Blossom.Petals.Petal12.verts } }
+				}
+				<Polygon>  {
+					<TRef> { TextureMap }
+					<RGBA> { 1.0 1.0 1.0 1.0 }
+					<BFace> { 0 }
+					<VertexRef> { 2 6 5 <Ref> { Sunflower.Blossom.Petals.Petal12.verts } }
+				}
+				<Polygon>  {
+					<TRef> { TextureMap }
+					<RGBA> { 1.0 1.0 1.0 1.0 }
+					<BFace> { 0 }
+					<VertexRef> { 2 7 6 <Ref> { Sunflower.Blossom.Petals.Petal12.verts } }
+				}
+				<Polygon>  {
+					<TRef> { TextureMap }
+					<RGBA> { 1.0 1.0 1.0 1.0 }
+					<BFace> { 0 }
+					<VertexRef> { 2 8 7 <Ref> { Sunflower.Blossom.Petals.Petal12.verts } }
+				}
+				<Polygon>  {
+					<TRef> { TextureMap }
+					<RGBA> { 1.0 1.0 1.0 1.0 }
+					<BFace> { 0 }
+					<VertexRef> { 11 10 9 <Ref> { Sunflower.Blossom.Petals.Petal12.verts } }
+				}
+				<Polygon>  {
+					<TRef> { TextureMap }
+					<RGBA> { 1.0 1.0 1.0 1.0 }
+					<BFace> { 0 }
+					<VertexRef> { 11 12 10 <Ref> { Sunflower.Blossom.Petals.Petal12.verts } }
+				}
+				<Polygon>  {
+					<TRef> { TextureMap }
+					<RGBA> { 1.0 1.0 1.0 1.0 }
+					<BFace> { 0 }
+					<VertexRef> { 11 13 12 <Ref> { Sunflower.Blossom.Petals.Petal12.verts } }
+				}
+				<Polygon>  {
+					<TRef> { TextureMap }
+					<RGBA> { 1.0 1.0 1.0 1.0 }
+					<BFace> { 0 }
+					<VertexRef> { 11 14 13 <Ref> { Sunflower.Blossom.Petals.Petal12.verts } }
+				}
+				<Polygon>  {
+					<TRef> { TextureMap }
+					<RGBA> { 1.0 1.0 1.0 1.0 }
+					<BFace> { 0 }
+					<VertexRef> { 11 15 14 <Ref> { Sunflower.Blossom.Petals.Petal12.verts } }
+				}
+				<Polygon>  {
+					<TRef> { TextureMap }
+					<RGBA> { 1.0 1.0 1.0 1.0 }
+					<BFace> { 0 }
+					<VertexRef> { 11 16 15 <Ref> { Sunflower.Blossom.Petals.Petal12.verts } }
+				}
+				<Polygon>  {
+					<TRef> { TextureMap }
+					<RGBA> { 1.0 1.0 1.0 1.0 }
+					<BFace> { 0 }
+					<VertexRef> { 11 17 16 <Ref> { Sunflower.Blossom.Petals.Petal12.verts } }
+				}
+			}
+
+			<Group> Petal7 {
+				<Transform> {
+					<Matrix4> { 
+						1.0 0.0 0.0 0.0 
+						0.0 1.0 0.0 0.0 
+						0.0 0.0 1.0 0.0 
+						0.009208332334309658 -0.016161601931582226 -8.852459035855881E-4 1.0 
+					}
+				}
+				<VertexPool> Sunflower.Blossom.Petals.Petal7.verts {
+					<Vertex> 0 { 0.030799754025395136 1.086353150699108 0.14473344519821
+						<Normal> { 0.0 0.0 3.2808398950131235 }
+						<UV> { 0.426816 0.57352 }
+					}
+					<Vertex> 1 { 0.08675822011031771 0.9748034825137412 0.14473344519821
+						<Normal> { 0.0 0.0 3.2808398950131235 }
+						<UV> { 0.311754 0.631224 }
+					}
+					<Vertex> 2 { 0.01599244655699956 1.1430932864070271 0.14473344519821
+						<Normal> { 0.0 0.0 3.2808398950131235 }
+						<UV> { 0.485343 0.558251 }
+					}
+					<Vertex> 3 { 0.18615456635377967 0.8415403267648355 0.14473344519821
+						<Normal> { 0.0 0.0 3.2808398950131235 }
+						<UV> { 0.174295 0.733719 }
+					}
+					<Vertex> 4 { 0.21755075198887439 0.8260217135690903 0.14473344519821
+						<Normal> { 0.0 0.0 3.2808398950131235 }
+						<UV> { 0.158288 0.766095 }
+					}
+					<Vertex> 5 { 0.2198054152301738 0.8609629116837172 0.14473344519821
+						<Normal> { 0.0 0.0 3.2808398950131235 }
+						<UV> { 0.194329 0.76842 }
+					}
+					<Vertex> 6 { 0.15405992148191572 1.0136486234096131 0.14473344519821
+						<Normal> { 0.0 0.0 3.2808398950131235 }
+						<UV> { 0.351822 0.700624 }
+					}
+					<Vertex> 7 { 0.08563526363068419 1.117522496824575 0.14473344519821
+						<Normal> { 0.0 0.0 3.2808398950131235 }
+						<UV> { 0.458967 0.630066 }
+					}
+					<Vertex> 8 { 0.044433589935440686 1.159258694799354 0.14473344519821
+						<Normal> { 0.0 0.0 3.2808398950131235 }
+						<UV> { 0.502017 0.587579 }
+					}
+					<Vertex> 9 { 0.08563526363068419 1.117522496824575 0.14473344519821
+						<Normal> { 0.0 0.0 -3.2808398950131235 }
+						<UV> { 0.458967 0.630066 }
+					}
+					<Vertex> 10 { 0.15405992148191572 1.0136486234096131 0.14473344519821
+						<Normal> { 0.0 0.0 -3.2808398950131235 }
+						<UV> { 0.351822 0.700624 }
+					}
+					<Vertex> 11 { 0.044433589935440686 1.159258694799354 0.14473344519821
+						<Normal> { 0.0 0.0 -3.2808398950131235 }
+						<UV> { 0.502017 0.587579 }
+					}
+					<Vertex> 12 { 0.2198054152301738 0.8609629116837172 0.14473344519821
+						<Normal> { 0.0 0.0 -3.2808398950131235 }
+						<UV> { 0.194329 0.76842 }
+					}
+					<Vertex> 13 { 0.21755075198887439 0.8260217135690903 0.14473344519821
+						<Normal> { 0.0 0.0 -3.2808398950131235 }
+						<UV> { 0.158288 0.766095 }
+					}
+					<Vertex> 14 { 0.18615456635377967 0.8415403267648355 0.14473344519821
+						<Normal> { 0.0 0.0 -3.2808398950131235 }
+						<UV> { 0.174295 0.733719 }
+					}
+					<Vertex> 15 { 0.08675822011031771 0.9748034825137412 0.14473344519821
+						<Normal> { 0.0 0.0 -3.2808398950131235 }
+						<UV> { 0.311754 0.631224 }
+					}
+					<Vertex> 16 { 0.030799754025395136 1.086353150699108 0.14473344519821
+						<Normal> { 0.0 0.0 -3.2808398950131235 }
+						<UV> { 0.426816 0.57352 }
+					}
+					<Vertex> 17 { 0.01599244655699956 1.1430932864070271 0.14473344519821
+						<Normal> { 0.0 0.0 -3.2808398950131235 }
+						<UV> { 0.485343 0.558251 }
+					}
+				}
+				<Polygon>  {
+					<TRef> { TextureMap }
+					<RGBA> { 1.0 1.0 1.0 1.0 }
+					<BFace> { 0 }
+					<VertexRef> { 2 1 0 <Ref> { Sunflower.Blossom.Petals.Petal7.verts } }
+				}
+				<Polygon>  {
+					<TRef> { TextureMap }
+					<RGBA> { 1.0 1.0 1.0 1.0 }
+					<BFace> { 0 }
+					<VertexRef> { 2 3 1 <Ref> { Sunflower.Blossom.Petals.Petal7.verts } }
+				}
+				<Polygon>  {
+					<TRef> { TextureMap }
+					<RGBA> { 1.0 1.0 1.0 1.0 }
+					<BFace> { 0 }
+					<VertexRef> { 2 4 3 <Ref> { Sunflower.Blossom.Petals.Petal7.verts } }
+				}
+				<Polygon>  {
+					<TRef> { TextureMap }
+					<RGBA> { 1.0 1.0 1.0 1.0 }
+					<BFace> { 0 }
+					<VertexRef> { 2 5 4 <Ref> { Sunflower.Blossom.Petals.Petal7.verts } }
+				}
+				<Polygon>  {
+					<TRef> { TextureMap }
+					<RGBA> { 1.0 1.0 1.0 1.0 }
+					<BFace> { 0 }
+					<VertexRef> { 2 6 5 <Ref> { Sunflower.Blossom.Petals.Petal7.verts } }
+				}
+				<Polygon>  {
+					<TRef> { TextureMap }
+					<RGBA> { 1.0 1.0 1.0 1.0 }
+					<BFace> { 0 }
+					<VertexRef> { 2 7 6 <Ref> { Sunflower.Blossom.Petals.Petal7.verts } }
+				}
+				<Polygon>  {
+					<TRef> { TextureMap }
+					<RGBA> { 1.0 1.0 1.0 1.0 }
+					<BFace> { 0 }
+					<VertexRef> { 2 8 7 <Ref> { Sunflower.Blossom.Petals.Petal7.verts } }
+				}
+				<Polygon>  {
+					<TRef> { TextureMap }
+					<RGBA> { 1.0 1.0 1.0 1.0 }
+					<BFace> { 0 }
+					<VertexRef> { 11 10 9 <Ref> { Sunflower.Blossom.Petals.Petal7.verts } }
+				}
+				<Polygon>  {
+					<TRef> { TextureMap }
+					<RGBA> { 1.0 1.0 1.0 1.0 }
+					<BFace> { 0 }
+					<VertexRef> { 11 12 10 <Ref> { Sunflower.Blossom.Petals.Petal7.verts } }
+				}
+				<Polygon>  {
+					<TRef> { TextureMap }
+					<RGBA> { 1.0 1.0 1.0 1.0 }
+					<BFace> { 0 }
+					<VertexRef> { 11 13 12 <Ref> { Sunflower.Blossom.Petals.Petal7.verts } }
+				}
+				<Polygon>  {
+					<TRef> { TextureMap }
+					<RGBA> { 1.0 1.0 1.0 1.0 }
+					<BFace> { 0 }
+					<VertexRef> { 11 14 13 <Ref> { Sunflower.Blossom.Petals.Petal7.verts } }
+				}
+				<Polygon>  {
+					<TRef> { TextureMap }
+					<RGBA> { 1.0 1.0 1.0 1.0 }
+					<BFace> { 0 }
+					<VertexRef> { 11 15 14 <Ref> { Sunflower.Blossom.Petals.Petal7.verts } }
+				}
+				<Polygon>  {
+					<TRef> { TextureMap }
+					<RGBA> { 1.0 1.0 1.0 1.0 }
+					<BFace> { 0 }
+					<VertexRef> { 11 16 15 <Ref> { Sunflower.Blossom.Petals.Petal7.verts } }
+				}
+				<Polygon>  {
+					<TRef> { TextureMap }
+					<RGBA> { 1.0 1.0 1.0 1.0 }
+					<BFace> { 0 }
+					<VertexRef> { 11 17 16 <Ref> { Sunflower.Blossom.Petals.Petal7.verts } }
+				}
+			}
+
+			<Group> Petal4 {
+				<Transform> {
+					<Matrix4> { 
+						1.0 0.0 0.0 0.0 
+						0.0 1.0 0.0 0.0 
+						0.0 0.0 1.0 0.0 
+						-0.01616639695991342 -0.00920560110022356 -8.852459035855881E-4 1.0 
+					}
+				}
+				<VertexPool> Sunflower.Blossom.Petals.Petal4.verts {
+					<Vertex> 0 { -0.36276493640808316 1.0181022205194494 0.14473344519821
+						<Normal> { 0.0 0.0 -3.2808398950131235 }
+						<UV> { 0.356486 0.167689 }
+					}
+					<Vertex> 1 { -0.22946224246178656 1.1174690853455345 0.14473344519821
+						<Normal> { 0.0 0.0 -3.2808398950131235 }
+						<UV> { 0.458981 0.305148 }
+					}
+					<Vertex> 2 { -0.11787947831096081 1.1734109538898352 0.14473344519821
+						<Normal> { 0.0 0.0 -3.2808398950131235 }
+						<UV> { 0.516684 0.42021 }
+					}
+					<Vertex> 3 { -0.061114736828439896 1.1893636846590299 0.14473344519821
+						<Normal> { 0.0 0.0 -3.2808398950131235 }
+						<UV> { 0.53314 0.478745 }
+					}
+					<Vertex> 4 { -0.06112250822242855 1.1882138694421474 0.14473344519821
+						<Normal> { 0.0 0.0 -3.2808398950131235 }
+						<UV> { 0.531954 0.478737 }
+					}
+					<Vertex> 5 { -0.044952303672421735 1.1597811618387655 0.14473344519821
+						<Normal> { 0.0 0.0 -3.2808398950131235 }
+						<UV> { 0.502626 0.495412 }
+					}
+					<Vertex> 6 { -0.08670088446992888 1.1185917087510668 0.14473344519821
+						<Normal> { 0.0 0.0 -3.2808398950131235 }
+						<UV> { 0.460139 0.452361 }
+					}
+					<Vertex> 7 { -0.1906055764985411 1.0501873459707634 0.14473344519821
+						<Normal> { 0.0 0.0 -3.2808398950131235 }
+						<UV> { 0.389581 0.345217 }
+					}
+					<Vertex> 8 { -0.34333658895122127 0.9844613526409319 0.14473344519821
+						<Normal> { 0.0 0.0 -3.2808398950131235 }
+						<UV> { 0.321785 0.187723 }
+					}
+					<Vertex> 9 { -0.37828815386213444 0.986715347138655 0.14473344519821
+						<Normal> { 0.0 0.0 -3.2808398950131235 }
+						<UV> { 0.32411 0.151682 }
+					}
+					<Vertex> 10 { -0.06112250822242855 1.1882138694421474 0.14473344519821
+						<Normal> { 0.0 0.0 3.2808398950131235 }
+						<UV> { 0.531954 0.478737 }
+					}
+					<Vertex> 11 { -0.061114736828439896 1.1893636846590299 0.14473344519821
+						<Normal> { 0.0 0.0 3.2808398950131235 }
+						<UV> { 0.53314 0.478745 }
+					}
+					<Vertex> 12 { -0.11787947831096081 1.1734109538898352 0.14473344519821
+						<Normal> { 0.0 0.0 3.2808398950131235 }
+						<UV> { 0.516684 0.42021 }
+					}
+					<Vertex> 13 { -0.22946224246178656 1.1174690853455345 0.14473344519821
+						<Normal> { 0.0 0.0 3.2808398950131235 }
+						<UV> { 0.458981 0.305148 }
+					}
+					<Vertex> 14 { -0.36276493640808316 1.0181022205194494 0.14473344519821
+						<Normal> { 0.0 0.0 3.2808398950131235 }
+						<UV> { 0.356486 0.167689 }
+					}
+					<Vertex> 15 { -0.37828815386213444 0.986715347138655 0.14473344519821
+						<Normal> { 0.0 0.0 3.2808398950131235 }
+						<UV> { 0.32411 0.151682 }
+					}
+					<Vertex> 16 { -0.34333658895122127 0.9844613526409319 0.14473344519821
+						<Normal> { 0.0 0.0 3.2808398950131235 }
+						<UV> { 0.321785 0.187723 }
+					}
+					<Vertex> 17 { -0.1906055764985411 1.0501873459707634 0.14473344519821
+						<Normal> { 0.0 0.0 3.2808398950131235 }
+						<UV> { 0.389581 0.345217 }
+					}
+					<Vertex> 18 { -0.08670088446992888 1.1185917087510668 0.14473344519821
+						<Normal> { 0.0 0.0 3.2808398950131235 }
+						<UV> { 0.460139 0.452361 }
+					}
+					<Vertex> 19 { -0.044952303672421735 1.1597811618387655 0.14473344519821
+						<Normal> { 0.0 0.0 3.2808398950131235 }
+						<UV> { 0.502626 0.495412 }
+					}
+				}
+				<Polygon>  {
+					<TRef> { TextureMap }
+					<RGBA> { 1.0 1.0 1.0 1.0 }
+					<BFace> { 0 }
+					<VertexRef> { 2 1 0 <Ref> { Sunflower.Blossom.Petals.Petal4.verts } }
+				}
+				<Polygon>  {
+					<TRef> { TextureMap }
+					<RGBA> { 1.0 1.0 1.0 1.0 }
+					<BFace> { 0 }
+					<VertexRef> { 3 2 0 <Ref> { Sunflower.Blossom.Petals.Petal4.verts } }
+				}
+				<Polygon>  {
+					<TRef> { TextureMap }
+					<RGBA> { 1.0 1.0 1.0 1.0 }
+					<BFace> { 0 }
+					<VertexRef> { 4 3 0 <Ref> { Sunflower.Blossom.Petals.Petal4.verts } }
+				}
+				<Polygon>  {
+					<TRef> { TextureMap }
+					<RGBA> { 1.0 1.0 1.0 1.0 }
+					<BFace> { 0 }
+					<VertexRef> { 5 4 0 <Ref> { Sunflower.Blossom.Petals.Petal4.verts } }
+				}
+				<Polygon>  {
+					<TRef> { TextureMap }
+					<RGBA> { 1.0 1.0 1.0 1.0 }
+					<BFace> { 0 }
+					<VertexRef> { 6 5 0 <Ref> { Sunflower.Blossom.Petals.Petal4.verts } }
+				}
+				<Polygon>  {
+					<TRef> { TextureMap }
+					<RGBA> { 1.0 1.0 1.0 1.0 }
+					<BFace> { 0 }
+					<VertexRef> { 7 6 0 <Ref> { Sunflower.Blossom.Petals.Petal4.verts } }
+				}
+				<Polygon>  {
+					<TRef> { TextureMap }
+					<RGBA> { 1.0 1.0 1.0 1.0 }
+					<BFace> { 0 }
+					<VertexRef> { 8 7 0 <Ref> { Sunflower.Blossom.Petals.Petal4.verts } }
+				}
+				<Polygon>  {
+					<TRef> { TextureMap }
+					<RGBA> { 1.0 1.0 1.0 1.0 }
+					<BFace> { 0 }
+					<VertexRef> { 9 8 0 <Ref> { Sunflower.Blossom.Petals.Petal4.verts } }
+				}
+				<Polygon>  {
+					<TRef> { TextureMap }
+					<RGBA> { 1.0 1.0 1.0 1.0 }
+					<BFace> { 0 }
+					<VertexRef> { 12 11 10 <Ref> { Sunflower.Blossom.Petals.Petal4.verts } }
+				}
+				<Polygon>  {
+					<TRef> { TextureMap }
+					<RGBA> { 1.0 1.0 1.0 1.0 }
+					<BFace> { 0 }
+					<VertexRef> { 13 12 10 <Ref> { Sunflower.Blossom.Petals.Petal4.verts } }
+				}
+				<Polygon>  {
+					<TRef> { TextureMap }
+					<RGBA> { 1.0 1.0 1.0 1.0 }
+					<BFace> { 0 }
+					<VertexRef> { 14 13 10 <Ref> { Sunflower.Blossom.Petals.Petal4.verts } }
+				}
+				<Polygon>  {
+					<TRef> { TextureMap }
+					<RGBA> { 1.0 1.0 1.0 1.0 }
+					<BFace> { 0 }
+					<VertexRef> { 15 14 10 <Ref> { Sunflower.Blossom.Petals.Petal4.verts } }
+				}
+				<Polygon>  {
+					<TRef> { TextureMap }
+					<RGBA> { 1.0 1.0 1.0 1.0 }
+					<BFace> { 0 }
+					<VertexRef> { 16 15 10 <Ref> { Sunflower.Blossom.Petals.Petal4.verts } }
+				}
+				<Polygon>  {
+					<TRef> { TextureMap }
+					<RGBA> { 1.0 1.0 1.0 1.0 }
+					<BFace> { 0 }
+					<VertexRef> { 17 16 10 <Ref> { Sunflower.Blossom.Petals.Petal4.verts } }
+				}
+				<Polygon>  {
+					<TRef> { TextureMap }
+					<RGBA> { 1.0 1.0 1.0 1.0 }
+					<BFace> { 0 }
+					<VertexRef> { 18 17 10 <Ref> { Sunflower.Blossom.Petals.Petal4.verts } }
+				}
+				<Polygon>  {
+					<TRef> { TextureMap }
+					<RGBA> { 1.0 1.0 1.0 1.0 }
+					<BFace> { 0 }
+					<VertexRef> { 19 18 10 <Ref> { Sunflower.Blossom.Petals.Petal4.verts } }
+				}
+			}
+
+			<Group> Petal5 {
+				<Transform> {
+					<Matrix4> { 
+						1.0 0.0 0.0 0.0 
+						0.0 1.0 0.0 0.0 
+						0.0 0.0 1.0 0.0 
+						-0.009415593833795729 -0.016043201917431416 -8.852459035855881E-4 1.0 
+					}
+				}
+				<VertexPool> Sunflower.Blossom.Petals.Petal5.verts {
+					<Vertex> 0 { -0.08675042815859454 1.1186451208899828 0.14473344519821
+						<Normal> { 0.0 0.0 3.2808398950131235 }
+						<UV> { 0.46014 0.452361 }
+					}
+					<Vertex> 1 { -0.15540531106880823 1.0144226098341773 0.14473344519821
+						<Normal> { 0.0 0.0 3.2808398950131235 }
+						<UV> { 0.352636 0.381565 }
+					}
+					<Vertex> 2 { -0.04500087390125833 1.1598345739776814 0.14473344519821
+						<Normal> { 0.0 0.0 3.2808398950131235 }
+						<UV> { 0.502626 0.495412 }
+					}
+					<Vertex> 3 { -0.22114983497604698 0.861737882132587 0.14473344519821
+						<Normal> { 0.0 0.0 3.2808398950131235 }
+						<UV> { 0.195143 0.313771 }
+					}
+					<Vertex> 4 { -0.21889614157576687 0.8267956999936545 0.14473344519821
+						<Normal> { 0.0 0.0 3.2808398950131235 }
+						<UV> { 0.159101 0.316095 }
+					}
+					<Vertex> 5 { -0.18749898609965285 0.8423152972137052 0.14473344519821
+						<Normal> { 0.0 0.0 3.2808398950131235 }
+						<UV> { 0.175109 0.348471 }
+					}
+					<Vertex> 6 { -0.08810360969721022 0.9755774689383053 0.14473344519821
+						<Normal> { 0.0 0.0 3.2808398950131235 }
+						<UV> { 0.312567 0.450966 }
+					}
+					<Vertex> 7 { -0.03233165576750555 1.0867551976425622 0.14473344519821
+						<Normal> { 0.0 0.0 3.2808398950131235 }
+						<UV> { 0.427246 0.508477 }
+					}
+					<Vertex> 8 { -0.016777329554499495 1.1432943102086917 0.14473344519821
+						<Normal> { 0.0 0.0 3.2808398950131235 }
+						<UV> { 0.485565 0.524516 }
+					}
+					<Vertex> 9 { -0.04500087390125833 1.1598345739776814 0.14473344519821
+						<Normal> { 0.0 0.0 -3.2808398950131235 }
+						<UV> { 0.502626 0.495412 }
+					}
+					<Vertex> 10 { -0.016777329554499495 1.1432943102086917 0.14473344519821
+						<Normal> { 0.0 0.0 -3.2808398950131235 }
+						<UV> { 0.485565 0.524516 }
+					}
+					<Vertex> 11 { -0.08675042815859454 1.1186451208899828 0.14473344519821
+						<Normal> { 0.0 0.0 -3.2808398950131235 }
+						<UV> { 0.46014 0.452361 }
+					}
+					<Vertex> 12 { -0.03233165576750555 1.0867551976425622 0.14473344519821
+						<Normal> { 0.0 0.0 -3.2808398950131235 }
+						<UV> { 0.427246 0.508477 }
+					}
+					<Vertex> 13 { -0.08810360969721022 0.9755774689383053 0.14473344519821
+						<Normal> { 0.0 0.0 -3.2808398950131235 }
+						<UV> { 0.312567 0.450966 }
+					}
+					<Vertex> 14 { -0.18749898609965285 0.8423152972137052 0.14473344519821
+						<Normal> { 0.0 0.0 -3.2808398950131235 }
+						<UV> { 0.175109 0.348471 }
+					}
+					<Vertex> 15 { -0.21889614157576687 0.8267956999936545 0.14473344519821
+						<Normal> { 0.0 0.0 -3.2808398950131235 }
+						<UV> { 0.159101 0.316095 }
+					}
+					<Vertex> 16 { -0.22114983497604698 0.861737882132587 0.14473344519821
+						<Normal> { 0.0 0.0 -3.2808398950131235 }
+						<UV> { 0.195143 0.313771 }
+					}
+					<Vertex> 17 { -0.15540531106880823 1.0144226098341773 0.14473344519821
+						<Normal> { 0.0 0.0 -3.2808398950131235 }
+						<UV> { 0.352636 0.381565 }
+					}
+				}
+				<Polygon>  {
+					<TRef> { TextureMap }
+					<RGBA> { 1.0 1.0 1.0 1.0 }
+					<BFace> { 0 }
+					<VertexRef> { 2 1 0 <Ref> { Sunflower.Blossom.Petals.Petal5.verts } }
+				}
+				<Polygon>  {
+					<TRef> { TextureMap }
+					<RGBA> { 1.0 1.0 1.0 1.0 }
+					<BFace> { 0 }
+					<VertexRef> { 2 3 1 <Ref> { Sunflower.Blossom.Petals.Petal5.verts } }
+				}
+				<Polygon>  {
+					<TRef> { TextureMap }
+					<RGBA> { 1.0 1.0 1.0 1.0 }
+					<BFace> { 0 }
+					<VertexRef> { 2 4 3 <Ref> { Sunflower.Blossom.Petals.Petal5.verts } }
+				}
+				<Polygon>  {
+					<TRef> { TextureMap }
+					<RGBA> { 1.0 1.0 1.0 1.0 }
+					<BFace> { 0 }
+					<VertexRef> { 2 5 4 <Ref> { Sunflower.Blossom.Petals.Petal5.verts } }
+				}
+				<Polygon>  {
+					<TRef> { TextureMap }
+					<RGBA> { 1.0 1.0 1.0 1.0 }
+					<BFace> { 0 }
+					<VertexRef> { 2 6 5 <Ref> { Sunflower.Blossom.Petals.Petal5.verts } }
+				}
+				<Polygon>  {
+					<TRef> { TextureMap }
+					<RGBA> { 1.0 1.0 1.0 1.0 }
+					<BFace> { 0 }
+					<VertexRef> { 2 7 6 <Ref> { Sunflower.Blossom.Petals.Petal5.verts } }
+				}
+				<Polygon>  {
+					<TRef> { TextureMap }
+					<RGBA> { 1.0 1.0 1.0 1.0 }
+					<BFace> { 0 }
+					<VertexRef> { 2 8 7 <Ref> { Sunflower.Blossom.Petals.Petal5.verts } }
+				}
+				<Polygon>  {
+					<TRef> { TextureMap }
+					<RGBA> { 1.0 1.0 1.0 1.0 }
+					<BFace> { 0 }
+					<VertexRef> { 11 10 9 <Ref> { Sunflower.Blossom.Petals.Petal5.verts } }
+				}
+				<Polygon>  {
+					<TRef> { TextureMap }
+					<RGBA> { 1.0 1.0 1.0 1.0 }
+					<BFace> { 0 }
+					<VertexRef> { 11 12 10 <Ref> { Sunflower.Blossom.Petals.Petal5.verts } }
+				}
+				<Polygon>  {
+					<TRef> { TextureMap }
+					<RGBA> { 1.0 1.0 1.0 1.0 }
+					<BFace> { 0 }
+					<VertexRef> { 11 13 12 <Ref> { Sunflower.Blossom.Petals.Petal5.verts } }
+				}
+				<Polygon>  {
+					<TRef> { TextureMap }
+					<RGBA> { 1.0 1.0 1.0 1.0 }
+					<BFace> { 0 }
+					<VertexRef> { 11 14 13 <Ref> { Sunflower.Blossom.Petals.Petal5.verts } }
+				}
+				<Polygon>  {
+					<TRef> { TextureMap }
+					<RGBA> { 1.0 1.0 1.0 1.0 }
+					<BFace> { 0 }
+					<VertexRef> { 11 15 14 <Ref> { Sunflower.Blossom.Petals.Petal5.verts } }
+				}
+				<Polygon>  {
+					<TRef> { TextureMap }
+					<RGBA> { 1.0 1.0 1.0 1.0 }
+					<BFace> { 0 }
+					<VertexRef> { 11 16 15 <Ref> { Sunflower.Blossom.Petals.Petal5.verts } }
+				}
+				<Polygon>  {
+					<TRef> { TextureMap }
+					<RGBA> { 1.0 1.0 1.0 1.0 }
+					<BFace> { 0 }
+					<VertexRef> { 11 17 16 <Ref> { Sunflower.Blossom.Petals.Petal5.verts } }
+				}
+			}
+
+			<Group> Petal8 {
+				<Transform> {
+					<Matrix4> { 
+						1.0 0.0 0.0 0.0 
+						0.0 1.0 0.0 0.0 
+						0.0 0.0 1.0 0.0 
+						0.01604796181734995 -0.009412801124987435 -8.852459035855881E-4 1.0 
+					}
+				}
+				<VertexPool> Sunflower.Blossom.Petals.Petal8.verts {
+					<Vertex> 0 { 0.08558183564477982 1.1174729678307975 0.14473344519821
+						<Normal> { 0.0 0.0 3.2808398950131235 }
+						<UV> { 0.458967 0.630065 }
+					}
+					<Vertex> 1 { 0.18983526875245724 1.048838448277332 0.14473344519821
+						<Normal> { 0.0 0.0 3.2808398950131235 }
+						<UV> { 0.388171 0.737569 }
+					}
+					<Vertex> 2 { 0.04438016194953632 1.1592101389766725 0.14473344519821
+						<Normal> { 0.0 0.0 3.2808398950131235 }
+						<UV> { 0.502018 0.587579 }
+					}
+					<Vertex> 3 { 0.34256529688887905 0.9831134245008608 0.14473344519821
+						<Normal> { 0.0 0.0 3.2808398950131235 }
+						<UV> { 0.320377 0.895062 }
+					}
+					<Vertex> 4 { 0.37751784611605055 0.9853664494452239 0.14473344519821
+						<Normal> { 0.0 0.0 3.2808398950131235 }
+						<UV> { 0.322701 0.9311042 }
+					}
+					<Vertex> 5 { 0.36199364434574083 1.0167542923793782 0.14473344519821
+						<Normal> { 0.0 0.0 3.2808398950131235 }
+						<UV> { 0.355077 0.9150959 }
+					}
+					<Vertex> 6 { 0.22869193471570268 1.1161201876521034 0.14473344519821
+						<Normal> { 0.0 0.0 3.2808398950131235 }
+						<UV> { 0.457571 0.777638 }
+					}
+					<Vertex> 7 { 0.11748122039769347 1.1718755993615566 0.14473344519821
+						<Normal> { 0.0 0.0 3.2808398950131235 }
+						<UV> { 0.515082 0.662959 }
+					}
+					<Vertex> 8 { 0.0609253330930371 1.1874253120892542 0.14473344519821
+						<Normal> { 0.0 0.0 3.2808398950131235 }
+						<UV> { 0.531122 0.60464 }
+					}
+					<Vertex> 9 { 0.11748122039769347 1.1718755993615566 0.14473344519821
+						<Normal> { 0.0 0.0 -3.2808398950131235 }
+						<UV> { 0.515082 0.662959 }
+					}
+					<Vertex> 10 { 0.22869193471570268 1.1161201876521034 0.14473344519821
+						<Normal> { 0.0 0.0 -3.2808398950131235 }
+						<UV> { 0.457571 0.777638 }
+					}
+					<Vertex> 11 { 0.0609253330930371 1.1874253120892542 0.14473344519821
+						<Normal> { 0.0 0.0 -3.2808398950131235 }
+						<UV> { 0.531122 0.60464 }
+					}
+					<Vertex> 12 { 0.36199364434574083 1.0167542923793782 0.14473344519821
+						<Normal> { 0.0 0.0 -3.2808398950131235 }
+						<UV> { 0.355077 0.9150959 }
+					}
+					<Vertex> 13 { 0.37751784611605055 0.9853664494452239 0.14473344519821
+						<Normal> { 0.0 0.0 -3.2808398950131235 }
+						<UV> { 0.322701 0.9311042 }
+					}
+					<Vertex> 14 { 0.34256529688887905 0.9831134245008608 0.14473344519821
+						<Normal> { 0.0 0.0 -3.2808398950131235 }
+						<UV> { 0.320377 0.895062 }
+					}
+					<Vertex> 15 { 0.18983526875245724 1.048838448277332 0.14473344519821
+						<Normal> { 0.0 0.0 -3.2808398950131235 }
+						<UV> { 0.388171 0.737569 }
+					}
+					<Vertex> 16 { 0.08558183564477982 1.1174729678307975 0.14473344519821
+						<Normal> { 0.0 0.0 -3.2808398950131235 }
+						<UV> { 0.458967 0.630065 }
+					}
+					<Vertex> 17 { 0.04438016194953632 1.1592101389766725 0.14473344519821
+						<Normal> { 0.0 0.0 -3.2808398950131235 }
+						<UV> { 0.502018 0.587579 }
+					}
+				}
+				<Polygon>  {
+					<TRef> { TextureMap }
+					<RGBA> { 1.0 1.0 1.0 1.0 }
+					<BFace> { 0 }
+					<VertexRef> { 2 1 0 <Ref> { Sunflower.Blossom.Petals.Petal8.verts } }
+				}
+				<Polygon>  {
+					<TRef> { TextureMap }
+					<RGBA> { 1.0 1.0 1.0 1.0 }
+					<BFace> { 0 }
+					<VertexRef> { 2 3 1 <Ref> { Sunflower.Blossom.Petals.Petal8.verts } }
+				}
+				<Polygon>  {
+					<TRef> { TextureMap }
+					<RGBA> { 1.0 1.0 1.0 1.0 }
+					<BFace> { 0 }
+					<VertexRef> { 2 4 3 <Ref> { Sunflower.Blossom.Petals.Petal8.verts } }
+				}
+				<Polygon>  {
+					<TRef> { TextureMap }
+					<RGBA> { 1.0 1.0 1.0 1.0 }
+					<BFace> { 0 }
+					<VertexRef> { 2 5 4 <Ref> { Sunflower.Blossom.Petals.Petal8.verts } }
+				}
+				<Polygon>  {
+					<TRef> { TextureMap }
+					<RGBA> { 1.0 1.0 1.0 1.0 }
+					<BFace> { 0 }
+					<VertexRef> { 2 6 5 <Ref> { Sunflower.Blossom.Petals.Petal8.verts } }
+				}
+				<Polygon>  {
+					<TRef> { TextureMap }
+					<RGBA> { 1.0 1.0 1.0 1.0 }
+					<BFace> { 0 }
+					<VertexRef> { 2 7 6 <Ref> { Sunflower.Blossom.Petals.Petal8.verts } }
+				}
+				<Polygon>  {
+					<TRef> { TextureMap }
+					<RGBA> { 1.0 1.0 1.0 1.0 }
+					<BFace> { 0 }
+					<VertexRef> { 2 8 7 <Ref> { Sunflower.Blossom.Petals.Petal8.verts } }
+				}
+				<Polygon>  {
+					<TRef> { TextureMap }
+					<RGBA> { 1.0 1.0 1.0 1.0 }
+					<BFace> { 0 }
+					<VertexRef> { 11 10 9 <Ref> { Sunflower.Blossom.Petals.Petal8.verts } }
+				}
+				<Polygon>  {
+					<TRef> { TextureMap }
+					<RGBA> { 1.0 1.0 1.0 1.0 }
+					<BFace> { 0 }
+					<VertexRef> { 11 12 10 <Ref> { Sunflower.Blossom.Petals.Petal8.verts } }
+				}
+				<Polygon>  {
+					<TRef> { TextureMap }
+					<RGBA> { 1.0 1.0 1.0 1.0 }
+					<BFace> { 0 }
+					<VertexRef> { 11 13 12 <Ref> { Sunflower.Blossom.Petals.Petal8.verts } }
+				}
+				<Polygon>  {
+					<TRef> { TextureMap }
+					<RGBA> { 1.0 1.0 1.0 1.0 }
+					<BFace> { 0 }
+					<VertexRef> { 11 14 13 <Ref> { Sunflower.Blossom.Petals.Petal8.verts } }
+				}
+				<Polygon>  {
+					<TRef> { TextureMap }
+					<RGBA> { 1.0 1.0 1.0 1.0 }
+					<BFace> { 0 }
+					<VertexRef> { 11 15 14 <Ref> { Sunflower.Blossom.Petals.Petal8.verts } }
+				}
+				<Polygon>  {
+					<TRef> { TextureMap }
+					<RGBA> { 1.0 1.0 1.0 1.0 }
+					<BFace> { 0 }
+					<VertexRef> { 11 16 15 <Ref> { Sunflower.Blossom.Petals.Petal8.verts } }
+				}
+				<Polygon>  {
+					<TRef> { TextureMap }
+					<RGBA> { 1.0 1.0 1.0 1.0 }
+					<BFace> { 0 }
+					<VertexRef> { 11 17 16 <Ref> { Sunflower.Blossom.Petals.Petal8.verts } }
+				}
+			}
+
+		}
+
+		<Group> Iris {
+			<Transform> {
+				<Matrix4> { 
+					1.0 0.0 0.0 0.0 
+					0.0 1.0 0.0 0.0 
+					0.0 0.0 1.0 0.0 
+					0.0 0.017760002122617802 0.030983606625495486 1.0 
+				}
+			}
+			<VertexPool> Sunflower.Blossom.Iris.verts {
+				<Vertex> 0 { -0.07771139224445234 1.2250167345723515 0.14763779527559054
+					<Normal> { 0.0 0.0 3.2808398950131235 }
+					<UV> { 0.569878 0.461663 }
+				}
+				<Vertex> 1 { -0.07771139224445234 1.1833825034029415 0.14763779527559054
+					<Normal> { 0.0 0.0 3.2808398950131235 }
+					<UV> { 0.526933 0.461663 }
+				}
+				<Vertex> 2 { -0.05688810218418834 1.2610728014744992 0.14763779527559054
+					<Normal> { 0.0 0.0 3.2808398950131235 }
+					<UV> { 0.607069 0.483136 }
+				}
+				<Vertex> 3 { -0.05688810218418834 1.1473264365007938 0.14763779527559054
+					<Normal> { 0.0 0.0 3.2808398950131235 }
+					<UV> { 0.489742 0.483136 }
+				}
+				<Vertex> 4 { -0.020821337712391218 1.1265093227249572 0.14763779527559054
+					<Normal> { 0.0 0.0 3.2808398950131235 }
+					<UV> { 0.468269 0.520327 }
+				}
+				<Vertex> 5 { 0.020825246026946572 1.1265093227249572 0.14763779527559054
+					<Normal> { 0.0 0.0 3.2808398950131235 }
+					<UV> { 0.468269 0.563272 }
+				}
+				<Vertex> 6 { 0.0568920104987437 1.1473264365007938 0.14763779527559054
+					<Normal> { 0.0 0.0 3.2808398950131235 }
+					<UV> { 0.489742 0.600464 }
+				}
+				<Vertex> 7 { 0.0777153005590077 1.1833825034029415 0.14763779527559054
+					<Normal> { 0.0 0.0 3.2808398950131235 }
+					<UV> { 0.526933 0.621936 }
+				}
+				<Vertex> 8 { 0.0777153005590077 1.2250167345723515 0.14763779527559054
+					<Normal> { 0.0 0.0 3.2808398950131235 }
+					<UV> { 0.569878 0.621936 }
+				}
+				<Vertex> 9 { 0.0568920104987437 1.2610728014744992 0.14763779527559054
+					<Normal> { 0.0 0.0 3.2808398950131235 }
+					<UV> { 0.607069 0.600464 }
+				}
+				<Vertex> 10 { 0.020825246026946572 1.281889915250336 0.14763779527559054
+					<Normal> { 0.0 0.0 3.2808398950131235 }
+					<UV> { 0.628542 0.563272 }
+				}
+				<Vertex> 11 { -0.020821337712391218 1.281889915250336 0.14763779527559054
+					<Normal> { 0.0 0.0 3.2808398950131235 }
+					<UV> { 0.628542 0.520327 }
+				}
+			}
+			<Polygon>  {
+				<TRef> { TextureMap }
+				<RGBA> { 1.0 1.0 1.0 1.0 }
+				<BFace> { 0 }
+				<VertexRef> { 2 1 0 <Ref> { Sunflower.Blossom.Iris.verts } }
+			}
+			<Polygon>  {
+				<TRef> { TextureMap }
+				<RGBA> { 1.0 1.0 1.0 1.0 }
+				<BFace> { 0 }
+				<VertexRef> { 2 3 1 <Ref> { Sunflower.Blossom.Iris.verts } }
+			}
+			<Polygon>  {
+				<TRef> { TextureMap }
+				<RGBA> { 1.0 1.0 1.0 1.0 }
+				<BFace> { 0 }
+				<VertexRef> { 2 4 3 <Ref> { Sunflower.Blossom.Iris.verts } }
+			}
+			<Polygon>  {
+				<TRef> { TextureMap }
+				<RGBA> { 1.0 1.0 1.0 1.0 }
+				<BFace> { 0 }
+				<VertexRef> { 2 5 4 <Ref> { Sunflower.Blossom.Iris.verts } }
+			}
+			<Polygon>  {
+				<TRef> { TextureMap }
+				<RGBA> { 1.0 1.0 1.0 1.0 }
+				<BFace> { 0 }
+				<VertexRef> { 2 6 5 <Ref> { Sunflower.Blossom.Iris.verts } }
+			}
+			<Polygon>  {
+				<TRef> { TextureMap }
+				<RGBA> { 1.0 1.0 1.0 1.0 }
+				<BFace> { 0 }
+				<VertexRef> { 2 7 6 <Ref> { Sunflower.Blossom.Iris.verts } }
+			}
+			<Polygon>  {
+				<TRef> { TextureMap }
+				<RGBA> { 1.0 1.0 1.0 1.0 }
+				<BFace> { 0 }
+				<VertexRef> { 2 8 7 <Ref> { Sunflower.Blossom.Iris.verts } }
+			}
+			<Polygon>  {
+				<TRef> { TextureMap }
+				<RGBA> { 1.0 1.0 1.0 1.0 }
+				<BFace> { 0 }
+				<VertexRef> { 2 9 8 <Ref> { Sunflower.Blossom.Iris.verts } }
+			}
+			<Polygon>  {
+				<TRef> { TextureMap }
+				<RGBA> { 1.0 1.0 1.0 1.0 }
+				<BFace> { 0 }
+				<VertexRef> { 2 10 9 <Ref> { Sunflower.Blossom.Iris.verts } }
+			}
+			<Polygon>  {
+				<TRef> { TextureMap }
+				<RGBA> { 1.0 1.0 1.0 1.0 }
+				<BFace> { 0 }
+				<VertexRef> { 2 11 10 <Ref> { Sunflower.Blossom.Iris.verts } }
+			}
+		}
+
+		<Group> Back {
+			<Transform> {
+				<Matrix4> { 
+					1.0 0.0 0.0 0.0 
+					0.0 1.0 0.0 0.0 
+					0.0 0.0 1.0 0.0 
+					0.0 0.021460002564829828 0.010327868875165166 1.0 
+				}
+			}
+			<VertexPool> Sunflower.Blossom.Back.verts {
+				<Vertex> 0 { -0.08412469035081752 1.1556431827381446 0.14279720950511962
+					<Normal> { 0.0 -2.147869605404811 1.5066645237717415 }
+					<UV> { 0.49832 0.45505 }
+				}
+				<Vertex> 1 { 0.08412859866537288 1.1556431827381446 0.14279720950511962
+					<Normal> { 0.0 -1.6109022529419326 1.9502082443612767 }
+					<UV> { 0.49832 0.628549 }
+				}
+				<Vertex> 2 { 1.9541572776779633E-6 1.3013124900395558 0.14279720950511962
+					<Normal> { 0.0 0.0 3.2808398950131235 }
+					<UV> { 0.648576 0.5418 }
+				}
+				<Vertex> 3 { -0.008410515601566027 1.1313649660604883 0.01694204410163677
+					<Normal> { -1.613218483962412 0.9313746895689977 -2.2399224086696394 }
+					<UV> { 0.890514 0.053734 }
+				}
+				<Vertex> 4 { 1.9541572776779633E-6 1.1459318975141766 0.01694204410163677
+					<Normal> { 0.6049499893438784 1.0477936291319179 -2.1098114139451756 }
+					<UV> { 0.891 0.048975 }
+				}
+				<Vertex> 5 { 0.008414423916121383 1.1313649660604883 0.01694204410163677
+					<Normal> { 1.209913080758623 0.698523610595643 -2.500159064615805 }
+					<UV> { 0.890514 0.044216 }
+				}
+				<Vertex> 6 { -0.08412469035081752 1.1556431827381446 0.14279720950511962
+					<Normal> { -2.41981305944638 1.3970701987036258 -1.719475105365743 }
+					<UV> { 0.177595 0.295538 }
+				}
+				<Vertex> 7 { 1.9541572776779633E-6 1.3013124900395558 0.14279720950511962
+					<Normal> { -2.419827725943618 1.3970619854651725 -1.7194635677212493 }
+					<UV> { 0.177595 0.206741 }
+				}
+				<Vertex> 8 { -0.008410515601566027 1.1313649660604883 0.01694204410163677
+					<Normal> { -1.613218483962412 0.9313746895689977 -2.2399224086696394 }
+					<UV> { 0.100637 0.310338 }
+				}
+				<Vertex> 9 { 1.9541572776779633E-6 1.1459318975141766 0.01694204410163677
+					<Normal> { 0.6049499893438784 1.0477936291319179 -2.1098114139451756 }
+					<UV> { 0.100637 0.301458 }
+				}
+				<Vertex> 10 { 1.9541572776779633E-6 1.3013124900395558 0.14279720950511962
+					<Normal> { 2.4198161882991243 1.3970735231096663 -1.719475105365743 }
+					<UV> { 0.177595 0.206741 }
+				}
+				<Vertex> 11 { 0.08412859866537288 1.1556431827381446 0.14279720950511962
+					<Normal> { 2.419821272684833 1.3970603232621521 -1.7194766697921153 }
+					<UV> { 0.177595 0.295538 }
+				}
+				<Vertex> 12 { 0.008414423916121383 1.1313649660604883 0.01694204410163677
+					<Normal> { 1.209913080758623 0.698523610595643 -2.500159064615805 }
+					<UV> { 0.100637 0.310338 }
+				}
+				<Vertex> 13 { 0.08412859866537288 1.1556431827381446 0.14279720950511962
+					<Normal> { 0.0 -1.6109022529419326 1.9502082443612767 }
+					<UV> { 0.177595 0.295538 }
+				}
+				<Vertex> 14 { -0.08412469035081752 1.1556431827381446 0.14279720950511962
+					<Normal> { 0.0 -2.147869605404811 1.5066645237717415 }
+					<UV> { 0.177595 0.295538 }
+				}
+				<Vertex> 15 { 0.008414423916121383 1.1313649660604883 0.01694204410163677
+					<Normal> { 0.0 -3.221804505883865 0.6195767892627265 }
+					<UV> { 0.100637 0.310338 }
+				}
+				<Vertex> 16 { -0.008410515601566027 1.1313649660604883 0.01694204410163677
+					<Normal> { 0.0 -3.221804505883865 0.6195767892627265 }
+					<UV> { 0.100637 0.310338 }
+				}
+			}
+			<Polygon>  {
+				<TRef> { TextureMap }
+				<RGBA> { 1.0 1.0 1.0 1.0 }
+				<BFace> { 0 }
+				<VertexRef> { 2 1 0 <Ref> { Sunflower.Blossom.Back.verts } }
+			}
+			<Polygon>  {
+				<TRef> { TextureMap }
+				<RGBA> { 1.0 1.0 1.0 1.0 }
+				<BFace> { 0 }
+				<VertexRef> { 5 4 3 <Ref> { Sunflower.Blossom.Back.verts } }
+			}
+			<Polygon>  {
+				<TRef> { TextureMap }
+				<RGBA> { 1.0 1.0 1.0 1.0 }
+				<BFace> { 0 }
+				<VertexRef> { 8 7 6 <Ref> { Sunflower.Blossom.Back.verts } }
+			}
+			<Polygon>  {
+				<TRef> { TextureMap }
+				<RGBA> { 1.0 1.0 1.0 1.0 }
+				<BFace> { 0 }
+				<VertexRef> { 8 9 7 <Ref> { Sunflower.Blossom.Back.verts } }
+			}
+			<Polygon>  {
+				<TRef> { TextureMap }
+				<RGBA> { 1.0 1.0 1.0 1.0 }
+				<BFace> { 0 }
+				<VertexRef> { 9 11 10 <Ref> { Sunflower.Blossom.Back.verts } }
+			}
+			<Polygon>  {
+				<TRef> { TextureMap }
+				<RGBA> { 1.0 1.0 1.0 1.0 }
+				<BFace> { 0 }
+				<VertexRef> { 9 12 11 <Ref> { Sunflower.Blossom.Back.verts } }
+			}
+			<Polygon>  {
+				<TRef> { TextureMap }
+				<RGBA> { 1.0 1.0 1.0 1.0 }
+				<BFace> { 0 }
+				<VertexRef> { 15 14 13 <Ref> { Sunflower.Blossom.Back.verts } }
+			}
+			<Polygon>  {
+				<TRef> { TextureMap }
+				<RGBA> { 1.0 1.0 1.0 1.0 }
+				<BFace> { 0 }
+				<VertexRef> { 15 16 14 <Ref> { Sunflower.Blossom.Back.verts } }
+			}
+		}
+
+	}
+
+	<Group> Stem {
+		<Transform> {
+			<Matrix4> { 
+				1.0 0.0 0.0 0.0 
+				0.0 1.0 0.0 0.0 
+				0.0 0.0 1.0 0.0 
+				5.956271382362432E-7 0.0 -0.03614754116201201 1.0 
+			}
+		}
+		<VertexPool> Sunflower.Stem.verts {
+			<Vertex> 0 { -0.016822985360409732 1.1459318445505158 0.045985544298399544
+				<Normal> { -1.4169849553133247 1.7582779637784782 -0.8180725273341332 }
+				<UV> { 0.883074 0.058185 }
+			}
+			<Vertex> 1 { 0.016826893674965086 1.1459318445505158 0.045985544298399544
+				<Normal> { 1.8893131433822352 1.2507572222569483 -1.090763337186628 }
+				<UV> { 0.883074 0.039765 }
+			}
+			<Vertex> 2 { 1.9541572776779633E-6 1.1459318445505158 0.0169420423705092
+				<Normal> { -0.7084924776566623 0.9969969003845075 -1.2271087665570377 }
+				<UV> { 0.891 0.048975 }
+			}
+			<Vertex> 3 { -0.016822985360409732 0.0 -0.11859429515095805
+				<Normal> { 0.0 -1.8743372808291219 1.6236565322700762 }
+				<UV> { 0.391 0.058252 }
+			}
+			<Vertex> 4 { 1.9541572776779633E-6 0.0 -0.14763779527559054
+				<Normal> { 0.0 -3.2808398950131235 0.0 }
+				<UV> { 0.383074 0.048975 }
+			}
+			<Vertex> 5 { 0.016826893674965086 0.0 -0.11859429515095805
+				<Normal> { 0.0 -1.405503043508905 2.164875311175669 }
+				<UV> { 0.391 0.039698 }
+			}
+			<Vertex> 6 { -0.016822985360409732 0.0 -0.11859429515095805
+				<Normal> { -2.8339699106266494 0.2357158858788608 -1.6361450546682663 }
+				<UV> { 0.391 0.058252 }
+			}
+			<Vertex> 7 { 1.9541572776779633E-6 1.1459318445505158 0.0169420423705092
+				<Normal> { -0.7084924776566623 0.9969969003845075 -1.2271087665570377 }
+				<UV> { 0.00853992 0.9865604 }
+			}
+			<Vertex> 8 { 1.9541572776779633E-6 0.0 -0.14763779527559054
+				<Normal> { -2.8339699106266494 0.2357158858788608 -1.6361450546682663 }
+				<UV> { 0.500613 0.9865604 }
+			}
+			<Vertex> 9 { -0.016822985360409732 0.0 -0.11859429515095805
+				<Normal> { -2.8339699106266494 0.2357158858788608 -1.6361450546682663 }
+				<UV> { 0.50854 0.995837 }
+			}
+			<Vertex> 10 { 1.9541572776779633E-6 1.1459318445505158 0.0169420423705092
+				<Normal> { -0.7084924776566623 0.9969969003845075 -1.2271087665570377 }
+				<UV> { 0.0135514 0.99749434 }
+			}
+			<Vertex> 11 { 0.016826893674965086 1.1459318445505158 0.045985544298399544
+				<Normal> { 1.8893131433822352 1.2507572222569483 -1.090763337186628 }
+				<UV> { 0.00562477 0.988284 }
+			}
+			<Vertex> 12 { 1.9541572776779633E-6 0.0 -0.14763779527559054
+				<Normal> { 2.8339699106266494 0.2357158858788608 -1.6361450546682663 }
+				<UV> { 0.505625 0.99749434 }
+			}
+			<Vertex> 13 { 0.016826893674965086 0.0 -0.11859429515095805
+				<Normal> { 2.8339699106266494 0.2357158858788608 -1.6361450546682663 }
+				<UV> { 0.391 0.039698 }
+			}
+			<Vertex> 14 { 1.9541572776779633E-6 0.0 -0.14763779527559054
+				<Normal> { 2.8339699106266494 0.2357158858788608 -1.6361450546682663 }
+				<UV> { 0.383074 0.048975 }
+			}
+			<Vertex> 15 { 0.016826893674965086 1.1459318445505158 0.045985544298399544
+				<Normal> { 0.0 -0.46783466664512013 3.2473130645401524 }
+				<UV> { 0.883074 0.039765 }
+			}
+			<Vertex> 16 { -0.016822985360409732 1.1459318445505158 0.045985544298399544
+				<Normal> { 0.0 -0.46783466664512013 3.2473130645401524 }
+				<UV> { 0.883074 0.058185 }
+			}
+		}
+		<Polygon>  {
+			<TRef> { TextureMap }
+			<RGBA> { 1.0 1.0 1.0 1.0 }
+			<BFace> { 0 }
+			<VertexRef> { 2 1 0 <Ref> { Sunflower.Stem.verts } }
+		}
+		<Polygon>  {
+			<TRef> { TextureMap }
+			<RGBA> { 1.0 1.0 1.0 1.0 }
+			<BFace> { 0 }
+			<VertexRef> { 5 4 3 <Ref> { Sunflower.Stem.verts } }
+		}
+		<Polygon>  {
+			<TRef> { TextureMap }
+			<RGBA> { 1.0 1.0 1.0 1.0 }
+			<BFace> { 0 }
+			<VertexRef> { 6 2 0 <Ref> { Sunflower.Stem.verts } }
+		}
+		<Polygon>  {
+			<TRef> { TextureMap }
+			<RGBA> { 1.0 1.0 1.0 1.0 }
+			<BFace> { 0 }
+			<VertexRef> { 9 8 7 <Ref> { Sunflower.Stem.verts } }
+		}
+		<Polygon>  {
+			<TRef> { TextureMap }
+			<RGBA> { 1.0 1.0 1.0 1.0 }
+			<BFace> { 0 }
+			<VertexRef> { 12 11 10 <Ref> { Sunflower.Stem.verts } }
+		}
+		<Polygon>  {
+			<TRef> { TextureMap }
+			<RGBA> { 1.0 1.0 1.0 1.0 }
+			<BFace> { 0 }
+			<VertexRef> { 14 13 1 <Ref> { Sunflower.Stem.verts } }
+		}
+		<Polygon>  {
+			<TRef> { TextureMap }
+			<RGBA> { 1.0 1.0 1.0 1.0 }
+			<BFace> { 0 }
+			<VertexRef> { 5 16 15 <Ref> { Sunflower.Stem.verts } }
+		}
+		<Polygon>  {
+			<TRef> { TextureMap }
+			<RGBA> { 1.0 1.0 1.0 1.0 }
+			<BFace> { 0 }
+			<VertexRef> { 5 3 16 <Ref> { Sunflower.Stem.verts } }
+		}
+		<Group> Leaves {
+			<Transform> {
+				<Matrix4> { 
+					1.0 0.0 0.0 0.0 
+					0.0 1.0 0.0 0.0 
+					0.0 0.0 1.0 0.0 
+					6.810020697399425E-4 0.255300030512631 0.03369836072982462 1.0 
+				}
+			}
+			<VertexPool> Sunflower.Stem.Leaves.verts {
+				<Vertex> 0 { -0.14347632063400123 0.8111663445404792 0.020342067306245496
+					<Normal> { 1.7644324340670855E-15 2.404176422304369 2.232450708316693 }
+					<UV> { 0.941704 0.701311 }
+				}
+				<Vertex> 1 { 0.0022362129162669907 0.8375985253039075 -0.00803536887200588
+					<Normal> { -3.9185267715486996E-15 -0.0601979412549124 2.7545287305601627 }
+					<UV> { 0.9616 0.810959 }
+				}
+				<Vertex> 2 { -0.09490547370470531 0.8706392396526093 -0.0435071640948201
+					<Normal> { 1.7644324340670855E-15 2.404176422304369 2.232450708316693 }
+					<UV> { 0.98647 0.73786 }
+				}
+				<Vertex> 3 { -0.23090382628892311 0.8442070561758787 -0.015129727916568726
+					<Normal> { 1.7644324340670855E-15 2.404176422304369 2.232450708316693 }
+					<UV> { 0.966574 0.635523 }
+				}
+				<Vertex> 4 { -0.3086171726906531 0.8508146156856217 -0.022224086961131567
+					<Normal> { 1.7644324340670855E-15 2.404176422304369 2.232450708316693 }
+					<UV> { 0.971548 0.577044 }
+				}
+				<Vertex> 5 { -0.23090382628892311 0.8442070561758787 -0.015129727916568726
+					<Normal> { -1.7785465235027356E-15 -2.404176422304369 -2.232450708316693 }
+					<UV> { 0.966574 0.635523 }
+				}
+				<Vertex> 6 { -0.09490547370470531 0.8706392396526093 -0.0435071640948201
+					<Normal> { -1.7785465235027356E-15 -2.404176422304369 -2.232450708316693 }
+					<UV> { 0.98647 0.73786 }
+				}
+				<Vertex> 7 { 0.0022362129162669907 0.8375985253039075 -0.00803536887200588
+					<Normal> { 2.4368421263171334E-15 -0.5558956893566712 -2.6240092249992952 }
+					<UV> { 0.9616 0.810959 }
+				}
+				<Vertex> 8 { -0.14347632063400123 0.8111663445404792 0.020342067306245496
+					<Normal> { -1.7785465235027356E-15 -2.404176422304369 -2.232450708316693 }
+					<UV> { 0.941704 0.701311 }
+				}
+				<Vertex> 9 { -0.3086171726906531 0.8508146156856217 -0.022224086961131567
+					<Normal> { -1.7785465235027356E-15 -2.404176422304369 -2.232450708316693 }
+					<UV> { 0.971548 0.577044 }
+				}
+				<Vertex> 10 { 0.1868054124297807 0.7394115815927395 -0.04998483419649664
+					<Normal> { -6.76000654804281E-15 -1.2923851413676746 3.015567546128601 }
+					<UV> { 0.887693 0.9498451 }
+				}
+				<Vertex> 11 { 0.11880623251886203 0.8108206209863204 -0.019476572055273384
+					<Normal> { -6.76000654804281E-15 -1.2923851413676746 3.015567546128601 }
+					<UV> { 0.941444 0.898676 }
+				}
+				<Vertex> 12 { 0.041092886117132 0.7751161003850958 -0.034730219401963774
+					<Normal> { -6.76000654804281E-15 -1.2923851413676746 3.015567546128601 }
+					<UV> { 0.914569 0.840198 }
+				}
+				<Vertex> 13 { 0.1382345727381043 0.7304859384801986 -0.05379824490613308
+					<Normal> { -6.76000654804281E-15 -1.2923851413676746 3.015567546128601 }
+					<UV> { 0.880975 0.913296 }
+				}
+				<Vertex> 14 { 0.2062337454114034 0.6858547997864687 -0.07286626860704451
+					<Normal> { -6.76000654804281E-15 -1.2923851413676746 3.015567546128601 }
+					<UV> { 0.84738 0.9644647 }
+				}
+				<Vertex> 15 { 0.1382345727381043 0.7304859384801986 -0.05379824490613308
+					<Normal> { 6.652230776137003E-15 1.2923851413676746 -3.015567546128601 }
+					<UV> { 0.880975 0.913296 }
+				}
+				<Vertex> 16 { 0.041092886117132 0.7751161003850958 -0.034730219401963774
+					<Normal> { 6.652230776137003E-15 1.2923851413676746 -3.015567546128601 }
+					<UV> { 0.914569 0.840198 }
+				}
+				<Vertex> 17 { 0.11880623251886203 0.8108206209863204 -0.019476572055273384
+					<Normal> { 6.652230776137003E-15 1.2923851413676746 -3.015567546128601 }
+					<UV> { 0.941444 0.898676 }
+				}
+				<Vertex> 18 { 0.1868054124297807 0.7394115815927395 -0.04998483419649664
+					<Normal> { 6.652230776137003E-15 1.2923851413676746 -3.015567546128601 }
+					<UV> { 0.887693 0.9498451 }
+				}
+				<Vertex> 19 { 0.2062337454114034 0.6858547997864687 -0.07286626860704451
+					<Normal> { 6.652230776137003E-15 1.2923851413676746 -3.015567546128601 }
+					<UV> { 0.84738 0.9644647 }
+				}
+			}
+			<Polygon>  {
+				<TRef> { TextureMap }
+				<RGBA> { 1.0 1.0 1.0 1.0 }
+				<BFace> { 0 }
+				<VertexRef> { 2 1 0 <Ref> { Sunflower.Stem.Leaves.verts } }
+			}
+			<Polygon>  {
+				<TRef> { TextureMap }
+				<RGBA> { 1.0 1.0 1.0 1.0 }
+				<BFace> { 0 }
+				<VertexRef> { 3 2 0 <Ref> { Sunflower.Stem.Leaves.verts } }
+			}
+			<Polygon>  {
+				<TRef> { TextureMap }
+				<RGBA> { 1.0 1.0 1.0 1.0 }
+				<BFace> { 0 }
+				<VertexRef> { 3 0 4 <Ref> { Sunflower.Stem.Leaves.verts } }
+			}
+			<Polygon>  {
+				<TRef> { TextureMap }
+				<RGBA> { 1.0 1.0 1.0 1.0 }
+				<BFace> { 0 }
+				<VertexRef> { 7 6 5 <Ref> { Sunflower.Stem.Leaves.verts } }
+			}
+			<Polygon>  {
+				<TRef> { TextureMap }
+				<RGBA> { 1.0 1.0 1.0 1.0 }
+				<BFace> { 0 }
+				<VertexRef> { 8 7 5 <Ref> { Sunflower.Stem.Leaves.verts } }
+			}
+			<Polygon>  {
+				<TRef> { TextureMap }
+				<RGBA> { 1.0 1.0 1.0 1.0 }
+				<BFace> { 0 }
+				<VertexRef> { 9 8 5 <Ref> { Sunflower.Stem.Leaves.verts } }
+			}
+			<Polygon>  {
+				<TRef> { TextureMap }
+				<RGBA> { 1.0 1.0 1.0 1.0 }
+				<BFace> { 0 }
+				<VertexRef> { 1 11 10 <Ref> { Sunflower.Stem.Leaves.verts } }
+			}
+			<Polygon>  {
+				<TRef> { TextureMap }
+				<RGBA> { 1.0 1.0 1.0 1.0 }
+				<BFace> { 0 }
+				<VertexRef> { 12 1 10 <Ref> { Sunflower.Stem.Leaves.verts } }
+			}
+			<Polygon>  {
+				<TRef> { TextureMap }
+				<RGBA> { 1.0 1.0 1.0 1.0 }
+				<BFace> { 0 }
+				<VertexRef> { 13 12 10 <Ref> { Sunflower.Stem.Leaves.verts } }
+			}
+			<Polygon>  {
+				<TRef> { TextureMap }
+				<RGBA> { 1.0 1.0 1.0 1.0 }
+				<BFace> { 0 }
+				<VertexRef> { 14 13 10 <Ref> { Sunflower.Stem.Leaves.verts } }
+			}
+			<Polygon>  {
+				<TRef> { TextureMap }
+				<RGBA> { 1.0 1.0 1.0 1.0 }
+				<BFace> { 0 }
+				<VertexRef> { 7 16 15 <Ref> { Sunflower.Stem.Leaves.verts } }
+			}
+			<Polygon>  {
+				<TRef> { TextureMap }
+				<RGBA> { 1.0 1.0 1.0 1.0 }
+				<BFace> { 0 }
+				<VertexRef> { 17 7 15 <Ref> { Sunflower.Stem.Leaves.verts } }
+			}
+			<Polygon>  {
+				<TRef> { TextureMap }
+				<RGBA> { 1.0 1.0 1.0 1.0 }
+				<BFace> { 0 }
+				<VertexRef> { 18 17 15 <Ref> { Sunflower.Stem.Leaves.verts } }
+			}
+			<Polygon>  {
+				<TRef> { TextureMap }
+				<RGBA> { 1.0 1.0 1.0 1.0 }
+				<BFace> { 0 }
+				<VertexRef> { 19 18 15 <Ref> { Sunflower.Stem.Leaves.verts } }
+			}
+		}
+
+	}
+
+}
+
