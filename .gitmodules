@@ -7,3 +7,6 @@
 [submodule "noise"]
 	path = noise
 	url = https://github.com/taKana671/NoiseTexture.git
+[submodule "spinner"]
+	path = spinner
+	url = https://github.com/taKana671/spinner.git
