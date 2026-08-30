@@ -6,6 +6,7 @@ from direct.showbase.ShowBase import ShowBase
 from direct.showbase.ShowBaseGlobal import globalClock
 from direct.showbase.InputStateGlobal import inputState
 from direct.interval.IntervalGlobal import Sequence, Func
+from direct.stdpy import threading
 from panda3d.bullet import BulletWorld, BulletDebugNode
 from panda3d.core import Point3, Vec3, Vec2
 from panda3d.core import NodePath
@@ -14,6 +15,7 @@ from panda3d.core import load_prc_file_data
 
 from scene import Scene
 from viewer import Viewer, Motions
+from spinner.spinner_dots import SpinnerDots
 
 
 load_prc_file_data("", """
@@ -31,8 +33,12 @@ load_prc_file_data("", """
 class Status(Enum):
 
     SCREEN_CHANGE = auto()
-    WAITING = auto()
+    SCREEN_WAITING = auto()
     ACTIVE = auto()
+    SCENE_CREATE = auto()
+    SCENE_WAITING = auto()
+    SPINNER_FINISH = auto()
+    SCENE_COMPLETE = auto()
 
 
 class View(Enum):
@@ -84,7 +90,8 @@ class VoronoiCity3(ShowBase):
         self.dragging = False
         self.before_mouse_pos = None
         self.screen_changed = False
-        self.status = Status.ACTIVE
+
+        self.status = Status.SCENE_CREATE
         self.view = View.SKY
 
         self.accept('escape', sys.exit)
@@ -227,9 +234,9 @@ class VoronoiCity3(ShowBase):
 
             case Status.SCREEN_CHANGE:
                 self.fade_camera()
-                self.status = Status.WAITING
+                self.status = Status.SCREEN_WAITING
 
-            case Status.WAITING:
+            case Status.SCREEN_WAITING:
                 if self.screen_changed:
                     self.view = View.GROUND if self.view == View.SKY else View.SKY
                     self.status = Status.ACTIVE
@@ -245,6 +252,27 @@ class VoronoiCity3(ShowBase):
                     if self.view == View.SKY and self.dragging:
                         if globalClock.get_frame_time() - self.dragging_start_time >= 0.2:
                             self.rotate_camera(mouse_pos, dt)
+
+            case Status.SCENE_CREATE:
+                self.spinner = SpinnerDots(dot_color=(1., 1., 1., .8))
+                self.scene_create_thread = threading.Thread(target=self.scene.setup_scene)
+                self.scene_create_thread.start()
+                self.status = Status.SCENE_WAITING
+
+            case Status.SCENE_WAITING:
+                self.spinner.update()
+
+                if not self.scene_create_thread.is_alive():
+                    self.status = Status.SPINNER_FINISH
+
+            case Status.SPINNER_FINISH:
+                if self.spinner.finish():
+                    self.spinner.destroy()
+                    self.status = Status.SCENE_COMPLETE
+
+            case Status.SCENE_COMPLETE:
+                self.scene.reparent_to(self.render)
+                self.status = Status.ACTIVE
 
         self.world.do_physics(dt)
         return task.cont
