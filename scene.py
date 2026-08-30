@@ -673,8 +673,8 @@ class Scene(NodePath):
 
     def __init__(self):
         super().__init__(PandaNode('scene'))
-        self.reparent_to(base.render)
 
+    def setup_scene(self):
         self.ground = WaterCanal()
         self.ground.set_pos(Point3(0, 0, -3))
         self.ground.reparent_to(self)
